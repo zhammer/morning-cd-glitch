@@ -1,21 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import TextInput from '../../components/TextInput';
 import Page from '../../components/Page';
 import Title from '../../components/Title';
 import { QuestionContainer } from './QuestionPage.styles';
+import useQuestionInput from './useQuestionInput';
 
 export default function QuestionPage() {
-  const [searchText, setSearchText] = useState('');
+  const [questionInput, setQuestionInput] = useQuestionInput();
   return (
     <Page>
-      <Title>
-        What was the first piece of music you listened to this morning?
-      </Title>
+      <Title>What was the first piece of music you listened to this morning?</Title>
       <QuestionContainer>
-        <TextInput
-          value={searchText}
-          onChange={e => setSearchText(e.target.value)}
-        />
+        <TextInput value={questionInput} onChange={e => setQuestionInput(e.target.value)} />
       </QuestionContainer>
     </Page>
   );
