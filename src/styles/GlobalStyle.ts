@@ -15,4 +15,16 @@ export const GlobalStyle = createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
+
+  /* from reboot */
+  input,
+  button,
+  select,
+  optgroup,
+  textarea {
+    margin: 0;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+  }
 `;
