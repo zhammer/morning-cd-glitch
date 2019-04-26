@@ -11,7 +11,11 @@ export default function QuestionPage() {
     <Page>
       <Title>What was the first piece of music you listened to this morning?</Title>
       <QuestionContainer>
-        <TextInput value={questionInput} onChange={e => setQuestionInput(e.target.value)} />
+        <TextInput
+          data-test='question-input'
+          value={questionInput}
+          onChange={e => setQuestionInput(e.target.value)}
+        />
       </QuestionContainer>
     </Page>
   );

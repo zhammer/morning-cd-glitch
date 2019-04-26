@@ -23,6 +23,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "start:cypress": "WAIT_FOR_MESSAGE='Compiled successfully!' cypressAppWatcher yarn start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -41,5 +42,13 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "cypress-cucumber-preprocessor": {
+    "nonGlobalStepDefinitions": true
+  },
+  "devDependencies": {
+    "cypress": "^3.2.0",
+    "cypress-app-watcher-preprocessor": "^1.1.2",
+    "cypress-cucumber-preprocessor": "^1.11.0"
   }
 }
