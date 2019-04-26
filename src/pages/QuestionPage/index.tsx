@@ -4,9 +4,11 @@ import Page from '../../components/Page';
 import Title from '../../components/Title';
 import { QuestionContainer } from './QuestionPage.styles';
 import useQuestionInput from './useQuestionInput';
+import useSpotifySearch from './useSpotifySearch';
 
 export default function QuestionPage() {
   const [questionInput, setQuestionInput] = useQuestionInput();
+  useSpotifySearch('');
   return (
     <Page>
       <Title>What was the first piece of music you listened to this morning?</Title>
