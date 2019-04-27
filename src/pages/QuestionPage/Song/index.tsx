@@ -1,8 +1,7 @@
 import React from 'react';
 import { Song as SongInterface } from '../../../definitions';
-import Container from '../../../components/Container';
 import Image from '../../../components/Image';
-import { Columns, SongInfo } from './Song.styles';
+import { Columns, SongInfo, SongContainer } from './Song.styles';
 
 interface SongProps {
   song: SongInterface;
@@ -10,7 +9,7 @@ interface SongProps {
 
 export default function Song({ song }: SongProps) {
   return (
-    <Container.Rounded>
+    <SongContainer>
       <Columns>
         <Image.Pixelated src={song.imageSmallUrl} />
         <SongInfo>
@@ -19,6 +18,6 @@ export default function Song({ song }: SongProps) {
           <span data-test='song-album'>{song.albumName}</span>
         </SongInfo>
       </Columns>
-    </Container.Rounded>
+    </SongContainer>
   );
 }
