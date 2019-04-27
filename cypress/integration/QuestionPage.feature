@@ -37,7 +37,6 @@ Feature: Question Page
       | Stay Flo                      | Malik West | 49d1VpxMfaL9W2CXFDnQg1 |
       | Daddy Can't You Stay          | Flo        | 5s9zvBJGNfT3HUbdTGucnr |
 
-
   Scenario: I search for another song
     When I visit morning cd
     And I click the song question input
