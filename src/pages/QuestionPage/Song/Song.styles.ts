@@ -6,6 +6,7 @@ export const Columns = styled.div`
 
 export const SongInfo = styled.div`
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   margin-left: 0.75em;
 `;
