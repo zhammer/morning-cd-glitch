@@ -1,6 +1,11 @@
 import { createGlobalStyle } from '../custom/styled-components';
+import { cursorUrl } from './variables';
 
 export const GlobalStyle = createGlobalStyle`
+  html {
+    cursor: url(${cursorUrl}), auto;
+  }
+
   body {
     box-sizing: border-box;
 

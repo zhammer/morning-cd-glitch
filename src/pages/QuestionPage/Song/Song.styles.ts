@@ -1,5 +1,6 @@
 import styled, { keyframes } from '../../../custom/styled-components';
 import Container from '../../../components/Container';
+import { cursorClickUrl } from '../../../styles/variables';
 
 export const Columns = styled.div`
   display: flex;
@@ -18,6 +19,9 @@ const blink = keyframes`
 `;
 
 export const SongContainer = styled(Container.Rounded)`
+  &:hover {
+    cursor: url(${cursorClickUrl}), auto;
+  }
   &:hover,
   &:focus {
     animation: ${blink} 0.5s infinite both steps(2);
