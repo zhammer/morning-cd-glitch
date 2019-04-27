@@ -9,24 +9,27 @@ Cypress.on('window:before:load', window => {
 beforeEach(() => {
   cy.server();
   cy.route('/accesstoken', 'fixture:morningcd/accessToken.json');
-  cy.route({
-    url: '/v1/search?query=Stay Flo&type=track&limit=5',
-    response: 'fixture:spotify/stayFloSearch.json',
-    onRequest: xhr => {
-      // can't figure out atm how to check / validate the auth header
-      expect(xhr.url).to.equal(
-        'https://api.spotify.com/v1/search?query=Stay Flo&type=track&limit=5'
-      );
-    }
-  });
-  cy.route({
-    url: '/v1/search?query=something holy paper castles&type=track&limit=5',
-    response: 'fixture:spotify/somethingHolyPaperCastlesSearch.json',
-    onRequest: xhr => {
-      expect(xhr.url).to.equal(
-        'https://api.spotify.com/v1/search?query=something holy paper castles&type=track&limit=5'
-      );
-    }
+  cy.fixture('morningcd/accesstoken.json').then(({ accessToken }) => {
+    cy.route({
+      url: '/v1/search?query=Stay Flo&type=track&limit=5',
+      response: 'fixture:spotify/stayFloSearch.json',
+      onRequest: xhr => {
+        expect(xhr.request.headers).to.have.property('authorization', `Bearer ${accessToken}`);
+        expect(xhr.url).to.equal(
+          'https://api.spotify.com/v1/search?query=Stay Flo&type=track&limit=5'
+        );
+      }
+    });
+    cy.route({
+      url: '/v1/search?query=something holy paper castles&type=track&limit=5',
+      response: 'fixture:spotify/somethingHolyPaperCastlesSearch.json',
+      onRequest: xhr => {
+        expect(xhr.request.headers).to.have.property('authorization', `Bearer ${accessToken}`);
+        expect(xhr.url).to.equal(
+          'https://api.spotify.com/v1/search?query=something holy paper castles&type=track&limit=5'
+        );
+      }
+    });
   });
 });
 
