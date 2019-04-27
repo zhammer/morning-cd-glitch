@@ -4,7 +4,8 @@ Feature: Question Page
 
   Scenario: I visit morning cd
     When I visit morning cd
-    Then I see the title "What was the first piece of music you listened to this morning?"
+    Then I am redirected to "/question"
+    And I see the title "What was the first piece of music you listened to this morning?"
     And I see the song question input
 
   Scenario: I search for a song
