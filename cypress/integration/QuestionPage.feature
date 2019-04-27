@@ -53,3 +53,11 @@ Feature: Question Page
     And I click the song question input
     And I type "Stay Dl{leftarrow}{leftarrow}{del}F{rightarrow}o"
     Then the song question input form has the text "Stay Flo"
+
+  Scenario: I click the browser back button after selecting a song
+    When I visit morning cd
+    And I click the song question input
+    And I type "something holy paper castles"
+    And I click the song "Something Holy" by "Alice Phoebe Lou"
+    And I click the browser back button
+    Then I am redirected to "/question"

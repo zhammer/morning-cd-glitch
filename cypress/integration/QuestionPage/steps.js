@@ -55,6 +55,10 @@ When(`I click the song {string} by {string}`, (name, artist) => {
     .click();
 });
 
+When('I click the browser back button', () => {
+  cy.go('back');
+});
+
 Then(`I am redirected to {string} with the params {string}`, (route, params) => {
   cy.location('pathname').should('eq', route);
   cy.location('search').should('eq', params);
