@@ -24,8 +24,7 @@ Feature: Question Page
   Scenario Outline: I select the song <name> by <artist>
     When I visit morning cd
     And I click the song question input
-    And I type "Stay Flo"
-    And I type "{Enter}"
+    And I type "Stay Flo{enter}"
     And I click the song "<name>" by "<artist>"
     Then I am redirected to "/submit" with the params "?id=<id>"
 
