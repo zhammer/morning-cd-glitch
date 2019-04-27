@@ -5,11 +5,12 @@ import { Columns, SongInfo, SongContainer } from './Song.styles';
 
 interface SongProps {
   song: SongInterface;
+  onClick?: () => void;
 }
 
-export default function Song({ song }: SongProps) {
+export default function Song({ song, onClick }: SongProps) {
   return (
-    <SongContainer>
+    <SongContainer onClick={onClick} data-test='song'>
       <Columns>
         <Image.Pixelated src={song.imageSmallUrl} />
         <SongInfo>
