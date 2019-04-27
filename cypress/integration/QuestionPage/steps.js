@@ -19,6 +19,15 @@ beforeEach(() => {
       );
     }
   });
+  cy.route({
+    url: '/v1/search?query=something holy paper castles&type=track&limit=5',
+    response: 'fixture:spotify/somethingHolyPaperCastlesSearch.json',
+    onRequest: xhr => {
+      expect(xhr.url).to.equal(
+        'https://api.spotify.com/v1/search?query=something holy paper castles&type=track&limit=5'
+      );
+    }
+  });
 });
 
 When('I visit morning cd', () => {

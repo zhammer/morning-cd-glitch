@@ -37,6 +37,15 @@ Feature: Question Page
       | Daddy Can't You Stay          | Flo        | 5s9zvBJGNfT3HUbdTGucnr |
 
 
+  Scenario: I search for another song
+    When I visit morning cd
+    And I click the song question input
+    And I type "Stay Flo{enter}"
+    And I type "{selectall}{backspace}"
+    And I type "something holy paper castles"
+    Then I see the songs
+      | name           | artist           | album         |
+      | Something Holy | Alice Phoebe Lou | Paper Castles |
 
   Scenario: I fix a typo while searching for a song
     When I visit morning cd
