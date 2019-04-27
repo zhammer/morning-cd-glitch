@@ -9,6 +9,16 @@ Cypress.on('window:before:load', window => {
 beforeEach(() => {
   cy.server();
   cy.route('/accesstoken', 'fixture:morningcd/accessToken.json');
+  cy.route({
+    url: '/v1/search?query=Stay Flo&type=track&limit=5',
+    response: 'fixture:spotify/stayFloSearch.json',
+    onRequest: xhr => {
+      // can't figure out atm how to check / validate the auth header
+      expect(xhr.url).to.equal(
+        'https://api.spotify.com/v1/search?query=Stay Flo&type=track&limit=5'
+      );
+    }
+  });
 });
 
 When('I visit morning cd', () => {
@@ -24,19 +34,6 @@ When('I click the song question input', () => {
 When(`I type {string}`, text => {
   cy.wait(10); // weird bug fix, sometimes the first char doesnt get typed
   cy.get('@songQuestionInput').type(text);
-
-  if (text === 'Stay Flo') {
-    cy.route({
-      url: '/v1/search**',
-      response: 'fixture:spotify/stayFloSearch.json',
-      onRequest: xhr => {
-        // can't figure out atm how to check / validate the auth header
-        expect(xhr.url).to.equal(
-          'https://api.spotify.com/v1/search?query=Stay Flo&type=track&limit=5'
-        );
-      }
-    });
-  }
 });
 
 When(`I wait {int} milliseconds`, milliseconds => {
