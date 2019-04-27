@@ -14,7 +14,9 @@ export default function Song({ song }: SongProps) {
       <Columns>
         <Image.Pixelated src={song.imageSmallUrl} />
         <SongInfo>
-          {song.name} · {song.artistName} · {song.albumName}
+          <span data-test='song-name'>{song.name}</span> ·{' '}
+          <span data-test='song-artist'>{song.artistName}</span> ·{' '}
+          <span data-test='song-album'>{song.albumName}</span>
         </SongInfo>
       </Columns>
     </Container.Rounded>
