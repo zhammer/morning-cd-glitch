@@ -21,6 +21,24 @@ Feature: Question Page
       | Stay Flo                      | Malik West | I Like Me Better with Clear Skin & Rose Water |
       | Daddy Can't You Stay          | Flo        | Daddy Can't You Stay (feat. Paul Richmond)    |
 
+  Scenario Outline: I select the song <name> by <artist>
+    When I visit morning cd
+    And I click the song question input
+    And I type "Stay Flo"
+    And I type "{Enter}"
+    And I click the song "<name>" by "<artist>"
+    Then I am redirected to "/submit" with the params "?id=<id>"
+
+    Examples:
+      | name                          | artist     | id                     |
+      | Stay Flo                      | Solange    | 6GCIYIWUBSLontW6divqsw |
+      | Fresh I Stay - Single Version | Flo Rida   | 6jB5qWNwnR5sUMrko9byyy |
+      | Stay Around                   | MoonLander | 5zJPomIIxwqlrXLbdJmhiS |
+      | Stay Flo                      | Malik West | 49d1VpxMfaL9W2CXFDnQg1 |
+      | Daddy Can't You Stay          | Flo        | 5s9zvBJGNfT3HUbdTGucnr |
+
+
+
   Scenario: I fix a typo while searching for a song
     When I visit morning cd
     And I click the song question input

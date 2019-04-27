@@ -43,6 +43,17 @@ When(`I wait {int} milliseconds`, milliseconds => {
   cy.wait(milliseconds);
 });
 
+When(`I click the song {string} by {string}`, (name, artist) => {
+  cy.get('div[data-test=song]')
+    .contains(new RegExp(`${name}.*${artist}`))
+    .click();
+});
+
+Then(`I am redirected to {string} with the params {string}`, (route, params) => {
+  cy.location('pathname').should('eq', route);
+  cy.location('search').should('eq', params);
+});
+
 Then(`I see the title {string}`, text => {
   cy.get('h2').contains(text);
 });
