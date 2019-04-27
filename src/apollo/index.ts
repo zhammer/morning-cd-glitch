@@ -5,6 +5,7 @@ import { RestLink } from 'apollo-link-rest';
 import { createHttpLink } from 'apollo-link-http';
 import { ApolloLink } from 'apollo-link';
 import { Song } from '../definitions';
+import unfetch from 'unfetch';
 
 /**
  * TYPE DEFS
@@ -45,6 +46,8 @@ function pluckSong(rawSong: any): Song {
   };
 }
 const restLink = new RestLink({
+  // cypress hack: see https://github.com/cypress-io/cypress/issues/95
+  customFetch: window.fetch ? window.fetch : unfetch,
   endpoints: {
     morningCd: {
       uri: process.env.REACT_APP_MORNING_CD_API_ENDPOINT || '/',

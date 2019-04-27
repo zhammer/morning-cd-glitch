@@ -2,6 +2,10 @@
 
 import { Then, When } from 'cypress-cucumber-preprocessor/steps';
 
+Cypress.on('window:before:load', window => {
+  window.fetch = null;
+});
+
 When('I visit morning cd', () => {
   cy.visit('/');
 });
