@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import TextInput from '../../components/TextInput';
 import Page from '../../components/Page';
 import Title from '../../components/Title';
@@ -12,6 +12,18 @@ export default function QuestionPage() {
   const [questionInput, setQuestionInput] = useQuestionInput();
   const [confidentQuestionInput, forceConfident] = useConfidentInput(questionInput, 250);
   const [songs, loading] = useSpotifySearch(confidentQuestionInput);
+  const textInputMode: 'success' | 'warning' | 'error' | undefined = useMemo(() => {
+    if (!questionInput) {
+      return undefined;
+    }
+    if (loading || confidentQuestionInput !== questionInput) {
+      return 'warning';
+    }
+    if (songs && songs.length > 0) {
+      return 'success';
+    }
+    return 'error';
+  }, [questionInput, confidentQuestionInput, songs, loading]);
   return (
     <Page>
       <Title>What was the first piece of music you listened to this morning?</Title>
@@ -21,6 +33,7 @@ export default function QuestionPage() {
           value={questionInput}
           onChange={e => setQuestionInput(e.target.value)}
           onKeyDown={e => e.key === 'Enter' && forceConfident()}
+          mode={textInputMode}
         />
       </QuestionContainer>
       {loading && <div>Loading...</div>}
