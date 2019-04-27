@@ -1,6 +1,6 @@
 Feature: Question Page
-  On the Question Page, I can search for the first piece of music
-  I listened to this morning.
+  On the Question Page, I can search for the first song I listened to
+  this morning. When I select a song, I am brought to the Submit Page.
 
   Scenario: I visit morning cd
     When I visit morning cd
