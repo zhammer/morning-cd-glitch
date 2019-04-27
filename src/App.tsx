@@ -6,6 +6,7 @@ import { client } from './apollo';
 import theme from './styles/theme';
 import { GlobalStyle } from './styles/GlobalStyle';
 import QuestionPage from './pages/QuestionPage';
+import SubmitPage from './pages/SubmitPage';
 
 export default function App() {
   return (
@@ -16,7 +17,7 @@ export default function App() {
           <Router>
             <Switch>
               <Route exact path='/question' component={QuestionPage} />
-              <Route exact path='/submit' render={() => <div>Submit Page</div>} />
+              <Route exact path='/submit' component={SubmitPage} />
               <Redirect from='/' to='/question' />
             </Switch>
           </Router>

@@ -72,6 +72,10 @@ Then(`the song question input form has the text {string}`, text => {
   cy.get('input[data-test=question-input]').should('have.value', text);
 });
 
+Then(`I am redirected to {string}`, route => {
+  cy.location('pathname').should('eq', route);
+});
+
 Then('I see the songs', songsTable => {
   const songs = songsTable.hashes();
   cy.get('div[data-test=songs-container]')
