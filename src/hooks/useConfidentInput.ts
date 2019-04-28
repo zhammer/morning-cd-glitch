@@ -27,6 +27,7 @@ export default function useConfidentInput(
 
     if (input === '') {
       setConfidentInput('');
+      return;
     }
 
     const timeout = setTimeout(() => {
