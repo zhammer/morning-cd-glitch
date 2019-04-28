@@ -18,6 +18,7 @@
     "graphql": "^14.2.1",
     "graphql-anywhere": "^4.2.1",
     "graphql-tag": "^2.10.1",
+    "query-string": "^6.4.2",
     "react": "^16.8.6",
     "react-apollo": "^2.5.5",
     "react-apollo-hooks": "^0.4.5",
@@ -26,6 +27,7 @@
     "react-scripts": "3.0.0",
     "styled-components": "^4.2.0",
     "typescript": "3.4.5",
+    "use-react-router": "^1.0.5",
     "whatwg-fetch": "^3.0.0"
   },
   "scripts": {
