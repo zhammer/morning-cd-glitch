@@ -35,7 +35,7 @@ cache.writeData(initialData);
  * LINK
  */
 const httpLink = createHttpLink({
-  uri: (process.env.REACT_APP_MORNING_CD_API_ENDPOINT || '/') + '/graphql'
+  uri: (process.env.REACT_APP_MORNING_CD_API_ENDPOINT || '') + '/graphql'
 });
 
 function pluckSong(rawSong: any): Song {
