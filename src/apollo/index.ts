@@ -13,6 +13,8 @@ import { fetch as fetchPolyfill } from 'whatwg-fetch';
 const typeDefs = gql`
   extend type Query {
     questionInput: String!
+    nameInput: String!
+    noteInput: String!
   }
 `;
 
@@ -22,7 +24,9 @@ const typeDefs = gql`
 const cache = new InMemoryCache();
 const initialData = {
   data: {
-    questionInput: ''
+    questionInput: '',
+    noteInput: '',
+    nameInput: ''
   }
 };
 cache.writeData(initialData);
