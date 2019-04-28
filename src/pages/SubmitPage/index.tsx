@@ -7,6 +7,7 @@ import Song from '../../components/Song';
 import Field from '../../components/Field';
 import Input from '../../components/Input';
 import { InputContainer, FormContainer } from './SubmitPage.styles';
+import Text from '../../components/Text';
 
 export default function SubmitPage() {
   const queryParams = useQueryParams();
@@ -31,7 +32,7 @@ export default function SubmitPage() {
           </Field.Block>
           <Field.Block>
             <label>
-              Note
+              Note <Text.Disabled>(Optional)</Text.Disabled>
               <InputContainer>
                 <Input.TextArea />
               </InputContainer>
