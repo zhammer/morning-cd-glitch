@@ -2,16 +2,7 @@ import gql from 'graphql-tag';
 import { useQuery } from 'react-apollo-hooks';
 import { Song } from '../../definitions';
 import { useMemo } from 'react';
-
-interface SpotifyAccessTokenQuery {
-  accessToken: string;
-}
-
-const SPOTIFY_ACCESS_TOKEN_QUERY = gql`
-  query SpotifyAccessToken {
-    accessToken @rest(type: "String!", path: "accesstoken", endpoint: "morningCd")
-  }
-`;
+import useSpotifyAccessToken from '../../hooks/useSpotifyAccessToken';
 
 interface SearchSongsQuery {
   searchSongs: Song[];
@@ -33,9 +24,7 @@ const SEARCH_SONGS_QUERY = gql`
 `;
 
 export default function useSpotifySearch(searchText: string): [Song[] | undefined, boolean] {
-  const { loading: accessTokenLoading } = useQuery<SpotifyAccessTokenQuery>(
-    SPOTIFY_ACCESS_TOKEN_QUERY
-  );
+  const [accessTokenLoading] = useSpotifyAccessToken();
 
   const { data: searchSongsData, loading: searchSongsLoading } = useQuery<SearchSongsQuery>(
     SEARCH_SONGS_QUERY,
