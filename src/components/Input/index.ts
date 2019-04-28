@@ -1,11 +1,11 @@
 import styled, { css } from '../../custom/styled-components';
 import { compactBorderImage, compactRoundedCorners } from '../../styles/mixins';
 
-interface TextInputProps {
+interface InputProps {
   mode?: 'success' | 'warning' | 'error';
 }
 
-export default styled.input<TextInputProps>`
+const baseCss = css<InputProps>`
   ${compactRoundedCorners()};
   width: 100%;
   padding: 0.5rem 1rem;
@@ -27,3 +27,17 @@ export default styled.input<TextInputProps>`
     `;
   }}
 `;
+
+const Text = styled.input<InputProps>`
+  ${baseCss};
+`;
+
+const TextArea = styled.textarea<InputProps>`
+  ${baseCss};
+  resize: vertical;
+`;
+
+export default {
+  Text,
+  TextArea
+};

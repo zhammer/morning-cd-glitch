@@ -5,7 +5,7 @@ import { Redirect } from 'react-router';
 import useFetchSong from './useFetchSong';
 import Song from '../../components/Song';
 import Field from '../../components/Field';
-import TextInput from '../../components/TextInput';
+import Input from '../../components/Input';
 import { InputContainer, FormContainer } from './SubmitPage.styles';
 
 export default function SubmitPage() {
@@ -25,7 +25,7 @@ export default function SubmitPage() {
             <label>
               Your Name
               <InputContainer>
-                <TextInput />
+                <Input.Text />
               </InputContainer>
             </label>
           </Field.Block>
@@ -33,7 +33,7 @@ export default function SubmitPage() {
             <label>
               Note
               <InputContainer>
-                <TextInput />
+                <Input.TextArea />
               </InputContainer>
             </label>
           </Field.Block>

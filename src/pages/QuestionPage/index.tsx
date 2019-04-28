@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import TextInput from '../../components/TextInput';
+import Input from '../../components/Input';
 import Page from '../../components/Page';
 import Title from '../../components/Title';
 import { QuestionContainer, SongsContainer } from './QuestionPage.styles';
@@ -23,7 +23,7 @@ export default function QuestionPage() {
     <Page>
       <Title>What was the first piece of music you listened to this morning?</Title>
       <QuestionContainer>
-        <TextInput
+        <Input.Text
           data-test='question-input'
           value={questionInput}
           onChange={e => setQuestionInput(e.target.value)}
