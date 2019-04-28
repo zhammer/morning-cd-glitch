@@ -10,3 +10,8 @@ export const FormContainer = styled(Container.Square)`
     margin-top: 1em;
   }
 `;
+
+export const SubmitButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`;
