@@ -1,5 +1,6 @@
 {
   "name": "morning-cd-glitch",
+  "proxy": "https://api.morningcd.com",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -10,6 +11,7 @@
     "@types/react-router-dom": "^4.3.2",
     "@types/styled-components": "^4.1.14",
     "@types/whatwg-fetch": "^0.0.33",
+    "@xstate/react": "^0.3.0",
     "apollo-cache-inmemory": "^1.5.1",
     "apollo-client": "^2.5.1",
     "apollo-link": "^1.2.11",
@@ -28,7 +30,8 @@
     "styled-components": "^4.2.0",
     "typescript": "3.4.5",
     "use-react-router": "^1.0.5",
-    "whatwg-fetch": "^3.0.0"
+    "whatwg-fetch": "^3.0.0",
+    "xstate": "^4.5.0"
   },
   "scripts": {
     "start": "react-scripts start",
