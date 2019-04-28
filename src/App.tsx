@@ -7,6 +7,7 @@ import theme from './styles/theme';
 import { GlobalStyle } from './styles/GlobalStyle';
 import QuestionPage from './pages/QuestionPage';
 import SubmitPage from './pages/SubmitPage';
+import ListensPage from './pages/ListensPage';
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
             <Switch>
               <Route exact path='/question' component={QuestionPage} />
               <Route exact path='/submit' component={SubmitPage} />
+              <Route exact path='/listens' component={ListensPage} />
               <Redirect from='/' to='/question' />
             </Switch>
           </Router>
