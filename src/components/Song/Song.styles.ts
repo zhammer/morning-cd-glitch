@@ -1,6 +1,6 @@
-import styled, { keyframes } from '../../../custom/styled-components';
-import Container from '../../../components/Container';
-import { cursorClickUrl } from '../../../styles/variables';
+import styled, { keyframes } from '../../custom/styled-components';
+import Container from '../Container';
+import { cursorClickUrl } from '../../styles/variables';
 
 export const Columns = styled.div`
   display: flex;

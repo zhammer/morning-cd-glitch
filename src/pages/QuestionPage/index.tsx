@@ -5,7 +5,7 @@ import Title from '../../components/Title';
 import { QuestionContainer, SongsContainer } from './QuestionPage.styles';
 import useQuestionInput from './useQuestionInput';
 import useSpotifySearch from './useSpotifySearch';
-import Song from './Song';
+import Song from '../../components/Song';
 import useConfidentInput from '../../hooks/useConfidentInput';
 import { Song as SongInterface } from '../../definitions';
 import { Redirect } from 'react-router';
