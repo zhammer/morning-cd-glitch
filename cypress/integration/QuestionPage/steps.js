@@ -101,3 +101,7 @@ Then('I see the songs', songsTable => {
         .contains(song.album);
     });
 });
+
+Then('the song question input is selected', () => {
+  cy.focused().should('have.attr', 'data-test', 'question-input');
+});

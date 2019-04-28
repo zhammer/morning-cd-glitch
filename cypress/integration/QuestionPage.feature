@@ -7,6 +7,7 @@ Feature: Question Page
     Then I am redirected to "/question"
     And I see the title "What was the first piece of music you listened to this morning?"
     And I see the song question input
+    And the song question input is selected
 
   Scenario: I search for a song
     When I visit morning cd
