@@ -7,13 +7,30 @@
     "@types/node": "11.13.7",
     "@types/react": "16.8.14",
     "@types/react-dom": "16.8.4",
+    "@types/react-router-dom": "^4.3.2",
+    "@types/styled-components": "^4.1.14",
+    "@types/whatwg-fetch": "^0.0.33",
+    "apollo-cache-inmemory": "^1.5.1",
+    "apollo-client": "^2.5.1",
+    "apollo-link": "^1.2.11",
+    "apollo-link-http": "^1.5.14",
+    "apollo-link-rest": "^0.7.3",
+    "graphql": "^14.2.1",
+    "graphql-anywhere": "^4.2.1",
+    "graphql-tag": "^2.10.1",
     "react": "^16.8.6",
+    "react-apollo": "^2.5.5",
+    "react-apollo-hooks": "^0.4.5",
     "react-dom": "^16.8.6",
+    "react-router-dom": "^5.0.0",
     "react-scripts": "3.0.0",
-    "typescript": "3.4.5"
+    "styled-components": "^4.2.0",
+    "typescript": "3.4.5",
+    "whatwg-fetch": "^3.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
+    "start:cypress": "WAIT_FOR_MESSAGE='Compiled successfully!' cypressAppWatcher yarn start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -32,5 +49,13 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "cypress-cucumber-preprocessor": {
+    "nonGlobalStepDefinitions": true
+  },
+  "devDependencies": {
+    "cypress": "^3.2.0",
+    "cypress-app-watcher-preprocessor": "^1.1.2",
+    "cypress-cucumber-preprocessor": "^1.11.0"
   }
 }
