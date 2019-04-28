@@ -9,12 +9,14 @@ import Song from './Song';
 import useConfidentInput from '../../hooks/useConfidentInput';
 import { Song as SongInterface } from '../../definitions';
 import { Redirect } from 'react-router';
+import useFocusOnMount from '../../hooks/useFocusOnMount';
 
 export default function QuestionPage() {
   const [questionInput, setQuestionInput] = useQuestionInput();
   const [confidentQuestionInput, forceConfident] = useConfidentInput(questionInput, 250);
   const [songs, loading] = useSpotifySearch(confidentQuestionInput);
   const [selectedSong, setSelectedSong] = useState<SongInterface | null>(null);
+  const focusOnMountProps = useFocusOnMount();
 
   if (selectedSong) return <Redirect to={`/submit?id=${selectedSong.id}`} />;
   return (
@@ -26,6 +28,7 @@ export default function QuestionPage() {
           value={questionInput}
           onChange={e => setQuestionInput(e.target.value)}
           onKeyDown={e => e.key === 'Enter' && forceConfident()}
+          {...focusOnMountProps}
         />
       </QuestionContainer>
       {selectedSong && <div>{JSON.stringify(selectedSong)}</div>}
