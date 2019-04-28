@@ -8,11 +8,13 @@ import Field from '../../components/Field';
 import Input from '../../components/Input';
 import { InputContainer, FormContainer } from './SubmitPage.styles';
 import Text from '../../components/Text';
+import useFocusOnMount from '../../hooks/useFocusOnMount';
 
 export default function SubmitPage() {
   const queryParams = useQueryParams();
   const songId = isString(queryParams.id) ? queryParams.id : null;
   const [song, loading, error] = useFetchSong(songId);
+  const focusOnMountProps = useFocusOnMount();
 
   if (!songId) return <Redirect to='/question' />;
   return (
@@ -26,7 +28,7 @@ export default function SubmitPage() {
             <label>
               Your Name
               <InputContainer>
-                <Input.Text />
+                <Input.Text {...focusOnMountProps} />
               </InputContainer>
             </label>
           </Field.Block>
