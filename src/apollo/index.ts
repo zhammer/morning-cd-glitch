@@ -65,13 +65,17 @@ const restLink = new RestLink({
           const rawSongs = responseJson.tracks.items;
           return rawSongs.map(pluckSong);
         }
+        if (typeName === 'Song!') {
+          const responseJson = await response.json();
+          return pluckSong(responseJson);
+        }
       }
     }
   }
 });
 
 const spotifyAuthHeadersLink = new ApolloLink((operation, forward) => {
-  if (operation.operationName === 'SearchSongsQuery') {
+  if (['SearchSongsQuery', 'SongQuery'].includes(operation.operationName)) {
     const { cache } = operation.getContext();
     const accessToken = cache.data.data.ROOT_QUERY.accessToken;
     operation.setContext({
