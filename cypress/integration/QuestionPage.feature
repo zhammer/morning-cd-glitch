@@ -54,13 +54,10 @@ Feature: Question Page
     And I type "Stay Dl{leftarrow}{leftarrow}{del}F{rightarrow}o"
     Then the song question input form has the text "Stay Flo"
 
-#  I can't figure out an easy way to get a @skip or @ignore tag
-#  working, so for now just commenting out this test that is failing.
-#
-#  Scenario: I click the browser back button after selecting a song
-#    When I visit morning cd
-#    And I click the song question input
-#    And I type "something holy paper castles"
-#    And I click the song "Something Holy" by "Alice Phoebe Lou"
-#    And I click the browser back button
-#    Then I am redirected to "/question"
+  Scenario: I click the browser back button after selecting a song
+    When I visit morning cd
+    And I click the song question input
+    And I type "something holy paper castles"
+    And I click the song "Something Holy" by "Alice Phoebe Lou"
+    And I click the browser back button
+    Then I am redirected to "/question"

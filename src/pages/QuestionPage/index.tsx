@@ -18,7 +18,7 @@ export default function QuestionPage() {
   const [selectedSong, setSelectedSong] = useState<SongInterface | null>(null);
   const focusOnMountProps = useFocusOnMount();
 
-  if (selectedSong) return <Redirect to={`/submit?id=${selectedSong.id}`} />;
+  if (selectedSong) return <Redirect push to={`/submit?id=${selectedSong.id}`} />;
   return (
     <Page>
       <Title>What was the first piece of music you listened to this morning?</Title>
