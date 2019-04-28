@@ -62,11 +62,6 @@ When('I click the browser back button', () => {
   cy.go('back');
 });
 
-Then(`I am redirected to {string} with the params {string}`, (route, params) => {
-  cy.location('pathname').should('eq', route);
-  cy.location('search').should('eq', params);
-});
-
 Then(`I see the title {string}`, text => {
   cy.get('h2').contains(text);
 });
@@ -77,10 +72,6 @@ Then('I see the song question input', () => {
 
 Then(`the song question input form has the text {string}`, text => {
   cy.get('input[data-test=question-input]').should('have.value', text);
-});
-
-Then(`I am redirected to {string}`, route => {
-  cy.location('pathname').should('eq', route);
 });
 
 Then('I see the songs', songsTable => {
