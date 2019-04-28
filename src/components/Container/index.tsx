@@ -5,16 +5,16 @@ import { borderSize } from '../../styles/variables';
 
 const Title = styled.p``;
 
-const Base = styled.div<{ title?: string }>`
+const Base = styled.div<{ containerTitle?: string }>`
   position: relative;
   padding: 1.5rem 2rem;
   border-color: black;
   border-style: solid;
   border-width: 4px;
 
-  ${({ title, theme }) =>
-    title &&
-    title !== '' &&
+  ${({ containerTitle, theme }) =>
+    containerTitle &&
+    containerTitle !== '' &&
     css`
       & > ${Title} {
         display: table;
@@ -27,28 +27,28 @@ const Base = styled.div<{ title?: string }>`
 `;
 
 interface ContainerProps extends React.HTMLAttributes<HTMLDivElement> {
-  title?: string;
+  containerTitle?: string;
 }
 
-function Container({ title, children, ...rest }: ContainerProps) {
+function Container({ containerTitle, children, ...rest }: ContainerProps) {
   return (
-    <Base title={title} {...rest}>
-      {title && title !== '' && <Title>{title}</Title>}
+    <Base containerTitle={containerTitle} {...rest}>
+      {containerTitle && containerTitle !== '' && <Title>{containerTitle}</Title>}
       {children}
     </Base>
   );
 }
 
-const Square = styled(Container)<{ title?: string }>``;
+const Square = styled(Container)<{ containerTitle?: string }>``;
 
-const Rounded = styled(Container)<{ title?: string }>`
+const Rounded = styled(Container)<{ containerTitle?: string }>`
   ${roundedCorners(false)};
   padding: 1rem 1.5rem;
   margin: ${borderSize};
 
-  ${({ title }) =>
-    title &&
-    title !== '' &&
+  ${({ containerTitle }) =>
+    containerTitle &&
+    containerTitle !== '' &&
     css`
       & > ${Title} {
         margin-top: -1.5rem;

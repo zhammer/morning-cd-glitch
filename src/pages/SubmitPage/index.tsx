@@ -20,7 +20,7 @@ export default function SubmitPage() {
       {error && <div>{error}</div>}
       {loading && <div>loading..</div>}
       {song && (
-        <Container.Square title='Submit Listen'>
+        <Container.Square containerTitle='Submit Listen'>
           <Song song={song} />
           <Field.Block>
             <label>
