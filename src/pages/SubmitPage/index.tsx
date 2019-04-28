@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import useQueryParams from './useQueryParams';
 import Page from '../../components/Page';
 import { Redirect } from 'react-router';
@@ -10,25 +10,39 @@ import { InputContainer, FormContainer, SubmitButtonContainer } from './SubmitPa
 import Text from '../../components/Text';
 import useFocusOnMount from '../../hooks/useFocusOnMount';
 import Button from '../../components/Button';
+import useSubmitListenForm from './useSubmitListenForm';
+import useSubmitListen from './useSubmitListen';
+import useSubmitStateMachine from './useSubmitStateMachine';
 
 export default function SubmitPage() {
   const queryParams = useQueryParams();
   const songId = isString(queryParams.id) ? queryParams.id : null;
   const [song, loading, error] = useFetchSong(songId);
   const focusOnMountProps = useFocusOnMount();
-  const [name, setName] = useState('');
-  const [note, setNote] = useState('');
+  const [name, note, setName, setNote, valid] = useSubmitListenForm();
+  const [submit] = useSubmitListen();
+  const [submitState, sendSubmitStateEvent] = useSubmitStateMachine();
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    console.log({ name, note });
+    if (!songId) return;
+    sendSubmitStateEvent('SUBMIT');
+    try {
+      await submit(name, songId, note);
+    } catch (e) {
+      sendSubmitStateEvent('ERROR');
+    }
+    sendSubmitStateEvent('SUCCESS');
   }
 
   if (!songId) return <Redirect to='/question' />;
+  if (submitState === 'success') return <Redirect push to='/listens' />;
   return (
     <Page>
       {error && <div>{error}</div>}
       {loading && <div>loading..</div>}
+      {submitState === 'error' && <div>error...</div>}
+      {submitState === 'submitting' && <div>submitting...</div>}
       {song && (
         <form onSubmit={handleSubmit}>
           <FormContainer containerTitle='Submit Listen'>
@@ -54,7 +68,7 @@ export default function SubmitPage() {
               </label>
             </Field.Block>
             <SubmitButtonContainer>
-              <Button.Primary disabled={name === ''} type='submit'>
+              <Button.Primary disabled={!valid} type='submit'>
                 Submit
               </Button.Primary>
             </SubmitButtonContainer>
