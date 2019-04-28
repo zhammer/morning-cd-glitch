@@ -60,12 +60,12 @@ const restLink = new RestLink({
     spotify: {
       uri: 'https://api.spotify.com/v1',
       responseTransformer: async (response, typeName) => {
-        if (typeName === '[Song!]') {
+        if (typeName === '[Song]') {
           const responseJson = await response.json();
           const rawSongs = responseJson.tracks.items;
           return rawSongs.map(pluckSong);
         }
-        if (typeName === 'Song!') {
+        if (typeName === 'Song') {
           const responseJson = await response.json();
           return pluckSong(responseJson);
         }

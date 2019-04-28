@@ -2,7 +2,6 @@ import { Song } from '../../definitions';
 import gql from 'graphql-tag';
 import { useQuery } from 'react-apollo-hooks';
 import useSpotifyAccessToken from '../../hooks/useSpotifyAccessToken';
-import { useMemo } from 'react';
 import { ApolloError } from 'apollo-client';
 
 interface SongQuery {
@@ -11,7 +10,7 @@ interface SongQuery {
 
 const SONG_QUERY = gql`
   query SongQuery($id: ID!) {
-    song(id: $id) @rest(type: "Song!", path: "/tracks/{args.id}", endpoint: "spotify") {
+    song(id: $id) @rest(type: "Song", path: "/tracks/{args.id}", endpoint: "spotify") {
       id
       name
       artistName

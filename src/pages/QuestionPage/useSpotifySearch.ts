@@ -11,7 +11,7 @@ interface SearchSongsQuery {
 const SEARCH_SONGS_QUERY = gql`
   query SearchSongsQuery($searchText: String!) {
     searchSongs(query: $searchText)
-      @rest(type: "[Song!]", path: "/search?{args}&type=track&limit=5", endpoint: "spotify") {
+      @rest(type: "[Song]", path: "/search?{args}&type=track&limit=5", endpoint: "spotify") {
       id
       name
       artistName
