@@ -4,10 +4,9 @@ import Page from '../../components/Page';
 import { Redirect } from 'react-router';
 import useFetchSong from './useFetchSong';
 import Song from '../../components/Song';
-import Container from '../../components/Container';
 import Field from '../../components/Field';
 import TextInput from '../../components/TextInput';
-import { InputContainer } from './SubmitPage.styles';
+import { InputContainer, FormContainer } from './SubmitPage.styles';
 
 export default function SubmitPage() {
   const queryParams = useQueryParams();
@@ -20,7 +19,7 @@ export default function SubmitPage() {
       {error && <div>{error}</div>}
       {loading && <div>loading..</div>}
       {song && (
-        <Container.Square containerTitle='Submit Listen'>
+        <FormContainer containerTitle='Submit Listen'>
           <Song song={song} />
           <Field.Block>
             <label>
@@ -38,7 +37,7 @@ export default function SubmitPage() {
               </InputContainer>
             </label>
           </Field.Block>
-        </Container.Square>
+        </FormContainer>
       )}
     </Page>
   );
