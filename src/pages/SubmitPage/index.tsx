@@ -52,6 +52,7 @@ export default function SubmitPage() {
                 Your Name
                 <InputContainer>
                   <Input.Text
+                    data-test='name-input'
                     value={name}
                     onChange={e => setName(e.target.value)}
                     {...focusOnMountProps}
@@ -63,12 +64,16 @@ export default function SubmitPage() {
               <label>
                 Note <Text.Disabled>(Optional)</Text.Disabled>
                 <InputContainer>
-                  <Input.TextArea value={note} onChange={e => setNote(e.target.value)} />
+                  <Input.TextArea
+                    data-test='note-input'
+                    value={note}
+                    onChange={e => setNote(e.target.value)}
+                  />
                 </InputContainer>
               </label>
             </Field.Block>
             <SubmitButtonContainer>
-              <Button.Primary disabled={!valid} type='submit'>
+              <Button.Primary data-test='submit-button' disabled={!valid} type='submit'>
                 Submit
               </Button.Primary>
             </SubmitButtonContainer>

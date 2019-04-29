@@ -38,3 +38,19 @@ Then(`I see the song {string} by {string} from the album {string}`, (name, artis
     .contains('div[data-test=song]', artist)
     .contains('div[data-test=song]', album);
 });
+
+Then(`I see a field with the label {string}`, labelText => {
+  cy.get('div[data-test=field]').contains(labelText);
+});
+
+Then(`I see a container with the title {string}`, containerTitle => {
+  cy.get('div[data-test=container]').contains('p[data-test=container-title]', containerTitle);
+});
+
+Then('the submit button is disabled', () => {
+  cy.get('button[data-test=submit-button]').should('be.disabled');
+});
+
+Then('the name input is selected', () => {
+  cy.focused().should('have.attr', 'data-test', 'name-input');
+});

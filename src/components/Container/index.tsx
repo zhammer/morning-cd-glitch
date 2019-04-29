@@ -3,9 +3,9 @@ import styled, { css } from '../../custom/styled-components';
 import { roundedCorners } from '../../styles/mixins';
 import { borderSize } from '../../styles/variables';
 
-const Title = styled.p``;
+const Title = styled.p.attrs({ 'data-test': 'container-title' })``;
 
-const Base = styled.div<{ containerTitle?: string }>`
+const Base = styled.div.attrs({ 'data-test': 'container' })<{ containerTitle?: string }>`
   position: relative;
   padding: 1.5rem 2rem;
   border-color: black;

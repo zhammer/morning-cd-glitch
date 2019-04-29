@@ -1,7 +1,7 @@
 import styled from '../../custom/styled-components';
 import { mobileBreakpoint } from '../../styles/variables';
 
-const Base = styled.div`
+const Base = styled.div.attrs({ 'data-test': 'field' })`
   & > label {
     display: block;
   }
