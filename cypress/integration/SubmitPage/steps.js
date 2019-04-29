@@ -11,14 +11,14 @@ beforeEach(() => {
   cy.route('/accesstoken', 'fixture:morningcd/accessToken.json');
   cy.fixture('morningcd/accesstoken.json').then(({ accessToken }) => {
     const fixtureNameById = [
-      ['4cHr9tKAv2sHQwj79tmCG8', 'whathegirlmuthafuckinwannadooTrack.json'],
-      ['3o9lfY9tbv3S00atFxNki5', 'bigblueTrack.json'],
-      ['2gSBJPEjYoj6UhsI25TC8r', 'imissyouTrack.json']
+      ['4cHr9tKAv2sHQwj79tmCG8', 'whathegirlmuthafuckinwannadoo.json'],
+      ['3o9lfY9tbv3S00atFxNki5', 'bigblue.json'],
+      ['2gSBJPEjYoj6UhsI25TC8r', 'imissyou.json']
     ];
     fixtureNameById.forEach(([id, filename]) => {
       cy.route({
         url: `/v1/tracks/${id}`,
-        response: `fixture:spotify/${filename}`,
+        response: `fixture:spotify/tracks/${filename}`,
         onRequest: xhr => {
           expect(xhr.request.headers).to.have.property('authorization', `Bearer ${accessToken}`);
           expect(xhr.url).to.equal(`https://api.spotify.com/v1/tracks/${id}`);
