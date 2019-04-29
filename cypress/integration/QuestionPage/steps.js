@@ -43,11 +43,6 @@ When('I click the song question input', () => {
     .click();
 });
 
-When(`I type {string}`, text => {
-  cy.wait(10); // weird bug fix, sometimes the first char doesnt get typed
-  cy.get('@songQuestionInput').type(text);
-});
-
 When(`I wait {int} milliseconds`, milliseconds => {
   cy.wait(milliseconds);
 });
