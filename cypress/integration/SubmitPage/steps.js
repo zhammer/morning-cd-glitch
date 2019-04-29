@@ -25,6 +25,11 @@ beforeEach(() => {
         }
       });
     });
+    cy.route({
+      url: `/v1/tracks/invalid_track_id`,
+      response: 'fixture:spotify/tracks/invalidid.json',
+      status: 400
+    });
   });
 });
 
@@ -53,4 +58,8 @@ Then('the submit button is disabled', () => {
 
 Then('the name input is selected', () => {
   cy.focused().should('have.attr', 'data-test', 'name-input');
+});
+
+Then(`I see the error text {string}`, text => {
+  cy.get('span[data-test=text-error]').should('have.text', text);
 });

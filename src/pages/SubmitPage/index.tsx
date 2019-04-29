@@ -13,6 +13,7 @@ import Button from '../../components/Button';
 import useSubmitListenForm from './useSubmitListenForm';
 import useSubmitListen from './useSubmitListen';
 import useSubmitStateMachine from './useSubmitStateMachine';
+import { Link } from 'react-router-dom';
 
 export default function SubmitPage() {
   const queryParams = useQueryParams();
@@ -39,7 +40,7 @@ export default function SubmitPage() {
   if (submitState === 'success') return <Redirect push to='/listens' />;
   return (
     <Page>
-      {error && <div>{error}</div>}
+      {error && <Text.Error>Error! {error}</Text.Error>}
       {loading && <div>loading..</div>}
       {submitState === 'error' && <div>error...</div>}
       {submitState === 'submitting' && <div>submitting...</div>}

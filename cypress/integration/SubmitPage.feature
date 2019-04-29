@@ -17,6 +17,12 @@ Feature: Submit Page
       | 3o9lfY9tbv3S00atFxNki5 | Big Blue                                            | Vampire Weekend                | This Life / Unbearably White                 |
       | 2gSBJPEjYoj6UhsI25TC8r | I Miss You                                          | Harold Melvin & The Blue Notes | The Essential Harold Melvin & The Blue Notes |
 
+  # TODO: Add text/link user can click to go back to the question page.
+  # Test unexpected error
+  Scenario: I am on the submit page for an invalid song id
+    When I visit "/submit?id=invalid_track_id"
+    Then I see the error text "Error! invalid id"
+
   Scenario Outline: I am on the submit page with bad query string "<query>" (<description>)
     When I visit "/submit<query>"
     Then I am redirected to "/question"
