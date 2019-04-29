@@ -16,3 +16,18 @@ Feature: Submit Page
       | 4cHr9tKAv2sHQwj79tmCG8 | Whathegirlmuthafuckinwannadoo (feat. Janelle Monáe) | The Coup                       | Sorry To Bother You: The Soundtrack          |
       | 3o9lfY9tbv3S00atFxNki5 | Big Blue                                            | Vampire Weekend                | This Life / Unbearably White                 |
       | 2gSBJPEjYoj6UhsI25TC8r | I Miss You                                          | Harold Melvin & The Blue Notes | The Essential Harold Melvin & The Blue Notes |
+
+  Scenario Outline: I am on the submit page with bad query string "<query>" (<description>)
+    When I visit "/submit<query>"
+    Then I am redirected to "/question"
+
+    Examples:
+      | query      | description            |
+      | id=1337    | missing question mark  |
+      |            | empty query string     |
+      | ?          | no query params        |
+      | ?id=       | id is empty            |
+      | ?id=1&id=2 | multiple ids           |
+      | ?ID=1      | capitalized            |
+      | /123       | route not query string |
+
