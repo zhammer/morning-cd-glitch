@@ -23,6 +23,15 @@ Feature: Submit Page
     When I visit "/submit?id=invalid_track_id"
     Then I see the error text "Error! invalid id"
 
+  Scenario: I submit a listen just using my keyboard
+    When I visit the submit page with the id "3o9lfY9tbv3S00atFxNki5"
+    And I type "Zach"
+    And I hit tab
+    And I type "Digging this new vampire weekend song"
+    And I hit tab
+    And I type enter to submit
+    Then I am redirected to "/listens"
+
   Scenario Outline: I am on the submit page with bad query string "<query>" (<description>)
     When I visit "/submit<query>"
     Then I am redirected to "/question"
