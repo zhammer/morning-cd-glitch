@@ -45,7 +45,7 @@ Feature: Submit Page
     When I visit the submit page with the id "4cHr9tKAv2sHQwj79tmCG8"
     And I write the name "Zach"
     And I submit the listen form
-    Then I see the error text "Error!"
+    Then I see the error text "Error submitting listen!"
 
   Scenario: I submit a listen just using my keyboard
     When I visit the submit page with the id "3o9lfY9tbv3S00atFxNki5"

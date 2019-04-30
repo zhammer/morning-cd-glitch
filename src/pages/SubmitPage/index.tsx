@@ -53,7 +53,7 @@ export default function SubmitPage() {
         </span>
       )}
       {loading && <div>loading..</div>}
-      {submitState === 'error' && <Text.Error>Error!</Text.Error>}
+      {submitState === 'error' && <Text.Error>Error submitting listen!</Text.Error>}
       {submitState === 'submitting' && <div>submitting...</div>}
       {song && (
         <form onSubmit={handleSubmit}>
