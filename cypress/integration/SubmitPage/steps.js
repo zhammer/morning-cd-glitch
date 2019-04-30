@@ -17,7 +17,8 @@ beforeEach(() => {
   cy.graphql({
     schema: Cypress.env('GRAPHQL_SCHEMA'),
     endpoint: '/graphql',
-    mocks: defaultGraphqlMocks
+    mocks: defaultGraphqlMocks,
+    delay: 100
   });
   cy.server();
   cy.route('/accesstoken', 'fixture:morningcd/accessToken.json');
