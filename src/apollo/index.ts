@@ -35,6 +35,7 @@ cache.writeData(initialData);
  * LINK
  */
 const httpLink = createHttpLink({
+  fetch: (window as any).cypressGraphqlFetch || window.fetch,
   uri: (process.env.REACT_APP_MORNING_CD_API_ENDPOINT || '') + '/graphql'
 });
 
@@ -49,9 +50,10 @@ function pluckSong(rawSong: any): Song {
     imageSmallUrl: rawSong.album.images[2].url
   };
 }
+
 const restLink = new RestLink({
   // cypress hack: see https://github.com/cypress-io/cypress/issues/95
-  customFetch: window.fetch ? window.fetch : fetchPolyfill,
+  customFetch: window.fetch || fetchPolyfill,
   endpoints: {
     morningCd: {
       uri: process.env.REACT_APP_MORNING_CD_API_ENDPOINT || '/',

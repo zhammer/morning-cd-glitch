@@ -23,6 +23,13 @@ Feature: Submit Page
     When I visit "/submit?id=invalid_track_id"
     Then I see the error text "Error! invalid id"
 
+  Scenario: I submit a listen
+    When I visit the submit page with the id "3o9lfY9tbv3S00atFxNki5"
+    And I write the name "Zach"
+    And I write the note "Favorite track off the new VW EP"
+    And I submit the listen form
+    Then I am redirected to "/listens"
+
   Scenario: I submit a listen just using my keyboard
     When I visit the submit page with the id "3o9lfY9tbv3S00atFxNki5"
     And I type "Zach"

@@ -6,7 +6,17 @@ Cypress.on('window:before:load', window => {
   window.fetch = null;
 });
 
+const defaultGraphqlMocks = {
+  Date: () => '2018-06-12',
+  DateTime: () => '2018-06-11T09:24:32.004423'
+};
+
 beforeEach(() => {
+  cy.graphql({
+    schema: Cypress.env('GRAPHQL_SCHEMA'),
+    endpoint: '/graphql',
+    mocks: defaultGraphqlMocks
+  });
   cy.server();
   cy.route('/accesstoken', 'fixture:morningcd/accessToken.json');
   cy.fixture('morningcd/accesstoken.json').then(({ accessToken }) => {
@@ -35,6 +45,40 @@ beforeEach(() => {
 
 When(`I visit the submit page with the id {string}`, id => {
   cy.visit(`/submit?id=${id}`);
+  cy.wrap(id, { log: false }).as('songId');
+});
+
+When(`I write the name {string}`, name => {
+  cy.wrap(name, { log: false }).as('nameInputValue');
+  cy.get('input[data-test=name-input]').type(name);
+});
+
+When(`I write the note {string}`, note => {
+  cy.wrap(note, { log: false }).as('noteInputValue');
+  cy.get('textarea[data-test=note-input]').type(note);
+});
+
+When('I submit the listen form', () => {
+  cy.get('@songId', { log: false }).then(songId => {
+    cy.get('@nameInputValue', { log: false }).then(nameInputValue => {
+      cy.get('@noteInputValue', { log: false }).then(noteInputValue => {
+        cy.graphqlUpdate({
+          Mutation: () => ({
+            submitListen: (_, { input }) => {
+              const expectedInput = {
+                ianaTimezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+                songId,
+                listenerName: nameInputValue,
+                note: noteInputValue
+              };
+              expect(input).to.eql(expectedInput);
+            }
+          })
+        });
+      });
+    });
+  });
+  cy.get('form').submit();
 });
 
 Then(`I see the song {string} by {string} from the album {string}`, (name, artist, album) => {
