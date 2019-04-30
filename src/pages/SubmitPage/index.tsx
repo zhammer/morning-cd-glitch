@@ -40,7 +40,18 @@ export default function SubmitPage() {
   if (submitState === 'success') return <Redirect push to='/listens' />;
   return (
     <Page>
-      {error && <Text.Error>Error! {error}</Text.Error>}
+      {error && (
+        <span>
+          <Text.Error>Error! {error}</Text.Error>
+          <br />
+          <br />
+          Maybe go back to the{' '}
+          <Link to='/question'>
+            <Text.Success>Question Page</Text.Success>
+          </Link>{' '}
+          and select another song?
+        </span>
+      )}
       {loading && <div>loading..</div>}
       {submitState === 'error' && <Text.Error>Error!</Text.Error>}
       {submitState === 'submitting' && <div>submitting...</div>}

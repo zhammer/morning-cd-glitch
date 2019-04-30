@@ -17,11 +17,15 @@ Feature: Submit Page
       | 3o9lfY9tbv3S00atFxNki5 | Big Blue                                            | Vampire Weekend                | This Life / Unbearably White                 |
       | 2gSBJPEjYoj6UhsI25TC8r | I Miss You                                          | Harold Melvin & The Blue Notes | The Essential Harold Melvin & The Blue Notes |
 
-  # TODO: Add text/link user can click to go back to the question page.
-  # Test unexpected error
   Scenario: I am on the submit page for an invalid song id
     When I visit "/submit?id=invalid_track_id"
     Then I see the error text "Error! invalid id"
+    And I see the text "Maybe go back to the Question Page and select another song?"
+
+  Scenario: I follow the link back to the question page on an invalid song id
+    When I visit "/submit?id=invalid_track_id"
+    And I click the link with the text "Question Page"
+    Then I am redirected to "/question"
 
   Scenario: I submit a listen
     When I visit the submit page with the id "3o9lfY9tbv3S00atFxNki5"

@@ -92,6 +92,12 @@ When('I submit the listen form', () => {
   cy.get('form').submit();
 });
 
+When(`I click the link with the text {string}`, linkText => {
+  cy.get('a')
+    .contains(linkText)
+    .click();
+});
+
 Then(`I see the song {string} by {string} from the album {string}`, (name, artist, album) => {
   cy.get('div[data-test=song]')
     .contains('div[data-test=song]', name)
@@ -117,4 +123,8 @@ Then('the name input is selected', () => {
 
 Then(`I see the error text {string}`, text => {
   cy.get('span[data-test=text-error]').should('have.text', text);
+});
+
+Then(`I see the text {string}`, text => {
+  cy.get('span').contains(text);
 });
