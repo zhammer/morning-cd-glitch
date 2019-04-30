@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-import { Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 
 Cypress.on('window:before:load', window => {
   window.fetch = null;
@@ -12,6 +12,8 @@ const defaultGraphqlMocks = {
 };
 
 beforeEach(() => {
+  cy.wrap('', { log: false }).as('noteInputValue');
+  cy.wrap(false, { log: false }).as('graphqlServerError');
   cy.graphql({
     schema: Cypress.env('GRAPHQL_SCHEMA'),
     endpoint: '/graphql',
@@ -43,6 +45,10 @@ beforeEach(() => {
   });
 });
 
+Given('there is a problem with the graphql server', () => {
+  cy.wrap(true, { log: false }).as('graphqlServerError');
+});
+
 When(`I visit the submit page with the id {string}`, id => {
   cy.visit(`/submit?id=${id}`);
   cy.wrap(id, { log: false }).as('songId');
@@ -59,21 +65,26 @@ When(`I write the note {string}`, note => {
 });
 
 When('I submit the listen form', () => {
-  cy.get('@songId', { log: false }).then(songId => {
-    cy.get('@nameInputValue', { log: false }).then(nameInputValue => {
-      cy.get('@noteInputValue', { log: false }).then(noteInputValue => {
-        cy.graphqlUpdate({
-          Mutation: () => ({
-            submitListen: (_, { input }) => {
-              const expectedInput = {
-                ianaTimezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-                songId,
-                listenerName: nameInputValue,
-                note: noteInputValue
-              };
-              expect(input).to.eql(expectedInput);
-            }
-          })
+  cy.get('@graphqlServerError', { log: false }).then(graphqlServerError => {
+    cy.get('@songId', { log: false }).then(songId => {
+      cy.get('@nameInputValue', { log: false }).then(nameInputValue => {
+        cy.get('@noteInputValue', { log: false }).then(noteInputValue => {
+          cy.graphqlUpdate({
+            Mutation: () => ({
+              submitListen: (_, { input }) => {
+                if (graphqlServerError) {
+                  throw new Error();
+                }
+                const expectedInput = {
+                  ianaTimezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+                  songId,
+                  listenerName: nameInputValue,
+                  note: noteInputValue
+                };
+                expect(input).to.eql(expectedInput);
+              }
+            })
+          });
         });
       });
     });

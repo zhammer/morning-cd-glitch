@@ -30,6 +30,19 @@ Feature: Submit Page
     And I submit the listen form
     Then I am redirected to "/listens"
 
+  Scenario: I submit a listen without a note
+    When I visit the submit page with the id "4cHr9tKAv2sHQwj79tmCG8"
+    And I write the name "Zach"
+    And I submit the listen form
+    Then I am redirected to "/listens"
+
+  Scenario: There is an error submitting my listen
+    Given there is a problem with the graphql server
+    When I visit the submit page with the id "4cHr9tKAv2sHQwj79tmCG8"
+    And I write the name "Zach"
+    And I submit the listen form
+    Then I see the error text "Error!"
+
   Scenario: I submit a listen just using my keyboard
     When I visit the submit page with the id "3o9lfY9tbv3S00atFxNki5"
     And I type "Zach"
