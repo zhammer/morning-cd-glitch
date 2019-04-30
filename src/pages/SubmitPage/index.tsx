@@ -85,7 +85,11 @@ export default function SubmitPage() {
               </label>
             </Field.Block>
             <SubmitButtonContainer>
-              <Button.Primary data-test='submit-button' disabled={!valid} type='submit'>
+              <Button.Primary
+                data-test='submit-button'
+                disabled={!valid || submitState === 'submitting'}
+                type='submit'
+              >
                 Submit
               </Button.Primary>
             </SubmitButtonContainer>

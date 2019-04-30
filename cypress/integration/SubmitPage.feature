@@ -32,7 +32,8 @@ Feature: Submit Page
     And I write the name "Zach"
     And I write the note "Favorite track off the new VW EP"
     And I submit the listen form
-    Then I am redirected to "/listens"
+    Then the submit button is disabled
+    And I am redirected to "/listens"
 
   Scenario: I submit a listen without a note
     When I visit the submit page with the id "4cHr9tKAv2sHQwj79tmCG8"
