@@ -1,6 +1,6 @@
 Feature: Submit Page
-  On the Submit Page, I can submit my song to morning cd. When I
-  submit my song, I am brought to the Listens Page.
+  On the Submit Page, I can submit my listen to morning cd. When I
+  submit my listen, I am brought to the Listens Page.
 
   Scenario Outline: I am on the submit page for <name>
     When I visit the submit page with the id "<id>"
