@@ -65,7 +65,7 @@ When(`I write the note {string}`, note => {
   cy.get('textarea[data-test=note-input]').type(note);
 });
 
-When('I submit the listen form', () => {
+When('I click the submit button', () => {
   cy.get('@graphqlServerError', { log: false }).then(graphqlServerError => {
     cy.get('@songId', { log: false }).then(songId => {
       cy.get('@nameInputValue', { log: false }).then(nameInputValue => {
@@ -90,7 +90,7 @@ When('I submit the listen form', () => {
       });
     });
   });
-  cy.get('form').submit();
+  cy.get('button[data-test=submit-button]').click();
 });
 
 When(`I click the link with the text {string}`, linkText => {
