@@ -50,6 +50,10 @@ Given(`the current datetime is {string}`, datetimeString => {
   cy.clock(date.getTime(), ['Date', 'setTimeout', 'clearTimeout', 'setInterval', 'clearInterval']);
 });
 
+When(`{int} hours pass`, hours => {
+  cy.tick(hours * 60 * 60 * 1000);
+});
+
 Then('it is before sunrise', () => {
   cy.get('span').contains('beforeSunrise');
 });
