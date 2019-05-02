@@ -23,7 +23,7 @@ beforeEach(() => {
   });
   cy.server();
   cy.route('/accesstoken', 'fixture:morningcd/accessToken.json');
-  cy.fixture('morningcd/accesstoken.json').then(({ accessToken }) => {
+  cy.fixture('morningcd/accessToken.json').then(({ accessToken }) => {
     const fixtureNameById = [
       ['4cHr9tKAv2sHQwj79tmCG8', 'whathegirlmuthafuckinwannadoo.json'],
       ['3o9lfY9tbv3S00atFxNki5', 'bigblue.json'],

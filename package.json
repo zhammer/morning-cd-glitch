@@ -39,6 +39,12 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "prettier": {
+    "jsxSingleQuote": true,
+    "singleQuote": true,
+    "printWidth": 100,
+    "tabWidth": 2
+  },
   "eslintConfig": {
     "extends": "react-app"
   },
@@ -62,6 +68,9 @@
     "cypress-app-watcher-preprocessor": "^1.1.2",
     "cypress-cucumber-preprocessor": "^1.11.0",
     "cypress-plugin-tab": "^1.0.0",
-    "graphql-tools": "^4.0.4"
+    "graphql-tools": "^4.0.4",
+    "prettier": "^1.17.0",
+    "prettylint": "^1.0.0",
+    "serve": "^11.0.0"
   }
 }

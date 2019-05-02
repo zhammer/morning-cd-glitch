@@ -21,7 +21,7 @@ beforeEach(() => {
   });
   cy.server();
   cy.route('/accesstoken', 'fixture:morningcd/accessToken.json');
-  cy.fixture('morningcd/accesstoken.json').then(({ accessToken }) => {
+  cy.fixture('morningcd/accessToken.json').then(({ accessToken }) => {
     cy.route({
       url: '/v1/search?query=Stay Flo&type=track&limit=5',
       response: 'fixture:spotify/stayFloSearch.json',
