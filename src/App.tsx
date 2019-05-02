@@ -12,11 +12,10 @@ import useSundial, { useGnomon } from './hooks/useSundial';
 
 function App() {
   useSundial();
-  const [sundialState] = useGnomon();
+  const [timeOfDay] = useGnomon();
   return (
-    <>
+    <div data-time-of-day={timeOfDay}>
       <GlobalStyle />
-      <span>{sundialState}</span>
       <Router>
         <Switch>
           <Route exact path='/question' component={QuestionPage} />
@@ -25,7 +24,7 @@ function App() {
           <Redirect from='/' to='/question' />
         </Switch>
       </Router>
-    </>
+    </div>
   );
 }
 

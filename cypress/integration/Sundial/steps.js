@@ -64,15 +64,15 @@ When(`{int} hours pass`, hours => {
 });
 
 When('I see that it is day', () => {
-  cy.get('span').contains('day');
+  cy.get('div[data-time-of-day=day]');
 });
 
 When('I see that it is before sunrise', () => {
-  cy.get('span').contains('beforeSunrise');
+  cy.get('div[data-time-of-day=beforeSunrise]');
 });
 
 When('I see that it is after sunset', () => {
-  cy.get('span').contains('afterSunset');
+  cy.get('div[data-time-of-day=afterSunset]');
 });
 
 When('I wait a second for the sundial to recalibrate', () => {
@@ -80,17 +80,17 @@ When('I wait a second for the sundial to recalibrate', () => {
 });
 
 Then('it is before sunrise', () => {
-  cy.get('span').contains('beforeSunrise');
+  cy.get('div[data-time-of-day=beforeSunrise]');
 });
 
 Then('it is day', () => {
-  cy.get('span').contains('day');
+  cy.get('div[data-time-of-day=day]');
 });
 
 Then('it is after sunset', () => {
-  cy.get('span').contains('afterSunset');
+  cy.get('div[data-time-of-day=afterSunset]');
 });
 
 Then('it is calibrating', () => {
-  cy.get('span').contains('calibrating');
+  cy.get('div[data-time-of-day=calibrating]');
 });
