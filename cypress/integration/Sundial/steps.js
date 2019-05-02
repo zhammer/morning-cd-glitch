@@ -47,7 +47,7 @@ Given(`the following sunlight windows`, sunlightWindowTable => {
 
 Given(`the current datetime is {string}`, datetimeString => {
   const date = new Date(datetimeString);
-  cy.clock(date.getTime(), ['Date']);
+  cy.clock(date.getTime(), ['Date', 'setTimeout', 'clearTimeout', 'setInterval', 'clearInterval']);
 });
 
 Then('it is before sunrise', () => {
