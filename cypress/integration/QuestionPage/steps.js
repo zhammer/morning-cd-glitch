@@ -1,3 +1,4 @@
+/* global cy Cypress */
 /// <reference types="cypress" />
 
 import { Then, When } from 'cypress-cucumber-preprocessor/steps';

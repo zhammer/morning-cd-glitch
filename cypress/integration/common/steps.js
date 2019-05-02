@@ -1,6 +1,7 @@
+/* global cy */
 /// <reference types="cypress" />
 
-import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { Then, When } from 'cypress-cucumber-preprocessor/steps';
 
 When(`I visit {string}`, path => {
   cy.visit(path);
