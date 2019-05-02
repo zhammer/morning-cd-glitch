@@ -33,6 +33,8 @@ jobs:
       - run:
           name: Run cypress tests
           command: yarn run cypress run --record
+          environment:
+            CYPRESS_baseUrl: http://localhost:5000
 
 workflows:
   build:
