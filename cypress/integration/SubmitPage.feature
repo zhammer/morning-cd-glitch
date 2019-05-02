@@ -2,6 +2,9 @@ Feature: Submit Page
   On the Submit Page, I can submit my listen to morning cd. When I
   submit my listen, I am brought to the Listens Page.
 
+  Background:
+    Given it is daytime
+
   Scenario Outline: I am on the submit page for <name>
     When I visit the submit page with the id "<id>"
     Then I see a container with the title "Submit Listen"

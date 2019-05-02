@@ -1,7 +1,20 @@
 /* global cy */
 /// <reference types="cypress" />
 
-import { Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
+
+Given('it is daytime', () => {
+  // hacky solution that sets all daytime windows span the century,
+  // so that the current time is definitely in today's sunlight window.
+  cy.graphqlUpdate({
+    Query: () => ({
+      sunlightWindow: (_, args) => ({
+        sunriseUtc: '1970-01-01T00:00:00',
+        sunsetUtc: '2070-01-01T00:00:00'
+      })
+    })
+  });
+});
 
 When(`I visit {string}`, path => {
   cy.visit(path);
