@@ -26,7 +26,7 @@ const day: ThemeInterface = {
   success: {
     normal: '#92cc41',
     shadow: '#4aa52e',
-    hover: '#108de0'
+    hover: '#76c442'
   },
   warning: {
     normal: '#f7d51d',

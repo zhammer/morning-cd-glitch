@@ -1,6 +1,6 @@
 import React from 'react';
-import { Song as SongInterface } from '../../../definitions';
-import Image from '../../../components/Image';
+import { Song as SongInterface } from '../../definitions';
+import Image from '../Image';
 import { Columns, SongInfo, SongContainer } from './Song.styles';
 
 interface SongProps {

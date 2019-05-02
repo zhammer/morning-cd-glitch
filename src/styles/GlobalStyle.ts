@@ -1,5 +1,5 @@
 import { createGlobalStyle } from '../custom/styled-components';
-import { cursorUrl } from './variables';
+import { cursorUrl, cursorClickUrl } from './variables';
 
 export const GlobalStyle = createGlobalStyle`
   html {
@@ -19,6 +19,10 @@ export const GlobalStyle = createGlobalStyle`
 
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+
+  a {
+    cursor: url(${cursorClickUrl}), pointer;
   }
 
   /* from reboot */

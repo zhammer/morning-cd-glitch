@@ -13,6 +13,8 @@ import { fetch as fetchPolyfill } from 'whatwg-fetch';
 const typeDefs = gql`
   extend type Query {
     questionInput: String!
+    nameInput: String!
+    noteInput: String!
   }
 `;
 
@@ -22,7 +24,9 @@ const typeDefs = gql`
 const cache = new InMemoryCache();
 const initialData = {
   data: {
-    questionInput: ''
+    questionInput: '',
+    noteInput: '',
+    nameInput: ''
   }
 };
 cache.writeData(initialData);
@@ -31,7 +35,8 @@ cache.writeData(initialData);
  * LINK
  */
 const httpLink = createHttpLink({
-  uri: (process.env.REACT_APP_MORNING_CD_API_ENDPOINT || '/') + '/graphql'
+  fetch: (window as any).cypressGraphqlFetch || window.fetch,
+  uri: (process.env.REACT_APP_MORNING_CD_API_ENDPOINT || '') + '/graphql'
 });
 
 function pluckSong(rawSong: any): Song {
@@ -45,9 +50,10 @@ function pluckSong(rawSong: any): Song {
     imageSmallUrl: rawSong.album.images[2].url
   };
 }
+
 const restLink = new RestLink({
   // cypress hack: see https://github.com/cypress-io/cypress/issues/95
-  customFetch: window.fetch ? window.fetch : fetchPolyfill,
+  customFetch: window.fetch || fetchPolyfill,
   endpoints: {
     morningCd: {
       uri: process.env.REACT_APP_MORNING_CD_API_ENDPOINT || '/',
@@ -60,10 +66,14 @@ const restLink = new RestLink({
     spotify: {
       uri: 'https://api.spotify.com/v1',
       responseTransformer: async (response, typeName) => {
-        if (typeName === '[Song!]') {
+        if (typeName === '[Song]') {
           const responseJson = await response.json();
           const rawSongs = responseJson.tracks.items;
           return rawSongs.map(pluckSong);
+        }
+        if (typeName === 'Song') {
+          const responseJson = await response.json();
+          return pluckSong(responseJson);
         }
       }
     }
@@ -71,7 +81,7 @@ const restLink = new RestLink({
 });
 
 const spotifyAuthHeadersLink = new ApolloLink((operation, forward) => {
-  if (operation.operationName === 'SearchSongsQuery') {
+  if (['SearchSongsQuery', 'SongQuery'].includes(operation.operationName)) {
     const { cache } = operation.getContext();
     const accessToken = cache.data.data.ROOT_QUERY.accessToken;
     operation.setContext({

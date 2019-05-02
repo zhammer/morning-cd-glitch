@@ -1,0 +1,86 @@
+# The `Date` scalar type represents a Date
+# value as specified by
+# [iso8601](https://en.wikipedia.org/wiki/ISO_8601).
+scalar Date
+
+# The `DateTime` scalar type represents a DateTime
+# value as specified by
+# [iso8601](https://en.wikipedia.org/wiki/ISO_8601).
+scalar DateTime
+
+# A listen submitted by a user to morning cd.
+type Listen {
+  id: ID!
+  song: Song
+  listenerName: String
+  listenTimeUtc: DateTime
+  note: String
+  ianaTimezone: String
+}
+
+# A collection of listens from morning cd with relay cursor-pagination.
+type ListenConnection {
+  pageInfo: PageInfo!
+  edges: [ListenEdge]!
+}
+
+type ListenEdge {
+  # The item at the end of the edge
+  node: Listen
+  cursor: DateTime
+}
+
+# Input for submitting a listen to morning cd.
+input ListenInput {
+  songId: String!
+  songProvider: MusicProvider
+  listenerName: String!
+  note: String
+  ianaTimezone: String!
+}
+
+# An enumeration.
+enum MusicProvider {
+  SPOTIFY
+}
+
+# Root mutation type for morning cd.
+type Mutation {
+  submitListen(input: ListenInput!): Listen
+}
+
+type PageInfo {
+  # When paginating forwards, are there more items?
+  hasNextPage: Boolean!
+  # When paginating backwards, are there more items?
+  hasPreviousPage: Boolean!
+  # When paginating backwards, the cursor to continue.
+  startCursor: String
+  # When paginating forwards, the cursor to continue.
+  endCursor: String
+}
+
+# Root query type for morning cd.
+type Query {
+  listen(id: ID!): Listen
+  allListens(before: DateTime, after: DateTime, first: Int, last: Int): ListenConnection
+  sunlightWindow(ianaTimezone: String!, onDate: Date!): SunlightWindow
+}
+
+# A song from a given music provider.
+type Song {
+  id: ID!
+  name: String
+  songProvider: MusicProvider
+  artistName: String
+  albumName: String
+  imageLargeUrl: String
+  imageMediumUrl: String
+  imageSmallUrl: String
+}
+
+# The sunrise and sunset utc times for a location on a given date.
+type SunlightWindow {
+  sunriseUtc: DateTime!
+  sunsetUtc: DateTime!
+}
