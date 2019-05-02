@@ -1,7 +1,10 @@
 Feature: Sundial
-  The sundial keeps track of what time of day it is:
-  before sunset, day, or after sunset. These tests require
-  that the local timezone is set to America/New_York.
+  The sundial keeps track of what time of day it is: before sunset, day, or
+  after sunset.
+
+  (Development note: These tests require that the local timezone is set to
+  America/New_York due to limitations in live patching the browser's timezone.
+  Tests can be run as such: "TZ='America/New_York' yarn run cypress open".)
 
   Background:
     Given I am in New York
@@ -15,8 +18,8 @@ Feature: Sundial
   Scenario Outline: It is <timeOfDay>
     Given the current datetime in new york is "2019-05-03 <time>"
     When I visit "/question"
-    Then it is calibrating
-    Then it is <timeOfDay>
+    Then the sundial is set to calibrating
+    Then the sundial is set to <timeOfDay>
 
     Examples:
       | time     | timeOfDay      |
@@ -27,32 +30,32 @@ Feature: Sundial
   Scenario: The sun sets
     Given the current datetime in new york is "2019-05-03 13:15:20"
     When I visit "/question"
-    And I see that it is day
+    And the sundial is set to day
     And 7 hours pass
-    Then it is after sunset
+    Then the sundial is set to after sunset
 
   Scenario: The sun rises
     Given the current datetime in new york is "2019-05-03 04:15:20"
     When I visit "/question"
-    And I see that it is before sunrise
+    And the sundial is set to before sunrise
     And 4 hours pass
-    Then it is day
+    Then the sundial is set to day
 
   Scenario: A new day comes
     Given the current datetime in new york is "2019-05-03 20:15:10"
     When I visit "/question"
-    And I see that it is after sunset
+    And the sundial is set to after sunset
     And 5 hours pass
-    Then it is before sunrise
+    Then the sundial is set to before sunrise
 
   Scenario: 24 hours pass
     Given the current datetime in new york is "2019-05-03 23:00:00"
     When I visit "/question"
-    And I see that it is after sunset
-    And 1 hours pass
-    And I see that it is before sunrise
-    And I wait a second for the sundial to recalibrate
+    And the sundial is set to after sunset
+    And 1 hour passes
+    And the sundial is set to before sunrise
+    And I wait a moment for the sundial to recalibrate
     And 10 hours pass
-    And I see that it is day
+    And the sundial is set to day
     And 13 hours pass
-    Then it is after sunset
+    Then the sundial is set to after sunset

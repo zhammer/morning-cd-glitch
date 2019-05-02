@@ -27,7 +27,7 @@ Given('I am in New York', () => {
   cy.then(() => {
     expect(Intl.DateTimeFormat().resolvedOptions().timeZone).to.equal(
       'America/New_York',
-      'These tests only work when the local timezone is America/New_York'
+      'These tests only work when the local timezone is America/New_York. Run "TZ=America/New_York {cypress command}"'
     );
   });
 });
@@ -60,38 +60,17 @@ Given(`the current datetime in new york is {string}`, datetimeString => {
   cy.clock(date.getTime(), ['Date', 'setTimeout', 'clearTimeout', 'setInterval', 'clearInterval']);
 });
 
-When(`{int} hours pass`, hours => {
+When(/(\d+) hours? pass(?:es)?/, hours => {
   cy.tick(hours * 60 * 60 * 1000);
 });
 
-When('I see that it is day', () => {
-  cy.get('div[data-time-of-day=day]');
+When('I wait a moment for the sundial to recalibrate', () => {
+  cy.wait(250);
 });
 
-When('I see that it is before sunrise', () => {
-  cy.get('div[data-time-of-day=beforeSunrise]');
-});
-
-When('I see that it is after sunset', () => {
-  cy.get('div[data-time-of-day=afterSunset]');
-});
-
-When('I wait a second for the sundial to recalibrate', () => {
-  cy.wait(1000);
-});
-
-Then('it is before sunrise', () => {
-  cy.get('div[data-time-of-day=beforeSunrise]');
-});
-
-Then('it is day', () => {
-  cy.get('div[data-time-of-day=day]');
-});
-
-Then('it is after sunset', () => {
-  cy.get('div[data-time-of-day=afterSunset]');
-});
-
-Then('it is calibrating', () => {
-  cy.get('div[data-time-of-day=calibrating]');
+Then(/the sundial is set to (calibrating|before sunrise|day|after sunset)/, timeOfDay => {
+  const camelCaseTimeOfDay = timeOfDay
+    .split(' ')
+    .reduce((curr, next) => `${curr}${next[0].toUpperCase()}${next.slice(1)}`);
+  cy.get(`div[data-time-of-day=${camelCaseTimeOfDay}]`);
 });
