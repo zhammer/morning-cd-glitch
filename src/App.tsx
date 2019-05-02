@@ -8,22 +8,35 @@ import { GlobalStyle } from './styles/GlobalStyle';
 import QuestionPage from './pages/QuestionPage';
 import SubmitPage from './pages/SubmitPage';
 import ListensPage from './pages/ListensPage';
+import useSundial, { useGnomon } from './hooks/useSundial';
 
-export default function App() {
+function App() {
+  useSundial();
+  const [timeOfDay] = useGnomon();
+  return (
+    <div data-time-of-day={timeOfDay}>
+      <GlobalStyle />
+      {timeOfDay === 'calibrating' ? (
+        <div>Calibrating</div>
+      ) : (
+        <Router>
+          <Switch>
+            <Route exact path='/question' component={QuestionPage} />
+            <Route exact path='/submit' component={SubmitPage} />
+            <Route exact path='/listens' component={ListensPage} />
+            <Redirect from='/' to='/question' />
+          </Switch>
+        </Router>
+      )}
+    </div>
+  );
+}
+
+export default function AppWithProviders() {
   return (
     <ApolloProvider client={client}>
       <ThemeProvider theme={theme.day}>
-        <>
-          <GlobalStyle />
-          <Router>
-            <Switch>
-              <Route exact path='/question' component={QuestionPage} />
-              <Route exact path='/submit' component={SubmitPage} />
-              <Route exact path='/listens' component={ListensPage} />
-              <Redirect from='/' to='/question' />
-            </Switch>
-          </Router>
-        </>
+        <App />
       </ThemeProvider>
     </ApolloProvider>
   );

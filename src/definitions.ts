@@ -11,3 +11,14 @@ export interface Song {
   imageMediumUrl: string;
   imageSmallUrl: string;
 }
+
+export interface SunlightWindow {
+  sunrise: Date;
+  sunset: Date;
+}
+
+export interface SunlightWindows {
+  yesterday: SunlightWindow;
+  today: SunlightWindow;
+  tomorrow: SunlightWindow;
+}

@@ -2,6 +2,9 @@ Feature: Question Page
   On the Question Page, I can search for the first song I listened to
   this morning. When I select a song, I am brought to the Submit Page.
 
+  Background:
+    Given it is daytime
+
   Scenario: I visit morning cd
     When I visit morning cd
     Then I am redirected to "/question"
