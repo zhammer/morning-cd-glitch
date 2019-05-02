@@ -56,7 +56,7 @@ Given(`these are the sunlight windows for new york`, sunlightWindowTable => {
   });
 });
 
-Given(`the current datetime in new york is {string}`, datetimeString => {
+Given(`the current local datetime in new york is {string}`, datetimeString => {
   const date = new Date(datetimeString);
   cy.clock(date.getTime(), ['Date', 'setTimeout', 'clearTimeout', 'setInterval', 'clearInterval']);
 });

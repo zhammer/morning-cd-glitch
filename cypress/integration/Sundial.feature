@@ -16,7 +16,7 @@ Feature: Sundial
       | 2019-05-05 | 09:48:57   | 23:56:25  |
 
   Scenario Outline: It is <timeOfDay>
-    Given the current datetime in new york is "2019-05-03 <time>"
+    Given the current local datetime in new york is "2019-05-03 <time>"
     When I visit "/question"
     Then the sundial is set to calibrating
     Then the sundial is set to <timeOfDay>
@@ -28,28 +28,28 @@ Feature: Sundial
       | 20:15:10 | after sunset   |
 
   Scenario: The sun sets
-    Given the current datetime in new york is "2019-05-03 13:15:20"
+    Given the current local datetime in new york is "2019-05-03 13:15:20"
     When I visit "/question"
     And the sundial is set to day
     And 7 hours pass
     Then the sundial is set to after sunset
 
   Scenario: The sun rises
-    Given the current datetime in new york is "2019-05-03 04:15:20"
+    Given the current local datetime in new york is "2019-05-03 04:15:20"
     When I visit "/question"
     And the sundial is set to before sunrise
     And 4 hours pass
     Then the sundial is set to day
 
   Scenario: A new day comes
-    Given the current datetime in new york is "2019-05-03 20:15:10"
+    Given the current local datetime in new york is "2019-05-03 20:15:10"
     When I visit "/question"
     And the sundial is set to after sunset
     And 5 hours pass
     Then the sundial is set to before sunrise
 
   Scenario: 24 hours pass
-    Given the current datetime in new york is "2019-05-03 23:00:00"
+    Given the current local datetime in new york is "2019-05-03 23:00:00"
     When I visit "/question"
     And the sundial is set to after sunset
     And 1 hour passes
