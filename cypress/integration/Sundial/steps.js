@@ -43,6 +43,7 @@ Given(`these are the sunlight windows for new york`, sunlightWindowTable => {
     }),
     {}
   );
+  cy.log(sunlightWindows);
   cy.then(() => {
     cy.graphqlUpdate({
       Query: () => ({
