@@ -56,10 +56,10 @@ commands:
     steps:
       - restore_cache:
           keys:
-            - node-cache-{{ checksum "yarn.lock" }}
+            - cypress-node-cache-{{ checksum "yarn.lock" }}
       - run: yarn install
       - save_cache:
-          key: node-cache-{{ checksum "yarn.lock" }}
+          key: cypress-node-cache-{{ checksum "yarn.lock" }}
           paths:
             node_modules
             ~/.cache
