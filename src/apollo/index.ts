@@ -15,6 +15,16 @@ const typeDefs = gql`
     questionInput: String!
     nameInput: String!
     noteInput: String!
+    sundial: Sundial!
+  }
+  type Sundial {
+    state: SundialState!
+  }
+  enum SundialState {
+    calibrating
+    beforesunrise
+    day
+    afterSunset
   }
 `;
 
@@ -26,7 +36,11 @@ const initialData = {
   data: {
     questionInput: '',
     noteInput: '',
-    nameInput: ''
+    nameInput: '',
+    sundial: {
+      state: 'calibrating',
+      __typename: 'Sundial'
+    }
   }
 };
 cache.writeData(initialData);

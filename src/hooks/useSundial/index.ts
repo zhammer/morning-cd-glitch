@@ -1,9 +1,10 @@
 import { useMachine } from '@xstate/react';
 import { SundialMachine } from './machine';
-import { useMemo } from 'react';
+import { useMemo, useEffect } from 'react';
 import gql from 'graphql-tag';
 import { useApolloClient } from 'react-apollo-hooks';
 import { SunlightWindow } from '../../definitions';
+import useLocalApolloQuery from '../useLocalApolloQuery';
 
 type SundialState = 'calibrating' | 'beforeSunrise' | 'day' | 'afterSunset';
 
@@ -25,6 +26,14 @@ const SUNLIGHT_WINDOWS_QUERY = gql`
     tomorrow: sunlightWindow(ianaTimezone: $ianaTimezone, onDate: $tomorrowDate) {
       sunriseUtc
       sunsetUtc
+    }
+  }
+`;
+
+const SUNDIAL_QUERY = gql`
+  query Sundial {
+    sundial {
+      state
     }
   }
 `;
@@ -82,7 +91,7 @@ function getVariables() {
   };
 }
 
-export default function useSundial(): [SundialState] {
+export default function useSundial() {
   const client = useApolloClient();
   const [current] = useMachine(
     SundialMachine.withConfig({
@@ -119,6 +128,23 @@ export default function useSundial(): [SundialState] {
     }
     throw new Error();
   }, [current]);
+  useEffect(() => {
+    client.writeQuery({
+      query: SUNDIAL_QUERY,
+      data: {
+        sundial: {
+          state,
+          __typename: 'Sundial'
+        }
+      }
+    });
+  }, [state, client]);
+}
 
-  return [state];
+/**
+ * The gnomon is the part of the sundial that casts a shadow.
+ */
+export function useGnomon(): [SundialState] {
+  const [data] = useLocalApolloQuery<{ sundial: { state: SundialState } }>(SUNDIAL_QUERY);
+  return [data.sundial.state];
 }

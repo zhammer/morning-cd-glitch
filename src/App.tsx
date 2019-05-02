@@ -8,10 +8,11 @@ import { GlobalStyle } from './styles/GlobalStyle';
 import QuestionPage from './pages/QuestionPage';
 import SubmitPage from './pages/SubmitPage';
 import ListensPage from './pages/ListensPage';
-import useSundial from './hooks/useSundial';
+import useSundial, { useGnomon } from './hooks/useSundial';
 
 function App() {
-  const [sundialState] = useSundial();
+  useSundial();
+  const [sundialState] = useGnomon();
   return (
     <>
       <GlobalStyle />
