@@ -1,23 +1,6 @@
 import { assign, Machine, send } from 'xstate';
-import { SunlightWindow, SunlightWindows } from '../../definitions';
-
-type TimeOfDay = 'beforeSunrise' | 'day' | 'afterSunset';
-
-function timeOfDay(time: Date, day: SunlightWindow): TimeOfDay {
-  if (time < day.sunrise) {
-    return 'beforeSunrise';
-  } else if (time > day.sunset) {
-    return 'afterSunset';
-  } else {
-    return 'day';
-  }
-}
-
-function midnightAfter(datetime: Date): Date {
-  var midnight = new Date(datetime);
-  midnight.setHours(24, 0, 0, 0);
-  return midnight;
-}
+import { SunlightWindows } from '../../definitions';
+import { timeOfDay, midnightAfter } from './util';
 
 type Context = {
   sunlightWindows?: SunlightWindows;
