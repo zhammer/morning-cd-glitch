@@ -1,8 +1,8 @@
 import { useMachine } from '@xstate/react';
 import { SundialMachine } from './machine';
-import { useMemo, useEffect } from 'react';
+import { useMemo } from 'react';
 import gql from 'graphql-tag';
-import { useQuery } from 'react-apollo-hooks';
+import { useApolloClient } from 'react-apollo-hooks';
 import { SunlightWindow } from '../../definitions';
 
 type SundialState = 'calibrating' | 'beforeSunrise' | 'day' | 'afterSunset';
@@ -83,29 +83,26 @@ function getVariables() {
 }
 
 export default function useSundial(): [SundialState] {
-  const { data, refetch } = useQuery(SUNLIGHT_WINDOWS_QUERY, {
-    variables: getVariables()
-  });
-  const [current, send] = useMachine(
+  const client = useApolloClient();
+  const [current] = useMachine(
     SundialMachine.withConfig({
-      actions: {
-        refetchSunlightWindows: () => refetch(getVariables())
+      services: {
+        fetchSunlightWindows: async () => {
+          const response: any = await client.query({
+            query: SUNLIGHT_WINDOWS_QUERY,
+            variables: getVariables()
+          });
+          const sunlightWindows = {
+            yesterday: pluckSunlightWindow(response.data.yesterday),
+            today: pluckSunlightWindow(response.data.today),
+            tomorrow: pluckSunlightWindow(response.data.tomorrow)
+          };
+          return sunlightWindows;
+        }
       }
     }),
     { devTools: true }
   );
-  useEffect(() => {
-    if (data && data.hasOwnProperty('today')) {
-      send({
-        type: 'SUNLIGHT_WINDOWS',
-        sunlightWindows: {
-          yesterday: pluckSunlightWindow(data.yesterday),
-          today: pluckSunlightWindow(data.today),
-          tomorrow: pluckSunlightWindow(data.tomorrow)
-        }
-      });
-    }
-  }, [data]);
 
   const state = useMemo<SundialState>(() => {
     if (current.matches('calibrating')) {

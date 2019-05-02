@@ -22,7 +22,16 @@ beforeEach(() => {
   });
 });
 
-Given(`the following sunlight windows`, sunlightWindowTable => {
+Given('I am in New York', () => {
+  cy.then(() => {
+    expect(Intl.DateTimeFormat().resolvedOptions().timeZone).to.equal(
+      'America/New_York',
+      'These tests only work when the local timezone is America/New_York'
+    );
+  });
+});
+
+Given(`these are the sunlight windows for new york`, sunlightWindowTable => {
   const sunlightWindows = sunlightWindowTable.hashes().reduce(
     (current, { date, sunriseUtc, sunsetUtc }) => ({
       ...current,
@@ -45,13 +54,29 @@ Given(`the following sunlight windows`, sunlightWindowTable => {
   });
 });
 
-Given(`the current datetime is {string}`, datetimeString => {
+Given(`the current datetime in new york is {string}`, datetimeString => {
   const date = new Date(datetimeString);
   cy.clock(date.getTime(), ['Date', 'setTimeout', 'clearTimeout', 'setInterval', 'clearInterval']);
 });
 
 When(`{int} hours pass`, hours => {
   cy.tick(hours * 60 * 60 * 1000);
+});
+
+When('I see that it is day', () => {
+  cy.get('span').contains('day');
+});
+
+When('I see that it is before sunrise', () => {
+  cy.get('span').contains('beforeSunrise');
+});
+
+When('I see that it is after sunset', () => {
+  cy.get('span').contains('afterSunset');
+});
+
+When('I wait a second for the sundial to recalibrate', () => {
+  cy.wait(1000);
 });
 
 Then('it is before sunrise', () => {

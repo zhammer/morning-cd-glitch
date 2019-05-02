@@ -34,18 +34,15 @@ type Schema = {
     day: {};
     afterSunset: {};
   };
+  services: {
+    fetchSunlightWindows: () => Promise<SunlightWindows>;
+  };
 };
-type SunlightWindowsEvent = { type: 'SUNLIGHT_WINDOWS'; sunlightWindows: SunlightWindows };
 type Event =
-  | SunlightWindowsEvent
   | { type: 'CALIBRATE_TO_BEFORE_SUNRISE' }
   | { type: 'CALIBRATE_TO_AFTER_SUNSET' }
   | { type: 'CALIBRATE_TO_DAY' }
   | { type: 'RECALIBRATED' };
-
-function isSunlightWindowsEvent(event: Event): event is SunlightWindowsEvent {
-  return event.hasOwnProperty('sunlightWindows');
-}
 
 export const SundialMachine = Machine<Context, Schema, Event>({
   initial: 'calibrating',
@@ -53,27 +50,29 @@ export const SundialMachine = Machine<Context, Schema, Event>({
   context: {},
   states: {
     calibrating: {
-      on: {
-        SUNLIGHT_WINDOWS: {
+      invoke: {
+        src: 'fetchSunlightWindows',
+        onDone: {
           actions: [
-            assign<Context, SunlightWindowsEvent>({
-              sunlightWindows: (_, event) => event.sunlightWindows
+            assign<any>({
+              sunlightWindows: (_: any, event: any) => event.data
             }),
-            send<Context, Event>((_, event) => {
-              if (!isSunlightWindowsEvent(event)) {
-                throw new Error();
-              }
-              switch (timeOfDay(new Date(), event.sunlightWindows.today)) {
+            send((_: any, event: any) => {
+              switch (timeOfDay(new Date(), event.data.today)) {
                 case 'beforeSunrise':
                   return { type: 'CALIBRATE_TO_BEFORE_SUNRISE' };
                 case 'afterSunset':
                   return { type: 'CALIBRATE_TO_AFTER_SUNSET' };
                 case 'day':
                   return { type: 'CALIBRATE_TO_DAY' };
+                default:
+                  throw new Error();
               }
             })
           ]
-        },
+        }
+      },
+      on: {
         CALIBRATE_TO_BEFORE_SUNRISE: 'beforeSunrise',
         CALIBRATE_TO_AFTER_SUNSET: 'afterSunset',
         CALIBRATE_TO_DAY: 'day'
@@ -96,19 +95,21 @@ export const SundialMachine = Machine<Context, Schema, Event>({
                   tomorrow: context.sunlightWindows.tomorrow
                 };
               }
-            }),
-            'refetchSunlightWindows'
+            })
           ],
-          on: {
-            SUNLIGHT_WINDOWS: {
+          invoke: {
+            src: 'fetchSunlightWindows',
+            onDone: {
               actions: [
-                assign<Context, SunlightWindowsEvent>({
-                  sunlightWindows: (_, event) => event.sunlightWindows
+                assign<any>({
+                  sunlightWindows: (_: any, event: any) => event.data
                 }),
                 send('RECALIBRATED')
               ]
-            },
-            RECALIBRATED: 'beforeSunrise.default'
+            }
+          },
+          on: {
+            RECALIBRATED: '#sundial.beforeSunrise.default'
           }
         },
         default: {
@@ -120,7 +121,7 @@ export const SundialMachine = Machine<Context, Schema, Event>({
                 }
                 return context.sunlightWindows.today.sunrise.getTime() - new Date().getTime();
               },
-              target: 'day'
+              target: '#sundial.day'
             }
           ]
         }
