@@ -16,14 +16,18 @@ function App() {
   return (
     <div data-time-of-day={timeOfDay}>
       <GlobalStyle />
-      <Router>
-        <Switch>
-          <Route exact path='/question' component={QuestionPage} />
-          <Route exact path='/submit' component={SubmitPage} />
-          <Route exact path='/listens' component={ListensPage} />
-          <Redirect from='/' to='/question' />
-        </Switch>
-      </Router>
+      {timeOfDay === 'calibrating' ? (
+        <div>Calibrating</div>
+      ) : (
+        <Router>
+          <Switch>
+            <Route exact path='/question' component={QuestionPage} />
+            <Route exact path='/submit' component={SubmitPage} />
+            <Route exact path='/listens' component={ListensPage} />
+            <Redirect from='/' to='/question' />
+          </Switch>
+        </Router>
+      )}
     </div>
   );
 }
