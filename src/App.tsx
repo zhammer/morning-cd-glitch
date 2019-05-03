@@ -9,6 +9,7 @@ import QuestionPage from './pages/QuestionPage';
 import SubmitPage from './pages/SubmitPage';
 import ListensPage from './pages/ListensPage';
 import useSundial, { useGnomon } from './hooks/useSundial';
+import ProgressBarLoaderPage from './pages/ProgressBarLoaderPage';
 
 function App() {
   useSundial();
@@ -17,7 +18,7 @@ function App() {
     <div data-time-of-day={timeOfDay}>
       <GlobalStyle />
       {timeOfDay === 'calibrating' ? (
-        <div>Calibrating</div>
+        <ProgressBarLoaderPage />
       ) : (
         <Router>
           <Switch>
