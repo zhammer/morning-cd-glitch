@@ -6,6 +6,8 @@ Feature: Loading CDs Page
     When I visit "/question"
     Then I see the loading cds page
     And the progress bar has the value 0
+    * Snap! *
     Then some time passes
     And the progress bar has the value 100
+    * Snap! *
     And the progress bar is blinking
