@@ -19,6 +19,10 @@ Given('the internet is slow', () => {
   });
 });
 
+Given('time is frozen', () => {
+  cy.clock();
+});
+
 Then('some time passes', () => {});
 
 Then(`the progress bar has the value {int}`, value => {
