@@ -1,5 +1,6 @@
 {
   "name": "morning-cd-glitch",
+  "proxy": "https://api.morningcd.com",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
