@@ -17,9 +17,9 @@ const ProgressBarContainer = styled.div`
   }
 `;
 
-export default function ProgressBarLoaderPage() {
+export default function LoadingCDsPage() {
   return (
-    <FullScreenCenter>
+    <FullScreenCenter data-test='loading-cds-page'>
       <ProgressBarContainer>
         <span>Loading CDs...</span>
         <ProgressBarLoader />
