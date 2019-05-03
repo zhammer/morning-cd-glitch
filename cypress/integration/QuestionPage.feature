@@ -3,7 +3,7 @@ Feature: Question Page
   this morning. When I select a song, I am brought to the Submit Page.
 
   Background:
-    Given it is daytime
+    Given it is day
 
   Scenario: I visit morning cd
     When I visit morning cd

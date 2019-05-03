@@ -3,7 +3,7 @@ Feature: Submit Page
   submit my listen, I am brought to the Listens Page.
 
   Background:
-    Given it is daytime
+    Given it is day
 
   Scenario Outline: I am on the submit page for <name>
     When I visit the submit page with the id "<id>"
