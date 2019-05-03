@@ -1,6 +1,7 @@
 import { assign, Machine, send } from 'xstate';
 import { SunlightWindows } from '../../definitions';
 import { timeOfDay, midnightAfter } from './util';
+import { TimeOfDay } from './types';
 
 type Context = {
   sunlightWindows?: SunlightWindows;
@@ -21,11 +22,14 @@ type Schema = {
     fetchSunlightWindows: () => Promise<SunlightWindows>;
   };
 };
-type Event =
-  | { type: 'CALIBRATE_TO_BEFORE_SUNRISE' }
-  | { type: 'CALIBRATE_TO_AFTER_SUNSET' }
-  | { type: 'CALIBRATE_TO_DAY' }
-  | { type: 'RECALIBRATED' };
+type CalibrateEvent = {
+  type: 'CALIBRATE';
+  to: TimeOfDay;
+};
+type RecalibratedEvent = {
+  type: 'RECALIBRATED';
+};
+type Event = CalibrateEvent | RecalibratedEvent;
 
 export const SundialMachine = Machine<Context, Schema, Event>({
   initial: 'calibrating',
@@ -40,25 +44,19 @@ export const SundialMachine = Machine<Context, Schema, Event>({
             assign<any>({
               sunlightWindows: (_: any, event: any) => event.data
             }),
-            send((_: any, event: any) => {
-              switch (timeOfDay(new Date(), event.data.today)) {
-                case 'beforeSunrise':
-                  return { type: 'CALIBRATE_TO_BEFORE_SUNRISE' };
-                case 'afterSunset':
-                  return { type: 'CALIBRATE_TO_AFTER_SUNSET' };
-                case 'day':
-                  return { type: 'CALIBRATE_TO_DAY' };
-                default:
-                  throw new Error();
-              }
-            })
+            send((_: any, event: any) => ({
+              type: 'CALIBRATE',
+              to: timeOfDay(new Date(), event.data.today)
+            }))
           ]
         }
       },
       on: {
-        CALIBRATE_TO_BEFORE_SUNRISE: 'beforeSunrise',
-        CALIBRATE_TO_AFTER_SUNSET: 'afterSunset',
-        CALIBRATE_TO_DAY: 'day'
+        CALIBRATE: [
+          { target: 'beforeSunrise', cond: (_, event) => event.to === 'beforeSunrise' },
+          { target: 'afterSunset', cond: (_, event) => event.to === 'afterSunset' },
+          { target: 'day', cond: (_, event) => event.to === 'day' }
+        ]
       }
     },
     beforeSunrise: {
