@@ -14,6 +14,7 @@ import useSubmitListenForm from './useSubmitListenForm';
 import useSubmitListen from './useSubmitListen';
 import useSubmitStateMachine from './useSubmitStateMachine';
 import { Link } from 'react-router-dom';
+import { useGnomon } from '../../hooks/useSundial';
 
 export default function SubmitPage() {
   const queryParams = useQueryParams();
@@ -23,6 +24,7 @@ export default function SubmitPage() {
   const [name, note, setName, setNote, valid] = useSubmitListenForm();
   const [submit] = useSubmitListen();
   const [submitState, sendSubmitStateEvent] = useSubmitStateMachine();
+  const [timeOfDay] = useGnomon();
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -36,6 +38,7 @@ export default function SubmitPage() {
     sendSubmitStateEvent('SUCCESS');
   }
 
+  if (timeOfDay !== 'day') return <Redirect to='/listens' />;
   if (!songId) return <Redirect to='/question' />;
   if (submitState === 'success') return <Redirect push to='/listens' />;
   return (

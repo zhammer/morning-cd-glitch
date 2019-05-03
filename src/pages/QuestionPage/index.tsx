@@ -10,6 +10,7 @@ import useConfidentInput from '../../hooks/useConfidentInput';
 import { Song as SongInterface } from '../../definitions';
 import { Redirect } from 'react-router';
 import useFocusOnMount from '../../hooks/useFocusOnMount';
+import { useGnomon } from '../../hooks/useSundial';
 
 export default function QuestionPage() {
   const [questionInput, setQuestionInput] = useQuestionInput();
@@ -17,7 +18,9 @@ export default function QuestionPage() {
   const [songs, loading] = useSpotifySearch(confidentQuestionInput);
   const [selectedSong, setSelectedSong] = useState<SongInterface | null>(null);
   const focusOnMountProps = useFocusOnMount();
+  const [timeOfDay] = useGnomon();
 
+  if (timeOfDay !== 'day') return <Redirect to='/listens' />;
   if (selectedSong) return <Redirect push to={`/submit?id=${selectedSong.id}`} />;
   return (
     <Page>
