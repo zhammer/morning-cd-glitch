@@ -11,7 +11,7 @@ interface ProgressProps {
   value: ZeroToOneHundred;
 }
 
-const ProgressBar = styled.progress.attrs({ max: 100 })<ProgressProps>`
+const ProgressBar = styled.progress.attrs({ 'data-test': 'progress-bar', max: 100 })<ProgressProps>`
   ${compactRoundedCorners()};
 
   width: 100%;

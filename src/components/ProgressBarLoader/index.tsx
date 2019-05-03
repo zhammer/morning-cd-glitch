@@ -16,5 +16,5 @@ export default function ProgressBarLoader() {
     }
   }, [value]);
 
-  return <ProgressBar data-test='progress-bar-loader' value={value} />;
+  return <ProgressBar value={value} />;
 }
