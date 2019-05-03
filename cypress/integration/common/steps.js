@@ -38,6 +38,9 @@ Given(/it is (before sunrise|day|after sunset)/, timeOfDay => {
     day: 'Tue Mar 05 1985 13:30:10 GMT-0500',
     'after sunset': 'Tue Mar 05 1985 23:15:40 GMT-0500'
   }[timeOfDay];
+  cy.clock().then(clock => {
+    clock.restore();
+  });
   cy.clock(new Date(currentDateString).getTime(), ['Date']);
 });
 
