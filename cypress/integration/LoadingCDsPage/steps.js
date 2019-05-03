@@ -23,8 +23,6 @@ Given('time is frozen', () => {
   cy.clock();
 });
 
-Then('some time passes', () => {});
-
 Then(`the progress bar has the value {int}`, value => {
   cy.get('progress[data-test=progress-bar]').should('have.attr', 'value', `${value}`);
 });
