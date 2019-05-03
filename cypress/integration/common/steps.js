@@ -3,6 +3,16 @@
 
 import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 
+When('Snap! *', () => {
+  cy.then(() => {
+    cy.screenshot();
+  });
+});
+
+Given('I see the loading cds page', () => {
+  cy.get('div[data-test=loading-cds-page]');
+});
+
 Given('it is daytime', () => {
   // hacky solution that sets all daytime windows span the century,
   // so that the current time is definitely in today's sunlight window.
