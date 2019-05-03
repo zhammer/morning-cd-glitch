@@ -7,8 +7,8 @@ export default function ProgressBarLoader() {
   const intervalRef = useRef<number | undefined>(undefined);
   useEffect(() => {
     intervalRef.current = setInterval(() => {
-      setValue(value => (value < 100 ? value + 1 : value) as ZeroToOneHundred);
-    }, 25);
+      setValue(value => (value < 100 ? value + 2 : value) as ZeroToOneHundred);
+    }, 10);
   }, []);
   useEffect(() => {
     if (value === 100) {
@@ -16,5 +16,5 @@ export default function ProgressBarLoader() {
     }
   }, [value]);
 
-  return <ProgressBar value={value} />;
+  return <ProgressBar data-test='progress-bar-loader' value={value} />;
 }
