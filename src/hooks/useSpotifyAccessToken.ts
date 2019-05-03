@@ -12,7 +12,7 @@ const SPOTIFY_ACCESS_TOKEN_QUERY = gql`
  * Just returns a loading boolean, as the actual access token
  * is used from the apollo cache in all current use cases.
  */
-export default function useSpotifyAccessToken(): [boolean] {
-  const { loading } = useQuery(SPOTIFY_ACCESS_TOKEN_QUERY);
-  return [loading];
+export default function useSpotifyAccessToken(): [boolean, () => Promise<any>] {
+  const { loading, refetch } = useQuery(SPOTIFY_ACCESS_TOKEN_QUERY);
+  return [loading, refetch];
 }
