@@ -19,7 +19,7 @@ Given('the internet is slow', () => {
   });
 });
 
-When('some time passes *', () => {});
+Then('some time passes', () => {});
 
 Then(`the progress bar has the value {int}`, value => {
   cy.get('progress[data-test=progress-bar]').should('have.attr', 'value', `${value}`);
