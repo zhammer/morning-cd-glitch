@@ -19,3 +19,12 @@ Feature: Storage Persistence
     And I visit "/question"
     And I wait for the page to load
     Then the browser sent the query "SunlightWindows" 2 times
+
+  Scenario: Loader doesn't show on quick cache startup
+    Given it is day
+    When I visit "/question"
+    And I see the loading cds page
+    And I wait for the page to load
+    And I leave the page
+    And I visit "/question"
+    Then I don't see the loading cds page

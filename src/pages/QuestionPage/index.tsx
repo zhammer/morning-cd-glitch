@@ -26,7 +26,7 @@ export default function QuestionPage() {
   if (timeOfDay !== 'day') return <Redirect to='/listens' />;
   if (selectedSong) return <Redirect push to={`/submit?id=${selectedSong.id}`} />;
   return (
-    <Page>
+    <Page data-test='question-page'>
       <Title>What was the first piece of music you listened to this morning?</Title>
       <QuestionContainer>
         <Input.Text
