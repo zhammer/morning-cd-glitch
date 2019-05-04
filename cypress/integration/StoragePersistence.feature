@@ -8,4 +8,4 @@ Feature: Storage Persistence
     And I wait for the page to load
     And I refresh the page
     And I wait for the page to load
-    Then the browser only sent the query "SunlightWindows" 1 time
+    Then the browser sent the query "SunlightWindows" 1 time

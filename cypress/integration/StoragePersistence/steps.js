@@ -27,7 +27,7 @@ When('I refresh the page', () => {
   cy.reload();
 });
 
-Then(/the browser only sent the query "(\w+)" (\d+) times?/, (operationName, numCalls) => {
+Then(/the browser sent the query "(\w+)" (\d+) times?/, (operationName, numCalls) => {
   cy.graphqlNumCallsByOperationName().then(numCallsByOperationName => {
     expect(numCallsByOperationName).to.have.property(operationName, numCalls);
   });
