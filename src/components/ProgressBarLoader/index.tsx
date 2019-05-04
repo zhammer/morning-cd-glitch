@@ -6,9 +6,11 @@ export default function ProgressBarLoader() {
   const [value, setValue] = useState<ZeroToOneHundred>(0);
   const intervalRef = useRef<number | undefined>(undefined);
   useEffect(() => {
-    intervalRef.current = setInterval(() => {
+    const interval = setInterval(() => {
       setValue(value => (value < 100 ? value + 2 : value) as ZeroToOneHundred);
     }, 10);
+    intervalRef.current = interval;
+    return () => clearInterval(interval);
   }, []);
   useEffect(() => {
     if (value === 100) {
