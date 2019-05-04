@@ -64,13 +64,3 @@ Feature: Question Page
     And I click the song "Something Holy" by "Alice Phoebe Lou"
     And I click the browser back button
     Then I am redirected to "/question"
-
-  Scenario Outline: I visit the question page at <timeOfDay>
-    Given it is <timeOfDay>
-    When I visit "/question"
-    Then I am redirected to "/listens"
-
-    Examples:
-      | timeOfDay      |
-      | before sunrise |
-      | after sunset   |

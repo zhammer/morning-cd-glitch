@@ -60,16 +60,6 @@ Feature: Submit Page
     And I type enter to submit
     Then I am redirected to "/listens"
 
-  Scenario Outline: I visit the question page at <timeOfDay>
-    Given it is <timeOfDay>
-    When I visit "/submit"
-    Then I am redirected to "/listens"
-
-    Examples:
-      | timeOfDay      |
-      | before sunrise |
-      | after sunset   |
-
   Scenario Outline: I am on the submit page with bad query string "<query>" (<description>)
     When I visit "/submit<query>"
     Then I am redirected to "/question"
