@@ -68,3 +68,7 @@ Then(`I am redirected to {string} with the params {string}`, (route, params) => 
 Then(`I am redirected to {string}`, route => {
   cy.location('pathname').should('eq', route);
 });
+
+When(/I click the browser (forward|back) button/, direction => {
+  cy.go(direction);
+});
