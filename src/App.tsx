@@ -19,7 +19,7 @@ function App() {
     if (!startThrottleDone) {
       const timeout = setTimeout(() => {
         setStartThrottleDone(true);
-      }, 200);
+      }, 50);
       return () => clearTimeout(timeout);
     }
   }, [startThrottleDone]);
