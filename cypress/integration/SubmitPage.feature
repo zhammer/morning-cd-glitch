@@ -3,7 +3,7 @@ Feature: Submit Page
   submit my listen, I am brought to the Listens Page.
 
   Background:
-    Given it is daytime
+    Given it is day
 
   Scenario Outline: I am on the submit page for <name>
     When I visit the submit page with the id "<id>"
@@ -58,6 +58,17 @@ Feature: Submit Page
     And I type "Digging this new vampire weekend song"
     And I hit tab
     And I type enter to submit
+    Then I am redirected to "/listens"
+
+  Scenario: I try to visit the submit page after submitting a listen
+    When I visit the submit page with the id "3o9lfY9tbv3S00atFxNki5"
+    And I type "Zach"
+    And I hit tab
+    And I type "Digging this new vampire weekend song"
+    And I hit tab
+    And I type enter to submit
+    And I wait for the submit to complete
+    And I visit the submit page with the id "3o9lfY9tbv3S00atFxNki5"
     Then I am redirected to "/listens"
 
   Scenario Outline: I am on the submit page with bad query string "<query>" (<description>)

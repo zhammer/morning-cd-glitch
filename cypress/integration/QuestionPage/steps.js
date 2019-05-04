@@ -65,10 +65,6 @@ When(`I click the song {string} by {string}`, (name, artist) => {
     .click();
 });
 
-When('I click the browser back button', () => {
-  cy.go('back');
-});
-
 Then(`I see the title {string}`, text => {
   cy.get('h2').contains(text);
 });

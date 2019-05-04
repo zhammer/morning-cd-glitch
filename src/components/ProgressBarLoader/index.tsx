@@ -1,20 +1,22 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ZeroToOneHundred } from '../ProgressBar/types';
 import ProgressBar from '../ProgressBar';
 
 export default function ProgressBarLoader() {
   const [value, setValue] = useState<ZeroToOneHundred>(0);
-  const intervalRef = useRef<number | undefined>(undefined);
+  const [full, setFull] = useState(false);
   useEffect(() => {
-    intervalRef.current = setInterval(() => {
-      setValue(value => (value < 100 ? value + 2 : value) as ZeroToOneHundred);
-    }, 10);
-  }, []);
-  useEffect(() => {
-    if (value === 100) {
-      clearInterval(intervalRef.current);
+    if (!full) {
+      const interval = setInterval(() => {
+        setValue(value => {
+          if (value < 100) return Math.min(value + 2, 100) as ZeroToOneHundred;
+          setFull(true);
+          return value;
+        });
+      }, 10);
+      return () => clearInterval(interval);
     }
-  }, [value]);
+  }, [full]);
 
   return <ProgressBar value={value} />;
 }

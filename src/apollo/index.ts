@@ -16,9 +16,12 @@ const typeDefs = gql`
     nameInput: String!
     noteInput: String!
     sundial: Sundial!
+    lastSubmit: DateTime
   }
   type Sundial {
     state: SundialState!
+    # The last sunrise the occurred. Null if state == calibrating.
+    lastSunrise: DateTime
   }
   enum SundialState {
     calibrating
@@ -37,8 +40,10 @@ const initialData = {
     questionInput: '',
     noteInput: '',
     nameInput: '',
+    lastSubmit: localStorage.getItem('lastSubmit'),
     sundial: {
       state: 'calibrating',
+      lastSunrise: null,
       __typename: 'Sundial'
     }
   }
