@@ -66,6 +66,12 @@ When(`I write the note {string}`, note => {
   cy.get('textarea[data-test=note-input]').type(note);
 });
 
+When('I wait for the submit to complete', () => {
+  // I can't cy.wait on the graphql request using the current mock systen,
+  // so we just wait for the browser to redirect to /listens
+  cy.location('pathname').should('equal', '/listens');
+});
+
 When('I click the submit button', () => {
   cy.get('@graphqlServerError', { log: false }).then(graphqlServerError => {
     cy.get('@songId', { log: false }).then(songId => {

@@ -67,7 +67,7 @@ Feature: Submit Page
     And I type "Digging this new vampire weekend song"
     And I hit tab
     And I type enter to submit
-    And I am redirected to "/listens"
+    And I wait for the submit to complete
     And I visit the submit page with the id "3o9lfY9tbv3S00atFxNki5"
     Then I am redirected to "/listens"
 
