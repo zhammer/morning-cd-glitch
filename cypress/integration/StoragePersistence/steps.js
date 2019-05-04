@@ -38,5 +38,7 @@ Then(/the browser sent the query "(\w+)" (\d+) times?/, (operationName, numCalls
 
 Then(/I (don't )see the loading cds page/, dont => {
   const prefix = dont && 'not.';
-  cy.get('div[data-test=loading-cds-page]', { timeout: 50 }).should(`${prefix}be.visible`);
+  cy.get('div[data-test=loading-cds-page]', { timeout: dont ? 50 : 200 }).should(
+    `${prefix}be.visible`
+  );
 });
