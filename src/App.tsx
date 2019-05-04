@@ -14,20 +14,20 @@ import LoadingCDsPage from './pages/LoadingCDsPage';
 function App() {
   useSundial();
   const [timeOfDay] = useGnomon();
-  const [startThrottleDone, setStartThrottleDone] = useState(false);
+  const [showLoadingPageDelayDone, setShowLoadingPageDelayDone] = useState(false);
   useEffect(() => {
-    if (!startThrottleDone) {
+    if (!showLoadingPageDelayDone) {
       const timeout = setTimeout(() => {
-        setStartThrottleDone(true);
+        setShowLoadingPageDelayDone(true);
       }, 50);
       return () => clearTimeout(timeout);
     }
-  }, [startThrottleDone]);
+  }, [showLoadingPageDelayDone]);
   return (
     <div data-time-of-day={timeOfDay}>
       <GlobalStyle />
       {timeOfDay === 'calibrating' ? (
-        startThrottleDone && <LoadingCDsPage />
+        showLoadingPageDelayDone && <LoadingCDsPage />
       ) : (
         <Router>
           <Switch>
