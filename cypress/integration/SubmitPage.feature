@@ -60,7 +60,7 @@ Feature: Submit Page
     And I type enter to submit
     Then I am redirected to "/listens"
 
-  Scenario: I try to visit the submit page after submitting
+  Scenario: I try to visit the submit page after submitting a listen
     When I visit the submit page with the id "3o9lfY9tbv3S00atFxNki5"
     And I type "Zach"
     And I hit tab
