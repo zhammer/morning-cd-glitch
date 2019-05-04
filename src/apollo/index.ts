@@ -19,6 +19,8 @@ const typeDefs = gql`
   }
   type Sundial {
     state: SundialState!
+    # The last sunrise the occurred. Null if state == calibrating.
+    lastSunrise: DateTime
   }
   enum SundialState {
     calibrating
@@ -39,6 +41,7 @@ const initialData = {
     nameInput: '',
     sundial: {
       state: 'calibrating',
+      lastSunrise: null,
       __typename: 'Sundial'
     }
   }

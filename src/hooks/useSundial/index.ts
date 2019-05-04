@@ -35,6 +35,7 @@ const SUNDIAL_QUERY = gql`
   query Sundial {
     sundial {
       state
+      lastSunrise
     }
   }
 `;
@@ -75,18 +76,24 @@ export default function useSundial() {
     { devTools: true }
   );
 
-  const state = useMemo<SundialState>(() => {
+  const { state, lastSunrise } = useMemo<SundialInfo>(() => {
     if (current.matches('calibrating')) {
-      return 'calibrating';
+      return { state: 'calibrating', lastSunrise: null };
+    }
+    const sunlightWindows = current.context.sunlightWindows;
+    if (sunlightWindows === undefined) {
+      throw new Error(
+        `sundial machine ${current} isn't calibrating, but doesn't have sunlightWindows in its context.`
+      );
     }
     if (current.matches('beforeSunrise')) {
-      return 'beforeSunrise';
+      return { state: 'beforeSunrise', lastSunrise: sunlightWindows.yesterday.sunrise };
     }
     if (current.matches('day')) {
-      return 'day';
+      return { state: 'day', lastSunrise: sunlightWindows.today.sunrise };
     }
     if (current.matches('afterSunset')) {
-      return 'afterSunset';
+      return { state: 'afterSunset', lastSunrise: sunlightWindows.today.sunrise };
     }
     throw new Error();
   }, [current]);
@@ -96,17 +103,25 @@ export default function useSundial() {
       data: {
         sundial: {
           state,
+          lastSunrise: lastSunrise && lastSunrise.toISOString(),
           __typename: 'Sundial'
         }
       }
     });
-  }, [state, client]);
+  }, [state, client, lastSunrise]);
 }
+
+type SundialInfo = {
+  state: SundialState;
+  lastSunrise: Date | null;
+};
 
 /**
  * The gnomon is the part of the sundial that casts a shadow.
  */
-export function useGnomon(): [SundialState] {
-  const [data] = useLocalApolloQuery<{ sundial: { state: SundialState } }>(SUNDIAL_QUERY);
-  return [data.sundial.state];
+export function useGnomon(): [SundialState, string | null] {
+  const [data] = useLocalApolloQuery<{
+    sundial: { state: SundialState; lastSunrise: string | null };
+  }>(SUNDIAL_QUERY);
+  return [data.sundial.state, data.sundial.lastSunrise];
 }
