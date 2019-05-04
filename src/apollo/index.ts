@@ -115,7 +115,43 @@ const spotifyAuthHeadersLink = new ApolloLink((operation, forward) => {
   return null;
 });
 
-const link = ApolloLink.from([spotifyAuthHeadersLink, restLink, httpLink]);
+function readPersistedCache(): {} {
+  const value = localStorage.getItem('persistedApolloCache');
+  return value ? JSON.parse(value) : {};
+}
+function updatePersistedCache(data: {}) {
+  const nextCache = { ...data, ...readPersistedCache() };
+  localStorage.setItem('persistedApolloCache', JSON.stringify(nextCache));
+}
+
+function pluckCachedSunlightWindows(cacheData: object): object {
+  let cachedSunlightWindows: { [key: string]: {} } = {};
+  Object.entries(cacheData).forEach(([key, value]) => {
+    if (key.startsWith('$ROOT_QUERY.sunlightWindow')) {
+      cachedSunlightWindows[key] = value;
+    }
+  });
+  return cachedSunlightWindows;
+}
+const storagePersistenceAfterwareLink = new ApolloLink((operation, forward) => {
+  if (operation.operationName !== 'SunlightWindows' || !forward) {
+    return forward ? forward(operation) : null;
+  }
+  if (!forward) return null;
+  return forward(operation).map(response => {
+    const { cache } = operation.getContext();
+    const sunlightWindowCache = pluckCachedSunlightWindows(cache);
+    updatePersistedCache(sunlightWindowCache);
+    return response;
+  });
+});
+
+const link = ApolloLink.from([
+  storagePersistenceAfterwareLink,
+  spotifyAuthHeadersLink,
+  restLink,
+  httpLink
+]);
 
 /**
  * CLIENT
