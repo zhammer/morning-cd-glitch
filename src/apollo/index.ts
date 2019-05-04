@@ -45,7 +45,8 @@ const initialData = {
       state: 'calibrating',
       lastSunrise: null,
       __typename: 'Sundial'
-    }
+    },
+    ...readPersistedCache()
   }
 };
 cache.writeData(initialData);
@@ -114,6 +115,15 @@ const spotifyAuthHeadersLink = new ApolloLink((operation, forward) => {
   }
   return null;
 });
+
+function readPersistedCache(): {} {
+  const value = localStorage.getItem('persistedApolloCache');
+  return value ? JSON.parse(value) : {};
+}
+export function updatePersistedCache(data: {}) {
+  const nextCache = { ...data, ...readPersistedCache() };
+  localStorage.setItem('persistedApolloCache', JSON.stringify(nextCache));
+}
 
 const link = ApolloLink.from([spotifyAuthHeadersLink, restLink, httpLink]);
 

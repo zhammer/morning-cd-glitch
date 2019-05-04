@@ -25,6 +25,10 @@ const sunlightWindows = {
   '1985-03-06': {
     sunriseUtc: '1985-03-06T11:20:56',
     sunsetUtc: '1985-03-06T22:53:22'
+  },
+  '1985-03-07': {
+    sunriseUtc: '1985-03-07T11:19:20',
+    sunsetUtc: '1985-03-07T22:54:28'
   }
 };
 Given(/it is (before sunrise|day|after sunset)/, timeOfDay => {

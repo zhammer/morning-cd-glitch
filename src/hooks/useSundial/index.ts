@@ -6,6 +6,7 @@ import { useApolloClient } from 'react-apollo-hooks';
 import useLocalApolloQuery from '../useLocalApolloQuery';
 import { TimeOfDay } from './types';
 import { localDateString, pluckSunlightWindow } from './util';
+import { updatePersistedCache } from '../../apollo';
 
 type SundialState = 'calibrating' | TimeOfDay;
 
@@ -64,6 +65,8 @@ export default function useSundial() {
             query: SUNLIGHT_WINDOWS_QUERY,
             variables: getVariables()
           });
+          const cachedSunlightWindows = pluckCachedSunlightWindows(client.cache);
+          updatePersistedCache(cachedSunlightWindows);
           const sunlightWindows = {
             yesterday: pluckSunlightWindow(response.data.yesterday),
             today: pluckSunlightWindow(response.data.today),
@@ -124,4 +127,14 @@ export function useGnomon(): [SundialState, string | null] {
     sundial: { state: SundialState; lastSunrise: string | null };
   }>(SUNDIAL_QUERY);
   return [data.sundial.state, data.sundial.lastSunrise];
+}
+
+function pluckCachedSunlightWindows(cache: any): object {
+  let cachedSunlightWindows: { [key: string]: {} } = {};
+  Object.entries(cache.data.data).forEach(([key, value]) => {
+    if (key.startsWith('$ROOT_QUERY.sunlightWindow')) {
+      cachedSunlightWindows[key.substring(12)] = value;
+    }
+  });
+  return cachedSunlightWindows;
 }
