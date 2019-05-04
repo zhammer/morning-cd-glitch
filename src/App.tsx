@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { ApolloProvider } from 'react-apollo-hooks';
 import { Switch, Route, BrowserRouter as Router, Redirect } from 'react-router-dom';
 import { ThemeProvider } from './custom/styled-components';
@@ -14,11 +14,20 @@ import LoadingCDsPage from './pages/LoadingCDsPage';
 function App() {
   useSundial();
   const [timeOfDay] = useGnomon();
+  const [startThrottleDone, setStartThrottleDone] = useState(false);
+  useEffect(() => {
+    if (!startThrottleDone) {
+      const timeout = setTimeout(() => {
+        setStartThrottleDone(true);
+      }, 200);
+      return () => clearTimeout(timeout);
+    }
+  }, [startThrottleDone]);
   return (
     <div data-time-of-day={timeOfDay}>
       <GlobalStyle />
       {timeOfDay === 'calibrating' ? (
-        <LoadingCDsPage />
+        startThrottleDone && <LoadingCDsPage />
       ) : (
         <Router>
           <Switch>
