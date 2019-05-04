@@ -11,6 +11,13 @@ beforeEach(() => {
       DateTime: () => '2018-06-11T09:24:32.004423'
     }
   });
+  cy.server();
+  cy.route('/accesstoken', 'fixture:morningcd/accessToken.json');
+  cy.route({
+    url: `/v1/tracks/123`,
+    response: 'fixture:spotify/tracks/invalidid.json',
+    status: 400
+  });
 });
 
 Given('I have submitted a listen today', () => {
