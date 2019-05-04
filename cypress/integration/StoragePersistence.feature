@@ -9,3 +9,13 @@ Feature: Storage Persistence
     And I refresh the page
     And I wait for the page to load
     Then the browser sent the query "SunlightWindows" 1 time
+
+  Scenario: I revisit morning cd a day after visiting
+    Given it is day
+    When I visit "/question"
+    And I wait for the page to load
+    And I leave the page
+    And a day goes by
+    And I visit "/question"
+    And I wait for the page to load
+    Then the browser sent the query "SunlightWindows" 2 times
