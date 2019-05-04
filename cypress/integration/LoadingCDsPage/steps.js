@@ -1,6 +1,6 @@
 /* global cy */
 /// <reference types="cypress" />
-import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { Given, Then } from 'cypress-cucumber-preprocessor/steps';
 
 beforeEach(() => {
   cy.server();
@@ -12,7 +12,7 @@ Given('the internet is slow', () => {
 });
 
 Given('time is frozen', () => {
-  cy.clock();
+  cy.clock(new Date(), ['setInterval', 'clearInterval']);
 });
 
 Then(`the progress bar has the value {int}`, value => {

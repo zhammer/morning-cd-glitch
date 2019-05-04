@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { ApolloProvider } from 'react-apollo-hooks';
 import { Switch, Route, BrowserRouter as Router, Redirect } from 'react-router-dom';
 import { ThemeProvider } from './custom/styled-components';
@@ -14,11 +14,20 @@ import LoadingCDsPage from './pages/LoadingCDsPage';
 function App() {
   useSundial();
   const [timeOfDay] = useGnomon();
+  const [showLoadingPageDelayDone, setShowLoadingPageDelayDone] = useState(false);
+  useEffect(() => {
+    if (!showLoadingPageDelayDone) {
+      const timeout = setTimeout(() => {
+        setShowLoadingPageDelayDone(true);
+      }, 50);
+      return () => clearTimeout(timeout);
+    }
+  }, [showLoadingPageDelayDone]);
   return (
     <div data-time-of-day={timeOfDay}>
       <GlobalStyle />
       {timeOfDay === 'calibrating' ? (
-        <LoadingCDsPage />
+        showLoadingPageDelayDone && <LoadingCDsPage />
       ) : (
         <Router>
           <Switch>

@@ -19,7 +19,6 @@ Feature: Sundial
     Given the current local datetime in new york is "2019-05-03 <time>"
     When I visit "/question"
     Then the sundial is set to calibrating
-    And I see the loading cds page
     Then the sundial is set to <timeOfDay>
 
     Examples:
