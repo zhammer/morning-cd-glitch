@@ -12,7 +12,7 @@ Given('the internet is slow', () => {
 });
 
 Given('time is frozen', () => {
-  cy.clock();
+  cy.clock(new Date(), ['setInterval', 'clearInterval']);
 });
 
 Then(`the progress bar has the value {int}`, value => {
