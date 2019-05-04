@@ -11,9 +11,16 @@ const SUBMIT_LISTEN_MUTATION = gql`
   ${ListenFragment}
 `;
 
+const LAST_SUBMIT_QUERY = gql`
+  query LastSubmit {
+    lastSubmit
+  }
+`;
+
 export default function useSubmitListen() {
   const submitListenMutation = useMutation(SUBMIT_LISTEN_MUTATION);
   async function submit(name: string, songId: string, note: string) {
+    const submitTime = new Date();
     await submitListenMutation({
       variables: {
         listenInput: {
@@ -22,6 +29,16 @@ export default function useSubmitListen() {
           note,
           ianaTimezone: Intl.DateTimeFormat().resolvedOptions().timeZone
         }
+      },
+      update: cache => {
+        const submitTimeIsoString = submitTime.toISOString();
+        localStorage.setItem('lastSubmit', submitTimeIsoString);
+        cache.writeQuery({
+          query: LAST_SUBMIT_QUERY,
+          data: {
+            lastSubmit: submitTimeIsoString
+          }
+        });
       }
     });
   }

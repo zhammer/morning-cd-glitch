@@ -16,6 +16,7 @@ const typeDefs = gql`
     nameInput: String!
     noteInput: String!
     sundial: Sundial!
+    lastSubmit: DateTime
   }
   type Sundial {
     state: SundialState!
@@ -39,6 +40,7 @@ const initialData = {
     questionInput: '',
     noteInput: '',
     nameInput: '',
+    lastSubmit: localStorage.getItem('lastSubmit'),
     sundial: {
       state: 'calibrating',
       lastSunrise: null,

@@ -15,6 +15,7 @@ import useSubmitListen from './useSubmitListen';
 import useSubmitStateMachine from './useSubmitStateMachine';
 import { Link } from 'react-router-dom';
 import { useGnomon } from '../../hooks/useSundial';
+import useSubmittedAfterLastSunrise from '../../hooks/useSubmittedAfterLastSunrise';
 
 export default function SubmitPage() {
   const queryParams = useQueryParams();
@@ -25,6 +26,7 @@ export default function SubmitPage() {
   const [submit] = useSubmitListen();
   const [submitState, sendSubmitStateEvent] = useSubmitStateMachine();
   const [timeOfDay] = useGnomon();
+  const submittedAfterLastSunrise = useSubmittedAfterLastSunrise();
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -38,6 +40,7 @@ export default function SubmitPage() {
     sendSubmitStateEvent('SUCCESS');
   }
 
+  if (submittedAfterLastSunrise) return <Redirect to='/listens' />;
   if (timeOfDay !== 'day') return <Redirect to='/listens' />;
   if (!songId) return <Redirect to='/question' />;
   if (submitState === 'success') return <Redirect push to='/listens' />;
