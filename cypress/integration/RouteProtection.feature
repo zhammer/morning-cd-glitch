@@ -26,7 +26,7 @@ Feature: Route Protection
       | /question      |
       | /submit?id=123 |
 
-  Scenario Outline: I visit <route> after last submitted a listen days ago
+  Scenario Outline: I visit <route> after last submitting a listen days ago
     Given it is day
     And I have last submitted a listen a few days ago
     When I visit "<route>"
