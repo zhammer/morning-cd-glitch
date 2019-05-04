@@ -14,3 +14,26 @@ Feature: Route Protection
       | /question      | after sunset   |
       | /submit?id=123 | before sunrise |
       | /submit?id=123 | after sunset   |
+
+  Scenario Outline: I visit the route <route> after already submitting a listen today
+    Given it is day
+    And I have submitted a listen today
+    When I visit "<route>"
+    Then I am redirected to "/listens"
+
+    Examples:
+      | route          |
+      | /question      |
+      | /submit?id=123 |
+
+  Scenario Outline: I visit <route> after last submitted a listen days ago
+    Given it is day
+    And I have last submitted a listen a few days ago
+    When I visit "<route>"
+    Then I am still on "<route>"
+
+    Examples:
+      | route          |
+      | /question      |
+      | /submit?id=123 |
+
