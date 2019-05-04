@@ -1,20 +1,9 @@
-/* global cy Cypress*/
+/* global cy */
 /// <reference types="cypress" />
 import { Then, When } from 'cypress-cucumber-preprocessor/steps';
 
-Cypress.on('window:before:load', window => {
-  window.fetch = null;
-});
-
 beforeEach(() => {
-  cy.graphql({
-    schema: Cypress.env('GRAPHQL_SCHEMA'),
-    endpoint: '/graphql',
-    mocks: {
-      Date: () => '2018-06-12',
-      DateTime: () => '2018-06-11T09:24:32.004423'
-    }
-  });
+  cy.graphql();
   cy.server();
   cy.route('/accesstoken', 'fixture:morningcd/accessToken.json');
 });
