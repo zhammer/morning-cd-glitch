@@ -28,7 +28,7 @@ Feature: Route Protection
 
   Scenario Outline: I visit <route> after last submitting a listen days ago
     Given it is day
-    And I have last submitted a listen a few days ago
+    And the last time I submitted a listen was a few days ago
     When I visit "<route>"
     Then I am still on "<route>"
 
