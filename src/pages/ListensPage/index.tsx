@@ -7,7 +7,6 @@ import List from '../../components/List';
 import { useGnomon } from '../../hooks/useSundial';
 import usePrevious from '../../hooks/usePrevious';
 import { Redirect } from 'react-router';
-import StylelessLink from '../../components/StylelessLink';
 
 export default function ListensPage() {
   const { listens, loading } = useFetchListens();

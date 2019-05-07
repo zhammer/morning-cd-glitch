@@ -3,8 +3,6 @@ import { Listen as ListenInterface } from '../../../definitions';
 import { ListenContainer, Note } from './Listen.styles';
 import { SongBody } from '../../../components/Song';
 import StylelessLink from '../../../components/StylelessLink';
-import Balloon from '../../../components/Balloon';
-import Text from '../../../components/Text';
 
 interface ListenProps {
   listen: ListenInterface;
