@@ -28,6 +28,7 @@ const Base = styled.div.attrs({ 'data-test': 'container' })<{ containerTitle?: s
 
 interface ContainerProps extends React.HTMLAttributes<HTMLDivElement> {
   containerTitle?: string;
+  containerTitleStyle?: 'success' | 'primary' | 'warning' | 'error';
 }
 
 function Container({ containerTitle, children, ...rest }: ContainerProps) {
@@ -39,21 +40,22 @@ function Container({ containerTitle, children, ...rest }: ContainerProps) {
   );
 }
 
-const Square = styled(Container)<{ containerTitle?: string }>``;
+const Square = styled(Container)<ContainerProps>``;
 
-const Rounded = styled(Container)<{ containerTitle?: string }>`
+const Rounded = styled(Container)<ContainerProps>`
   ${roundedCorners(false)};
   padding: 1rem 1.5rem;
   margin: ${borderSize};
 
-  ${({ containerTitle }) =>
-    containerTitle &&
-    containerTitle !== '' &&
-    css`
-      & > ${Title} {
-        margin-top: -1.5rem;
-      }
-    `};
+  & > ${Title} {
+    ${props =>
+      props.containerTitleStyle &&
+      css`
+        color: ${props.theme[props.containerTitleStyle].normal};
+      `}
+    transform: translateY(-1px);
+    margin-top: -1.5rem;
+  }
 `;
 
 export default {
