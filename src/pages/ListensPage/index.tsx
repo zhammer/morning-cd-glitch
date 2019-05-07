@@ -8,9 +8,10 @@ import { useGnomon } from '../../hooks/useSundial';
 import usePrevious from '../../hooks/usePrevious';
 import { Redirect } from 'react-router';
 import VisibilitySensor from 'react-visibility-sensor';
+import { LoadingMore } from './ListenPage.styles';
 
 export default function ListensPage() {
-  const { listens, loading, fetchMore, hasMore } = useFetchListens();
+  const { listens, loading, fetchMore, hasMore, loadingMore } = useFetchListens();
   const [timeOfDay] = useGnomon();
   const previousTimeOfDay = usePrevious(timeOfDay);
   const sunHasRisen = useMemo<boolean>(() => {
@@ -34,7 +35,7 @@ export default function ListensPage() {
           </List>
           {hasMore && (
             <VisibilitySensor onChange={isVisible => isVisible && fetchMore()}>
-              <div>more fetcher</div>
+              <LoadingMore active={loadingMore}>Loading more...</LoadingMore>
             </VisibilitySensor>
           )}
         </>

@@ -62,7 +62,6 @@ export default function useFetchListens(): UseFetchListensReturn {
     if (loading || error || !data) return [[], false];
     return [data.allListens.edges, data.allListens.pageInfo.hasPreviousPage];
   }, [data, loading, error]);
-  const listens = edges.map(edge => edge.listen);
   const fetchMoreCallback = useCallback(async () => {
     if (loadingMore) return;
     setLoadingMore(true);
@@ -86,5 +85,6 @@ export default function useFetchListens(): UseFetchListensReturn {
     });
     setLoadingMore(false);
   }, [fetchMore, edges, loadingMore]);
+  const listens = edges.map(edge => edge.listen);
   return { listens, loading, fetchMore: fetchMoreCallback, loadingMore, hasMore };
 }
