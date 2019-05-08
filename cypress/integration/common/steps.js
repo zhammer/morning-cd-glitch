@@ -48,6 +48,18 @@ Given(/it is (before sunrise|day|after sunset)/, timeOfDay => {
   cy.clock(new Date(currentDateString).getTime(), ['Date']);
 });
 
+Given('I have submitted a listen today', () => {
+  cy.window().then(window => {
+    window.localStorage.setItem('lastSubmit', '1985-03-05T12:15:20');
+  });
+});
+
+Given('the last time I submitted a listen was a few days ago', () => {
+  cy.window().then(window => {
+    window.localStorage.setItem('lastSubmit', '1985-03-01T12:15:20');
+  });
+});
+
 When(`I visit {string}`, path => {
   cy.visit(path);
 });
@@ -71,6 +83,10 @@ Then(`I am redirected to {string} with the params {string}`, (route, params) => 
 
 Then(`I am redirected to {string}`, route => {
   cy.location('pathname').should('eq', route);
+});
+
+Then(`I see the title {string}`, text => {
+  cy.get('h2').contains(text);
 });
 
 When(/I click the browser (forward|back) button/, direction => {

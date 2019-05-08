@@ -51,10 +51,6 @@ When(`I click the song {string} by {string}`, (name, artist) => {
     .click();
 });
 
-Then(`I see the title {string}`, text => {
-  cy.get('h2').contains(text);
-});
-
 Then('I see the song question input', () => {
   cy.get('input[data-test=question-input]').should('be.visible');
 });
