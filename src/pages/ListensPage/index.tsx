@@ -29,7 +29,7 @@ export default function ListensPage() {
       ) : (
         <>
           <List>
-            {listens.reverse().map((listen, index) => (
+            {listens.reverse().map(listen => (
               <Listen key={listen.id} listen={listen} />
             ))}
           </List>
