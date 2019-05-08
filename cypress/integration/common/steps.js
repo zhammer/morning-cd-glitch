@@ -33,9 +33,9 @@ const sunlightWindows = {
 };
 Given(/it is (before sunrise|day|after sunset)/, timeOfDay => {
   cy.graphqlUpdate({
-    Query: () => ({
+    Query: {
       sunlightWindow: (_, args) => sunlightWindows[args.onDate]
-    })
+    }
   });
   const currentDateString = {
     'before sunrise': 'Tue Mar 05 1985 03:50:00 GMT-0500',
