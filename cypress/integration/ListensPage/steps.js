@@ -36,8 +36,15 @@ Given(`listens {int}-{int} exist`, (from, to) => {
 });
 
 Then('I see the listens with the following ids', dataTable => {
-  const ids = dataTable.rows();
+  const ids = pluckIds(dataTable);
+  cy.get('@availableListens').then(availableListens => {
+    const listens = ids.map(id => availableListens.find(listen => listen.id === id));
+  });
 });
+
+function pluckIds(dataTable) {
+  return dataTable.rows().map(row => row[0]);
+}
 
 function pluckListens(dataTable) {
   return dataTable.hashes().map(listenRow => {

@@ -27,6 +27,7 @@ Feature: Listens Page
     When I visit "/listens"
     Then I see the title "Here are the first pieces of music people listened to today, from all over the world"
     And I see the listens with the following ids
+      | id |
       | 15 |
       | 14 |
       | 13 |
