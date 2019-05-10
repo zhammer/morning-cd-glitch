@@ -39,7 +39,12 @@ Feature: Listens Page
       | 7  |
       | 6  |
 
-# There are no listens posted today
+  Scenario: I visit the listens page at night when no listens were submitted during the day
+    Given it is after sunset
+    And no listens were submitted today
+    When I visit "/listens"
+    Then I see the title "Nobody posted a listen to morning.cd today. Check back here later tonight. Morning.cd works all around the world, and it’s daytime somewhere."
+    And I don't see any listens
 
 # There is an error fetching lessons
 

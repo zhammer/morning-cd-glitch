@@ -35,6 +35,20 @@ Given(`listens {int}-{int} exist`, (from, to) => {
   });
 });
 
+Given('no listens were submitted today', () => {
+  cy.graphqlUpdate({
+    Query: {
+      allListens: () => ({
+        edges: [],
+        pageInfo: {
+          hasNextPage: false,
+          hasPreviousPage: false
+        }
+      })
+    }
+  });
+});
+
 Then('I see the listens with the following ids', dataTable => {
   const ids = pluckIds(dataTable);
   cy.get('@availableListens').then(availableListens => {
@@ -55,6 +69,11 @@ Then('I see the listens with the following ids', dataTable => {
         }
       });
   });
+});
+
+Then("I don't see any listens", () => {
+  cy.get('div[data-test=listens').should('not.exist');
+  cy.get('div[data-test=listen').should('not.exist');
 });
 
 function pluckIds(dataTable) {
