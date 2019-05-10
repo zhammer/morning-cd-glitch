@@ -39,7 +39,9 @@ export default function ListensPage() {
             </List>
             {hasMore && (
               <VisibilitySensor onChange={isVisible => isVisible && fetchMore()}>
-                <LoadingMore active={loadingMore}>Loading more...</LoadingMore>
+                <LoadingMore data-test='more-listens-loader' active={loadingMore}>
+                  Loading more...
+                </LoadingMore>
               </VisibilitySensor>
             )}
           </>

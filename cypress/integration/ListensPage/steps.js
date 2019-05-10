@@ -49,6 +49,10 @@ Given('no listens were submitted today', () => {
   });
 });
 
+When(/I scroll to the (bottom) of the page/, partOfPage => {
+  cy.scrollTo(partOfPage);
+});
+
 Then('I see the listens with the following ids', dataTable => {
   const ids = pluckIds(dataTable);
   cy.get('@availableListens').then(availableListens => {
@@ -74,6 +78,11 @@ Then('I see the listens with the following ids', dataTable => {
 Then("I don't see any listens", () => {
   cy.get('div[data-test=listens').should('not.exist');
   cy.get('div[data-test=listen').should('not.exist');
+});
+
+Then(/I (don't )?see the more listens loader/, dont => {
+  const prefix = dont ? 'not.' : '';
+  cy.get('div[data-test=more-listens-loader]').should(`${prefix}exist`);
 });
 
 function pluckIds(dataTable) {

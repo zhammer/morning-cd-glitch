@@ -5,7 +5,7 @@ Feature: Listens Page
   Background:
     Given these tests refer to the following listens
       | id | listenerName  | listenTimeUtc              | note                                                                                           | ianaTimezone     | expectedIanaTimezoneDisplay | song.id                | song.name                                         | song.artistName           | song.albumName                                               | song.imageSmallUrl                                               |
-      | 1  | Livia blanc   | 1985-03-05T15:33:05.170327 |                                                                                                | Europe/Rome      | New York                    | 2irCiCNN2kheis3bdovtQO | Pass This On                                      | The Knife                 | Deep Cuts                                                    | https://i.scdn.co/image/23bd6e12b9adb363670feffbd0a3508fc34284b0 |
+      | 1  | Livia blanc   | 1985-03-05T15:33:05.170327 |                                                                                                | Europe/Rome      | Rome                        | 2irCiCNN2kheis3bdovtQO | Pass This On                                      | The Knife                 | Deep Cuts                                                    | https://i.scdn.co/image/23bd6e12b9adb363670feffbd0a3508fc34284b0 |
       | 2  | Jack c.       | 1985-03-05T15:37:13.190354 |                                                                                                | America/Chicago  | Chicago                     | 0bqO8DJpo7NGf3ibWGerqv | Odalisque                                         | The Decemberists          | Castaways and Cutouts                                        | https://i.scdn.co/image/9db1dd6b6d6b6ef04bb187a6c55b4c02d425252d |
       | 3  | Evan H        | 1985-03-05T15:47:06.790339 | It's great morning music!                                                                      | America/New_York | New York                    | 3Oxz7SOWcyzIKG9bO9jtYT | Sukiyaki                                          | Kyu Sakamoto              | The Best of Kyu Sakamoto                                     | https://i.scdn.co/image/0b7818c240ac73207a31cdf9e4b615d3d3c8362f |
       | 4  | Shula         | 1985-03-05T15:47:17.505461 |                                                                                                | America/New_York | New York                    | 3tv3f29zjhzL3kcvQE8tGl | La Vie En Rose                                    | Lady Gaga                 | A Star Is Born Soundtrack (Without Dialogue)                 | https://i.scdn.co/image/67c3676980675070996bef906389dd4821916d6f |
@@ -46,6 +46,43 @@ Feature: Listens Page
     Then I see the title "Nobody posted a listen to morning.cd today. Check back here later tonight. Morning.cd works all around the world, and it’s daytime somewhere."
     And I don't see any listens
 
-# There is an error fetching lessons
+  # There is an error fetching lessons
 
-# Fetch more listens
+  Scenario: I scroll down on the listens page to see more listens
+    Given it is after sunset
+    And listens 1-15 exist
+    When I visit "/listens"
+    And I scroll to the bottom of the page
+    Then I see the more listens loader
+    And I see the listens with the following ids
+      | id |
+      | 15 |
+      | 14 |
+      | 13 |
+      | 12 |
+      | 11 |
+      | 10 |
+      | 9  |
+      | 8  |
+      | 7  |
+      | 6  |
+      | 5  |
+      | 4  |
+      | 3  |
+      | 2  |
+      | 1  |
+
+  Scenario: I scroll down on the listens page to see more listens but there are none
+    Given it is after sunset
+    And listens 1-5 exist
+    When I visit "/listens"
+    And I scroll to the bottom of the page
+    Then I don't see the more listens loader
+    And I see the listens with the following ids
+      | id |
+      | 5  |
+      | 4  |
+      | 3  |
+      | 2  |
+      | 1  |
+
