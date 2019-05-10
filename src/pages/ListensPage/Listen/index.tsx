@@ -14,6 +14,7 @@ export default function Listen({ listen }: ListenProps) {
       <ListenContainer
         containerTitle={`${listen.listenerName}·${prettyIanaTimezone(listen.ianaTimezone)}`}
         containerTitleStyle='success'
+        data-test='listen'
       >
         <SongBody song={listen.song} />
         {listen.note !== '' && (

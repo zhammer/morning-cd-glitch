@@ -39,6 +39,26 @@ Then('I see the listens with the following ids', dataTable => {
   const ids = pluckIds(dataTable);
   cy.get('@availableListens').then(availableListens => {
     const listens = ids.map(id => availableListens.find(listen => listen.id === id));
+    cy.get('div[data-test=listens]')
+      .children()
+      .should('have.length', listens.length)
+      .each((listenComponent, index) => {
+        const listen = listens[index];
+        const expectedIanaTimezone = listen.ianaTimezone
+          .split('/')
+          .slice(-1)[0]
+          .replace(/_/g, ' ');
+
+        cy.wrap(listenComponent)
+          .contains('div[data-test=listen]', listen.listenerName)
+          .contains('div[data-test=listen]', listen.song.name)
+          .contains('div[data-test=listen]', listen.song.artistName)
+          .contains('div[data-test=listen]', listen.song.albumName)
+          .contains('div[data-test=listen]', expectedIanaTimezone);
+        if (listen.note !== '') {
+          cy.wrap(listenComponent).contains(listen.note);
+        }
+      });
   });
 });
 

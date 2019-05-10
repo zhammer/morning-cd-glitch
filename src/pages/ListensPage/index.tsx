@@ -28,7 +28,7 @@ export default function ListensPage() {
         <div>Loading...</div>
       ) : (
         <>
-          <List>
+          <List data-test='listens'>
             {listens.reverse().map(listen => (
               <Listen key={listen.id} listen={listen} />
             ))}
