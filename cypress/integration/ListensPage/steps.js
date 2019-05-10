@@ -48,15 +48,14 @@ Then('I see the listens with the following ids', dataTable => {
           .split('/')
           .slice(-1)[0]
           .replace(/_/g, ' ');
-
-        cy.wrap(listenComponent)
-          .contains('div[data-test=listen]', listen.listenerName)
-          .contains('div[data-test=listen]', listen.song.name)
-          .contains('div[data-test=listen]', listen.song.artistName)
-          .contains('div[data-test=listen]', listen.song.albumName)
-          .contains('div[data-test=listen]', expectedIanaTimezone);
+        expect(listenComponent)
+          .to.contain(listen.listenerName)
+          .and.contain(listen.song.name)
+          .and.contain(listen.song.artistName)
+          .and.contain(listen.song.albumName)
+          .and.contain(expectedIanaTimezone);
         if (listen.note !== '') {
-          cy.wrap(listenComponent).contains(listen.note);
+          expect(listenComponent).to.contain(listen.note);
         }
       });
   });
