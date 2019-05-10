@@ -44,16 +44,12 @@ Then('I see the listens with the following ids', dataTable => {
       .should('have.length', listens.length)
       .each((listenComponent, index) => {
         const listen = listens[index];
-        const expectedIanaTimezone = listen.ianaTimezone
-          .split('/')
-          .slice(-1)[0]
-          .replace(/_/g, ' ');
         expect(listenComponent)
           .to.contain(listen.listenerName)
           .and.contain(listen.song.name)
           .and.contain(listen.song.artistName)
           .and.contain(listen.song.albumName)
-          .and.contain(expectedIanaTimezone);
+          .and.contain(listen.expectedIanaTimezoneDisplay);
         if (listen.note !== '') {
           expect(listenComponent).to.contain(listen.note);
         }
