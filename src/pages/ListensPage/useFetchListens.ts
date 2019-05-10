@@ -45,6 +45,7 @@ type UseFetchListensReturn = {
   fetchMore: () => void;
   hasMore: boolean;
   loadingMore: boolean;
+  error: boolean;
 };
 
 export default function useFetchListens(): UseFetchListensReturn {
@@ -86,5 +87,12 @@ export default function useFetchListens(): UseFetchListensReturn {
     setLoadingMore(false);
   }, [fetchMore, edges, loadingMore]);
   const listens = edges.map(edge => edge.listen);
-  return { listens, loading, fetchMore: fetchMoreCallback, loadingMore, hasMore };
+  return {
+    listens,
+    loading,
+    fetchMore: fetchMoreCallback,
+    loadingMore,
+    hasMore,
+    error: Boolean(error)
+  };
 }

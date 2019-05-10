@@ -49,6 +49,16 @@ Given('no listens were submitted today', () => {
   });
 });
 
+Given('there are problems with the server', () => {
+  cy.graphqlUpdate({
+    Query: {
+      allListens: () => {
+        throw new Error();
+      }
+    }
+  });
+});
+
 When(/I scroll to the (bottom) of the page/, partOfPage => {
   cy.scrollTo(partOfPage);
 });
@@ -83,6 +93,10 @@ Then("I don't see any listens", () => {
 Then(/I (don't )?see the more listens loader/, dont => {
   const prefix = dont ? 'not.' : '';
   cy.get('div[data-test=more-listens-loader]').should(`${prefix}exist`);
+});
+
+Then(`I see the error text {string}`, text => {
+  cy.get('span[data-test=text-error]').should('have.text', text);
 });
 
 function pluckIds(dataTable) {

@@ -46,7 +46,6 @@ Feature: Listens Page
     Then I see the title "Nobody posted a listen to morning.cd today. Check back here later tonight. Morning.cd works all around the world, and it’s daytime somewhere."
     And I don't see any listens
 
-  # There is an error fetching lessons
   # Text for daytime and you haven't submitted a listen
   # Text for nighttime and you haven't submitted a listen so have to tomorrow
   # Go back to question page on sunrise
@@ -88,4 +87,10 @@ Feature: Listens Page
       | 3  |
       | 2  |
       | 1  |
+
+  Scenario: There is an error fetching listens
+    Given it is after sunset
+    And there are problems with the server
+    When I visit "/listens"
+    Then I see the error text "There was an error getting today's listens."
 
