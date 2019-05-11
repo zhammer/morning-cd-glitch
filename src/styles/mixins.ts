@@ -33,7 +33,7 @@ const roundedCornerDefaults = css`
   border-width: ${borderSize};
 `;
 
-export const roundedCorners = (isDark: boolean) => css`
+export const roundedCorners = css`
   ${roundedCornerDefaults};
   ${borderImageRepeat};
 
@@ -41,10 +41,10 @@ export const roundedCorners = (isDark: boolean) => css`
   border-image-width: 2;
 
   ${compactBorderImage};
-  border-image-outset: ${isDark ? 0 : 2};
+  border-image-outset: ${props => (props.theme.isNight ? 0 : 2)};
 `;
 
-export const compactRoundedCorners = (isDark: boolean = false) => css`
+export const compactRoundedCorners = css`
   ${roundedCornerDefaults};
   ${borderImageRepeat};
 
@@ -52,5 +52,5 @@ export const compactRoundedCorners = (isDark: boolean = false) => css`
   border-image-width: 2;
 
   ${compactBorderImage};
-  border-image-outset: ${isDark ? 0 : 2};
+  border-image-outset: ${props => (props.theme.isNight ? 0 : 2)};
 `;

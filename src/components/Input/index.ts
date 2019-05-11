@@ -6,7 +6,7 @@ interface InputProps {
 }
 
 const baseCss = css<InputProps>`
-  ${compactRoundedCorners()};
+  ${compactRoundedCorners};
   width: 100%;
   padding: 0.5rem 1rem;
   margin: 4px;
