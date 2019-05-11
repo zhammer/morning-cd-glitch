@@ -15,10 +15,9 @@ export const borderImage = (color: string) =>
     color
   )}" /></svg>');`;
 
-export const compactBorderImage = (color: string) =>
-  css`border-image-source: url('data:image/svg+xml;utf8,<?xml version="1.0" encoding="UTF-8" ?><svg version="1.1" width="5" height="5" xmlns="http://www.w3.org/2000/svg"><path d="M2 1 h1 v1 h-1 z M1 2 h1 v1 h-1 z M3 2 h1 v1 h-1 z M2 3 h1 v1 h-1 z" fill="${rgb(
-    color
-  )}" /></svg>');`;
+export const compactBorderImage = css`
+  border-image-source: url('data:image/svg+xml;utf8,<?xml version="1.0" encoding="UTF-8" ?><svg version="1.1" width="5" height="5" xmlns="http://www.w3.org/2000/svg"><path d="M2 1 h1 v1 h-1 z M1 2 h1 v1 h-1 z M3 2 h1 v1 h-1 z M2 3 h1 v1 h-1 z" fill="${props =>
+    rgb(props.theme.base)}" /></svg>');`;
 
 const borderImageRepeat = css`
   border-image-repeat: stretch;
@@ -46,7 +45,7 @@ export const roundedCorners = (isDark: boolean) => css`
   border-image-slice: 2;
   border-image-width: 2;
 
-  ${compactBorderImage(isDark ? 'white' : 'black')};
+  ${compactBorderImage};
   border-image-outset: ${isDark ? 0 : 2};
 `;
 
@@ -57,6 +56,6 @@ export const compactRoundedCorners = (isDark: boolean = false) => css`
   border-image-slice: 2;
   border-image-width: 2;
 
-  ${compactBorderImage(isDark ? 'white' : 'black')};
+  ${compactBorderImage};
   border-image-outset: ${isDark ? 0 : 2};
 `;
