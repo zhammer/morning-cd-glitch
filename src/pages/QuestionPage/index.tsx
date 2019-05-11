@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Input from '../../components/Input';
 import Page from '../../components/Page';
 import Title from '../../components/Title';
-import { QuestionContainer, SongsContainer } from './QuestionPage.styles';
+import { QuestionContainer } from './QuestionPage.styles';
 import useQuestionInput from './useQuestionInput';
 import useSpotifySearch from './useSpotifySearch';
 import Song from '../../components/Song';
@@ -12,6 +12,7 @@ import { Redirect } from 'react-router';
 import useFocusOnMount from '../../hooks/useFocusOnMount';
 import { useGnomon } from '../../hooks/useSundial';
 import useSubmittedAfterLastSunrise from '../../hooks/useSubmittedAfterLastSunrise';
+import List from '../../components/List';
 
 export default function QuestionPage() {
   const [questionInput, setQuestionInput] = useQuestionInput();
@@ -40,11 +41,11 @@ export default function QuestionPage() {
       {selectedSong && <div>{JSON.stringify(selectedSong)}</div>}
       {loading && <div>Loading...</div>}
       {songs && (
-        <SongsContainer data-test='songs-container'>
+        <List data-test='songs-container'>
           {songs.map(song => (
             <Song key={song.id} song={song} onClick={() => setSelectedSong(song)} />
           ))}
-        </SongsContainer>
+        </List>
       )}
     </Page>
   );

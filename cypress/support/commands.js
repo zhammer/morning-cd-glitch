@@ -15,15 +15,12 @@ function makeMockGraphqlFetch(endpoint, schema, initialMocks, delay) {
     numCallsByOperationName[operationName] = numCalls + 1;
   }
   function updateMocks(newMocks) {
-    currentMocks = {
-      ...currentMocks,
-      ...newMocks
-    };
+    currentMocks = mergeDeep(currentMocks, newMocks);
   }
   async function mockGraphqlFetch(input, init) {
     addMockFunctionsToSchema({
       schema,
-      mocks: currentMocks
+      mocks: makeApolloMocks(currentMocks)
     });
 
     if (input.indexOf(endpoint) !== -1 && init && init.method === 'POST') {
@@ -85,3 +82,47 @@ Cypress.Commands.add('graphqlUpdate', mocks => {
 Cypress.Commands.add('graphqlNumCallsByOperationName', () => {
   cy.get('@numCallsByOperationName').then(numCallsByOperationName => numCallsByOperationName);
 });
+
+/**
+ * Simple object check.
+ * @param item
+ * @returns {boolean}
+ */
+export function isObject(item) {
+  return item && typeof item === 'object' && !Array.isArray(item);
+}
+
+/**
+ * Deep merge two objects.
+ * @param target
+ * @param ...sources
+ */
+export function mergeDeep(target, ...sources) {
+  if (!sources.length) return target;
+  const source = sources.shift();
+
+  if (isObject(target) && isObject(source)) {
+    for (const key in source) {
+      if (isObject(source[key])) {
+        if (!target[key]) Object.assign(target, { [key]: {} });
+        mergeDeep(target[key], source[key]);
+      } else {
+        Object.assign(target, { [key]: source[key] });
+      }
+    }
+  }
+
+  return mergeDeep(target, ...sources);
+}
+
+function makeApolloMocks(mockObject) {
+  let mock = {};
+  Object.entries(mockObject).forEach(([key, value]) => {
+    if (isObject(value)) {
+      mock[key] = () => makeApolloMocks(value);
+      return;
+    }
+    mock[key] = value;
+  });
+  return mock;
+}

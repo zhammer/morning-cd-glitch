@@ -64,7 +64,7 @@ When('I click the submit button', () => {
       cy.get('@nameInputValue', { log: false }).then(nameInputValue => {
         cy.get('@noteInputValue', { log: false }).then(noteInputValue => {
           cy.graphqlUpdate({
-            Mutation: () => ({
+            Mutation: {
               submitListen: (_, { input }) => {
                 if (graphqlServerError) {
                   throw new Error();
@@ -77,7 +77,7 @@ When('I click the submit button', () => {
                 };
                 expect(input).to.eql(expectedInput);
               }
-            })
+            }
           });
         });
       });

@@ -32,12 +32,12 @@ Given(`these are the sunlight windows for new york`, sunlightWindowTable => {
   cy.log(sunlightWindows);
   cy.then(() => {
     cy.graphqlUpdate({
-      Query: () => ({
+      Query: {
         sunlightWindow: (_, args) => {
           expect(args.ianaTimezone).to.equal(Intl.DateTimeFormat().resolvedOptions().timeZone);
           return sunlightWindows[args.onDate];
         }
-      })
+      }
     });
   });
 });

@@ -12,6 +12,15 @@ export interface Song {
   imageSmallUrl: string;
 }
 
+export interface Listen {
+  id: string;
+  song: Song;
+  listenerName: string;
+  listenTimeUtc: string;
+  note: string | null;
+  ianaTimezone: string;
+}
+
 export interface SunlightWindow {
   sunrise: Date;
   sunset: Date;
