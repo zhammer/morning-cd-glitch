@@ -19,5 +19,7 @@ export const ListenContainer = styled(Container.Rounded)`
 `;
 
 export const Note = styled(Text.Primary)`
+  display: block;
+  margin-top: 0.75em;
   font-style: italic;
 `;
