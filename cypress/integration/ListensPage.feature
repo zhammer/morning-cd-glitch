@@ -21,13 +21,13 @@ Feature: Listens Page
       | 14 | Chris S       | 1985-03-05T21:06:49.574237 | Funky driving jam                                                                              | America/New_York | New York                    | 7mKkJuVgkR72ozJGvJOTHP | The View                                          | Modest Mouse              | Good News For People Who Love Bad News                       | https://i.scdn.co/image/2e37a10e1a0b3faeab3d8d981d7ab125e66caa94 |
       | 15 | Queso L       | 1985-03-05T21:25:41.754157 | 1975 came out with one of the best albums this year hands down                                 | America/New_York | New York                    | 6WmIyn2fx1PKQ0XDpYj4VR | Love It If We Made It                             | The 1975                  | A Brief Inquiry Into Online Relationships                    | https://i.scdn.co/image/e8883740c2f09cbe13cae7acf6797e6afb3eb558 |
 
-  Scenario Outline: I have submitted a listen today
+  Scenario Outline: I visit the listens page
     Given it is <timeOfDay>
-    And I have submitted a listen today
+    And I <haveOrHaveNotSubmitted> submitted a listen today
     And listens 1-15 exist
     When I visit "/listens"
     Then I see the title "Here are the first pieces of music people listened to today, from all over the world"
-    And I don't see a subtitle
+    And <expectedSubtitleState>
     And I see the listens with the following ids
       | id |
       | 15 |
@@ -42,10 +42,12 @@ Feature: Listens Page
       | 6  |
 
     Examples:
-      | timeOfDay                     |
-      | day                           |
-      | after sunset                  |
-      | before the next day's sunrise |
+      | timeOfDay                     | haveOrHaveNotSubmitted | expectedSubtitleState                                              |
+      | day                           | have                   | I don't see a subtitle                                             |
+      | after sunset                  | have                   | I don't see a subtitle                                             |
+      | after sunset                  | have not               | I see the subtitle "(You can only submit listens during the day.)" |
+      | before the next day's sunrise | have                   | I don't see a subtitle                                             |
+      | before the next day's sunrise | have not               | I see the subtitle "(You can only submit listens during the day.)" |
 
   Scenario: I visit the listens page during the day without having submitted a listen
     Given it is day
@@ -63,9 +65,9 @@ Feature: Listens Page
     And I don't see any listens
 
     Examples:
-      | timeOfDay                    |
-      | after sunset                 |
-      | before the next day's sunrse |
+      | timeOfDay                     |
+      | after sunset                  |
+      | before the next day's sunrise |
 
   Scenario: I scroll down on the listens page to see more listens
     Given it is after sunset
