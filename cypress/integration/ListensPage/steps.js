@@ -59,8 +59,23 @@ Given('there are problems with the server', () => {
   });
 });
 
+Given('it is specifically a second before sunrise', () => {
+  cy.clock().then(clock => {
+    clock.restore();
+  });
+  cy.clock(new Date('Wed Mar 06 1985 06:20:55 GMT-0500').getTime(), ['Date', 'setTimeout']);
+});
+
 When(/I scroll to the (bottom) of the page/, partOfPage => {
   cy.scrollTo(partOfPage);
+});
+
+When(`I wait {int} seconds`, seconds => {
+  cy.tick(seconds * 1000);
+});
+
+When('the page loads', () => {
+  cy.get('div[data-test=listens-page]');
 });
 
 When(`I click the link with the text {string}`, text => {

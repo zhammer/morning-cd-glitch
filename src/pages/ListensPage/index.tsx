@@ -42,7 +42,7 @@ export default function ListensPage() {
 
   if (sunHasRisen) return <Redirect to='/question' />;
   return (
-    <Page>
+    <Page data-test='listens-page'>
       <Title>{titleByPageState[pageState]}</Title>
       {!loading && !submittedListenAfterLastSunrise && (
         <Subtitle>

@@ -70,7 +70,13 @@ Feature: Listens Page
     When I visit "/listens"
     Then I see the subtitle "You can only submit listens during the day. Come back at sunrise to submit yours!"
 
-  # Go back to question page on sunrise
+  Scenario: The sun rises
+    Given it is before sunrise
+    And it is specifically a second before sunrise
+    When I visit "/listens"
+    And the page loads
+    And I wait 2 seconds
+    Then I am redirected to "/question"
 
   Scenario: I scroll down on the listens page to see more listens
     Given it is after sunset
