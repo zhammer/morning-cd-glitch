@@ -54,7 +54,7 @@ export default function ListensPage() {
               to submit your listen!
             </>
           ) : (
-            'You can only submit listens during the day. Come back tomorrow morning to submit yours!'
+            'You can only submit listens during the day. Come back at sunrise to submit yours!'
           )}
         </Subtitle>
       )}

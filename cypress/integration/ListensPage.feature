@@ -68,7 +68,7 @@ Feature: Listens Page
     And I have not submitted a listen today
     And listens 1-3 exist
     When I visit "/listens"
-    Then I see the subtitle "You can only submit listens during the day. Come back tomorrow morning to submit yours!"
+    Then I see the subtitle "You can only submit listens during the day. Come back at sunrise to submit yours!"
 
   # Go back to question page on sunrise
 
