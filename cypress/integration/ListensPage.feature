@@ -23,6 +23,7 @@ Feature: Listens Page
 
   Scenario: I visit the listens page
     Given it is after sunset
+    And I have submitted a listen today
     And listens 1-15 exist
     When I visit "/listens"
     Then I see the title "Here are the first pieces of music people listened to today, from all over the world"
@@ -41,17 +42,39 @@ Feature: Listens Page
 
   Scenario: I visit the listens page at night when no listens were submitted during the day
     Given it is after sunset
+    And I have submitted a listen today
     And no listens were submitted today
     When I visit "/listens"
     Then I see the title "Nobody posted a listen to morning.cd today. Check back here later tonight. Morning.cd works all around the world, and it’s daytime somewhere."
     And I don't see any listens
 
-  # Text for daytime and you haven't submitted a listen
-  # Text for nighttime and you haven't submitted a listen so have to tomorrow
+  Scenario: I visit the listens page during the day without having submitted a listen
+    Given it is day
+    And I have not submitted a listen today
+    And listens 1-3 exist
+    When I visit "/listens"
+    Then I see the subtitle "Click here to submit your listen!"
+
+  Scenario: I follow the link to submit my listen
+    Given it is day
+    And I have not submitted a listen today
+    And listens 1-3 exist
+    When I visit "/listens"
+    And I click the link with the text "Click here"
+    Then I am redirected to "/question"
+
+  Scenario: I visit the listens page at night without having submitted a listen
+    Given it is after sunset
+    And I have not submitted a listen today
+    And listens 1-3 exist
+    When I visit "/listens"
+    Then I see the subtitle "You can only submit listens during the day. Come back tomorrow morning to submit yours!"
+
   # Go back to question page on sunrise
 
   Scenario: I scroll down on the listens page to see more listens
     Given it is after sunset
+    And I have submitted a listen today
     And listens 1-15 exist
     When I visit "/listens"
     And I scroll to the bottom of the page
@@ -76,6 +99,7 @@ Feature: Listens Page
 
   Scenario: I scroll down on the listens page to see more listens but there are none
     Given it is after sunset
+    And I have submitted a listen today
     And listens 1-5 exist
     When I visit "/listens"
     And I scroll to the bottom of the page
@@ -90,6 +114,7 @@ Feature: Listens Page
 
   Scenario: There is an error fetching listens
     Given it is after sunset
+    And I have submitted a listen today
     And there are problems with the server
     When I visit "/listens"
     Then I see the error text "There was an error getting today's listens."

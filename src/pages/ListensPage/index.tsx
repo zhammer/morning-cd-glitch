@@ -10,6 +10,9 @@ import { Redirect } from 'react-router';
 import VisibilitySensor from 'react-visibility-sensor';
 import { LoadingMore } from './ListenPage.styles';
 import Text from '../../components/Text';
+import useSubmittedAfterLastSunrise from '../../hooks/useSubmittedAfterLastSunrise';
+import Subtitle from '../../Subtitle';
+import { Link } from 'react-router-dom';
 
 type PageState = 'loading' | 'loaded.listensExist' | 'loaded.noListensExist' | 'loaded.error';
 
@@ -35,11 +38,26 @@ export default function ListensPage() {
     if (listens.length === 0) return 'loaded.noListensExist';
     return 'loaded.listensExist';
   }, [listens, loading, error]);
+  const submittedListenAfterLastSunrise = useSubmittedAfterLastSunrise();
 
   if (sunHasRisen) return <Redirect to='/question' />;
   return (
     <Page>
       <Title>{titleByPageState[pageState]}</Title>
+      {!loading && !submittedListenAfterLastSunrise && (
+        <Subtitle>
+          {timeOfDay === 'day' ? (
+            <>
+              <Link to='/question'>
+                <Text.Success>Click here</Text.Success>
+              </Link>{' '}
+              to submit your listen!
+            </>
+          ) : (
+            'You can only submit listens during the day. Come back tomorrow morning to submit yours!'
+          )}
+        </Subtitle>
+      )}
       {pageState === 'loaded.listensExist' && (
         <>
           <List data-test='listens'>

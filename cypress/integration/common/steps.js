@@ -54,6 +54,12 @@ Given('I have submitted a listen today', () => {
   });
 });
 
+Given('I have not submitted a listen today', () => {
+  cy.window().then(window => {
+    window.localStorage.removeItem('lastSubmit');
+  });
+});
+
 Given('the last time I submitted a listen was a few days ago', () => {
   cy.window().then(window => {
     window.localStorage.setItem('lastSubmit', '1985-03-01T12:15:20');

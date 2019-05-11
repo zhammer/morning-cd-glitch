@@ -63,6 +63,12 @@ When(/I scroll to the (bottom) of the page/, partOfPage => {
   cy.scrollTo(partOfPage);
 });
 
+When(`I click the link with the text {string}`, text => {
+  cy.get('a')
+    .contains(text)
+    .click();
+});
+
 Then('I see the listens with the following ids', dataTable => {
   const ids = pluckIds(dataTable);
   cy.get('@availableListens').then(availableListens => {
@@ -88,6 +94,10 @@ Then('I see the listens with the following ids', dataTable => {
 Then("I don't see any listens", () => {
   cy.get('div[data-test=listens').should('not.exist');
   cy.get('div[data-test=listen').should('not.exist');
+});
+
+Then(`I see the subtitle {string}`, text => {
+  cy.get('div[data-test=subtitle]').contains(text);
 });
 
 Then(/I (don't )?see the more listens loader/, dont => {
