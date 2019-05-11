@@ -7,6 +7,7 @@ export interface ThemeInterface {
   error: colorWithStyles;
   default: colorWithStyles;
   disabled: colorWithStyles;
+  isNight: boolean;
 }
 
 type colorWithStyles = {
@@ -47,9 +48,18 @@ const day: ThemeInterface = {
     normal: '#d3d3d3',
     shadow: '#adafbc',
     hover: '#d3d3d3'
-  }
+  },
+  isNight: false
+};
+
+const night: ThemeInterface = {
+  ...day,
+  base: '#ffffff',
+  background: '#000000',
+  isNight: true
 };
 
 export default {
-  day
+  day,
+  night
 };
