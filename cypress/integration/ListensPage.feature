@@ -42,14 +42,14 @@ Feature: Listens Page
       | 6  |
 
     Examples:
-      | timeOfDay                     | haveOrHaveNotSubmitted | expectedSubtitleState                                              |
-      | day                           | have                   | I don't see a subtitle                                             |
-      | after sunset                  | have                   | I don't see a subtitle                                             |
-      | after sunset                  | have not               | I see the subtitle "(You can only submit listens during the day.)" |
-      | before the next day's sunrise | have                   | I don't see a subtitle                                             |
-      | before the next day's sunrise | have not               | I see the subtitle "(You can only submit listens during the day.)" |
+      | timeOfDay                     | haveOrHaveNotSubmitted | expectedSubtitleState                                            |
+      | day                           | have                   | I don't see a subtitle                                           |
+      | after sunset                  | have                   | I don't see a subtitle                                           |
+      | after sunset                  | have not               | I see the subtitle "You can only submit listens during the day." |
+      | before the next day's sunrise | have                   | I don't see a subtitle                                           |
+      | before the next day's sunrise | have not               | I see the subtitle "You can only submit listens during the day." |
 
-  Scenario: I visit the listens page during the day without having submitted a listen
+  Scenario: It is day and I haven't submitted a listen
     Given it is day
     And I have not submitted a listen today
     When I visit "/listens"
@@ -61,7 +61,7 @@ Feature: Listens Page
     And no listens were submitted today
     When I visit "/listens"
     Then I see the title "Nobody posted a listen to morning.cd today. Check back here later tonight. Morning.cd works all around the world, and it’s daytime somewhere."
-    And I see the subtitle "(You can only submit listens during the day.)"
+    And I see the subtitle "You can only submit listens during the day."
     And I don't see any listens
 
     Examples:
