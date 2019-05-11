@@ -15,6 +15,7 @@ export const GlobalStyle = createGlobalStyle`
     font-family: "Press Start 2P", cursive;
     font-size: 16px;
 
+    color: ${props => props.theme.base};
     background-color: ${props => props.theme.background};
 
     -webkit-font-smoothing: antialiased;
