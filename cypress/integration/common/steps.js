@@ -31,7 +31,7 @@ const sunlightWindows = {
     sunsetUtc: '1985-03-07T22:54:28'
   }
 };
-Given(/it is (before sunrise|day|after sunset)/, timeOfDay => {
+Given(/it is (before sunrise|day|after sunset|before the next day's sunrise)/, timeOfDay => {
   cy.graphqlUpdate({
     Query: {
       sunlightWindow: (_, args) => sunlightWindows[args.onDate]
@@ -39,8 +39,9 @@ Given(/it is (before sunrise|day|after sunset)/, timeOfDay => {
   });
   const currentDateString = {
     'before sunrise': 'Tue Mar 05 1985 03:50:00 GMT-0500',
-    day: 'Tue Mar 05 1985 13:30:10 GMT-0500',
-    'after sunset': 'Tue Mar 05 1985 23:15:40 GMT-0500'
+    day: 'Tue Mar 05 1985 16:30:10 GMT-0500',
+    'after sunset': 'Tue Mar 05 1985 23:15:40 GMT-0500',
+    "before the next day's sunrise": 'Wed Mar 06 1985 03:50:00 GMT-0500'
   }[timeOfDay];
   cy.clock().then(clock => {
     clock.restore();

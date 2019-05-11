@@ -21,12 +21,13 @@ Feature: Listens Page
       | 14 | Chris S       | 1985-03-05T21:06:49.574237 | Funky driving jam                                                                              | America/New_York | New York                    | 7mKkJuVgkR72ozJGvJOTHP | The View                                          | Modest Mouse              | Good News For People Who Love Bad News                       | https://i.scdn.co/image/2e37a10e1a0b3faeab3d8d981d7ab125e66caa94 |
       | 15 | Queso L       | 1985-03-05T21:25:41.754157 | 1975 came out with one of the best albums this year hands down                                 | America/New_York | New York                    | 6WmIyn2fx1PKQ0XDpYj4VR | Love It If We Made It                             | The 1975                  | A Brief Inquiry Into Online Relationships                    | https://i.scdn.co/image/e8883740c2f09cbe13cae7acf6797e6afb3eb558 |
 
-  Scenario: I visit the listens page
-    Given it is after sunset
+  Scenario Outline: I have submitted a listen today
+    Given it is <timeOfDay>
     And I have submitted a listen today
     And listens 1-15 exist
     When I visit "/listens"
     Then I see the title "Here are the first pieces of music people listened to today, from all over the world"
+    And I don't see a subtitle
     And I see the listens with the following ids
       | id |
       | 15 |
@@ -40,47 +41,34 @@ Feature: Listens Page
       | 7  |
       | 6  |
 
-  Scenario: I visit the listens page at night when no listens were submitted during the day
-    Given it is after sunset
-    And I have submitted a listen today
-    And no listens were submitted today
-    When I visit "/listens"
-    Then I see the title "Nobody posted a listen to morning.cd today. Check back here later tonight. Morning.cd works all around the world, and it’s daytime somewhere."
-    And I don't see any listens
+    Examples:
+      | timeOfDay                     |
+      | day                           |
+      | after sunset                  |
+      | before the next day's sunrise |
 
   Scenario: I visit the listens page during the day without having submitted a listen
     Given it is day
     And I have not submitted a listen today
-    And listens 1-3 exist
     When I visit "/listens"
-    Then I see the subtitle "Click here to submit your listen!"
-
-  Scenario: I follow the link to submit my listen
-    Given it is day
-    And I have not submitted a listen today
-    And listens 1-3 exist
-    When I visit "/listens"
-    And I click the link with the text "Click here"
     Then I am redirected to "/question"
 
-  Scenario: I visit the listens page at night without having submitted a listen
-    Given it is after sunset
+  Scenario Outline: I visit the listens page when no listens were submitted today
+    Given it is <timeOfDay>
     And I have not submitted a listen today
-    And listens 1-3 exist
+    And no listens were submitted today
     When I visit "/listens"
-    Then I see the subtitle "You can only submit listens during the day. Come back at sunrise to submit yours!"
+    Then I see the title "Nobody posted a listen to morning.cd today. Check back here later tonight. Morning.cd works all around the world, and it’s daytime somewhere."
+    And I see the subtitle "(You can only submit listens during the day.)"
+    And I don't see any listens
 
-  Scenario: The sun rises
-    Given it is before sunrise
-    And it is specifically a second before sunrise
-    When I visit "/listens"
-    And the page loads
-    And I wait 2 seconds
-    Then I am redirected to "/question"
+    Examples:
+      | timeOfDay                    |
+      | after sunset                 |
+      | before the next day's sunrse |
 
   Scenario: I scroll down on the listens page to see more listens
     Given it is after sunset
-    And I have submitted a listen today
     And listens 1-15 exist
     When I visit "/listens"
     And I scroll to the bottom of the page
@@ -118,10 +106,16 @@ Feature: Listens Page
       | 2  |
       | 1  |
 
-  Scenario: There is an error fetching listens
+  Scenario Outline: There is an error fetching listens
     Given it is after sunset
-    And I have submitted a listen today
+    And I <haveOrHaveNotSubmitted> submitted a listen today
     And there are problems with the server
     When I visit "/listens"
-    Then I see the error text "There was an error getting today's listens."
+    Then I see the error text "Something went wrong. Try restarting your console."
+    And I don't see a subtitle
+
+    Examples:
+      | haveOrHaveNotSubmitted |
+      | have                   |
+      | have not               |
 

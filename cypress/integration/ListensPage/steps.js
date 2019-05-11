@@ -59,19 +59,8 @@ Given('there are problems with the server', () => {
   });
 });
 
-Given('it is specifically a second before sunrise', () => {
-  cy.clock().then(clock => {
-    clock.restore();
-  });
-  cy.clock(new Date('Wed Mar 06 1985 06:20:55 GMT-0500').getTime(), ['Date', 'setTimeout']);
-});
-
 When(/I scroll to the (bottom) of the page/, partOfPage => {
   cy.scrollTo(partOfPage);
-});
-
-When(`I wait {int} seconds`, seconds => {
-  cy.tick(seconds * 1000);
 });
 
 When('the page loads', () => {
@@ -104,6 +93,10 @@ Then('I see the listens with the following ids', dataTable => {
         }
       });
   });
+});
+
+Then("I don't see a subtitle", () => {
+  cy.get('div[data-test=subtitle]').should('not.exist');
 });
 
 Then("I don't see any listens", () => {
