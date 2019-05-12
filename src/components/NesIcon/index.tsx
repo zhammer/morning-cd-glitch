@@ -1,5 +1,5 @@
-import styled from '../../custom/styled-components';
 import makeIcon from './makeIcon';
+import Facebook from './Facebook';
 
 const pokeballMatrix = [
   [0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0],
@@ -22,5 +22,6 @@ const pokeballSize = 6;
 const Pokeball = makeIcon(pokeballSize, pokeballMatrix, pokeballColors);
 
 export default {
-  Pokeball
+  Pokeball,
+  Facebook
 };

@@ -5,7 +5,7 @@ export default function makeIcon(size: number, matrix: number[][], colors: strin
     position: relative;
     display: inline-block;
     width: ${size * matrix[0].length}px;
-    height: ${matrix.length}px;
+    height: ${size * matrix.length}px;
 
     &::before {
       position: absolute;
@@ -18,13 +18,7 @@ export default function makeIcon(size: number, matrix: number[][], colors: strin
   `;
 }
 
-export function pixelize(
-  size: number,
-  matrix: number[][],
-  colors: string[],
-  options?: { defaultColor?: string }
-) {
-  const defaultColor = (options && options.defaultColor) || colors[matrixMode(matrix)];
+export function pixelize(size: number, matrix: number[][], colors: string[]) {
   const boxShadowMatrix = matrix.map((row, rowIndex) =>
     row.map((colorKey, columnIndex) => {
       const color = colors[colorKey - 1];
@@ -34,20 +28,9 @@ export function pixelize(
   return css`
     width: ${size}px;
     height: ${size}px;
-    color: ${defaultColor};
+    color: rgba(0, 0, 0, 0);
     box-shadow: ${flatten(boxShadowMatrix).join(', ')};
   `;
-}
-
-function matrixMode<T>(matrix: Array<Array<T>>): T {
-  const flattenedMatrix = flatten(matrix);
-  const countByValue = flattenedMatrix.reduce(
-    (curr, value) => new Map([...curr, ...new Map([[value, (curr.get(value) || 0) + 1]])]),
-    new Map<T, number>()
-  );
-  return [...countByValue.entries()].reduce((prevEntry, currEntry) =>
-    prevEntry[1] > currEntry[1] ? prevEntry : currEntry
-  )[0];
 }
 
 function flatten<T>(matrix: Array<Array<T>>): Array<T> {
