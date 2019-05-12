@@ -43,7 +43,7 @@ const buttonColorStyles = (
 `;
 
 const Base = styled.button`
-  ${compactRoundedCorners()};
+  ${compactRoundedCorners};
 
   ${({ theme }) =>
     buttonColorStyles(theme.base, theme.default.normal, theme.default.hover, theme.default.shadow)}

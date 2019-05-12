@@ -24,30 +24,32 @@ function App() {
     }
   }, [showLoadingPageDelayDone]);
   return (
-    <div data-time-of-day={timeOfDay}>
-      <GlobalStyle />
-      {timeOfDay === 'calibrating' ? (
-        showLoadingPageDelayDone && <LoadingCDsPage />
-      ) : (
-        <Router>
-          <Switch>
-            <Route exact path='/question' component={QuestionPage} />
-            <Route exact path='/submit' component={SubmitPage} />
-            <Route exact path='/listens' component={ListensPage} />
-            <Redirect from='/' to='/question' />
-          </Switch>
-        </Router>
-      )}
-    </div>
+    <ThemeProvider
+      theme={['afterSunset', 'beforeSunset'].includes(timeOfDay) ? theme.night : theme.day}
+    >
+      <div data-time-of-day={timeOfDay}>
+        <GlobalStyle />
+        {timeOfDay === 'calibrating' ? (
+          showLoadingPageDelayDone && <LoadingCDsPage />
+        ) : (
+          <Router>
+            <Switch>
+              <Route exact path='/question' component={QuestionPage} />
+              <Route exact path='/submit' component={SubmitPage} />
+              <Route exact path='/listens' component={ListensPage} />
+              <Redirect from='/' to='/question' />
+            </Switch>
+          </Router>
+        )}
+      </div>
+    </ThemeProvider>
   );
 }
 
-export default function AppWithProviders() {
+export default function AppWithApollo() {
   return (
     <ApolloProvider client={client}>
-      <ThemeProvider theme={theme.day}>
-        <App />
-      </ThemeProvider>
+      <App />
     </ApolloProvider>
   );
 }

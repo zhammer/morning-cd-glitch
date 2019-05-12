@@ -50,6 +50,13 @@ const day: ThemeInterface = {
   }
 };
 
+const night: ThemeInterface = {
+  ...day,
+  base: '#ffffff',
+  background: '#000000'
+};
+
 export default {
-  day
+  day,
+  night
 };

@@ -43,7 +43,7 @@ function Container({ containerTitle, children, ...rest }: ContainerProps) {
 const Square = styled(Container)<ContainerProps>``;
 
 const Rounded = styled(Container)<ContainerProps>`
-  ${roundedCorners(false)};
+  ${roundedCorners};
   padding: 1rem 1.5rem;
   margin: ${borderSize};
 

@@ -1,16 +1,21 @@
 import styled, { css } from '../../custom/styled-components';
-import { compactBorderImage, compactRoundedCorners } from '../../styles/mixins';
+import {
+  compactBorderImage,
+  compactRoundedCorners,
+  coloredCompactBorderImage
+} from '../../styles/mixins';
 
 interface InputProps {
   mode?: 'success' | 'warning' | 'error';
 }
 
 const baseCss = css<InputProps>`
-  ${compactRoundedCorners()};
+  ${compactRoundedCorners};
   width: 100%;
   padding: 0.5rem 1rem;
   margin: 4px;
   background-clip: padding-box;
+  ${compactBorderImage};
 
   ${props => {
     if (!props.mode) {
@@ -22,8 +27,8 @@ const baseCss = css<InputProps>`
       error: props.theme.error
     }[props.mode];
     return css`
-      ${compactBorderImage(color.normal)};
       outline-color: ${color.hover};
+      ${coloredCompactBorderImage(color.normal)};
     `;
   }}
 `;

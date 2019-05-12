@@ -2,7 +2,7 @@ import styled from '../../custom/styled-components';
 import { roundedCorners } from '../../styles/mixins';
 
 const Base = styled.div`
-  ${roundedCorners(false)};
+  ${roundedCorners};
   position: relative;
   display: inline-block;
   padding: 1rem 1.5rem;
