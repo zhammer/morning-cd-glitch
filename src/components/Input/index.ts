@@ -1,5 +1,9 @@
 import styled, { css } from '../../custom/styled-components';
-import { compactBorderImage, compactRoundedCorners } from '../../styles/mixins';
+import {
+  compactBorderImage,
+  compactRoundedCorners,
+  coloredCompactBorderImage
+} from '../../styles/mixins';
 
 interface InputProps {
   mode?: 'success' | 'warning' | 'error';
@@ -24,6 +28,7 @@ const baseCss = css<InputProps>`
     }[props.mode];
     return css`
       outline-color: ${color.hover};
+      ${coloredCompactBorderImage(color.normal)};
     `;
   }}
 `;
