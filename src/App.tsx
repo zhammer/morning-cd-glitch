@@ -24,7 +24,9 @@ function App() {
     }
   }, [showLoadingPageDelayDone]);
   return (
-    <ThemeProvider theme={timeOfDay === 'day' ? theme.day : theme.night}>
+    <ThemeProvider
+      theme={['afterSunset', 'beforeSunset'].includes(timeOfDay) ? theme.night : theme.day}
+    >
       <div data-time-of-day={timeOfDay}>
         <GlobalStyle />
         {timeOfDay === 'calibrating' ? (
