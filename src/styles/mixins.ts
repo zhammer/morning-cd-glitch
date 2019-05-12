@@ -41,7 +41,7 @@ export const roundedCorners = css`
   border-image-width: 2;
 
   ${compactBorderImage};
-  border-image-outset: ${props => (props.theme.isNight ? 0 : 2)};
+  border-image-outset: 2;
 `;
 
 export const compactRoundedCorners = css`
@@ -52,5 +52,5 @@ export const compactRoundedCorners = css`
   border-image-width: 2;
 
   ${compactBorderImage};
-  border-image-outset: ${props => (props.theme.isNight ? 0 : 2)};
+  border-image-outset: 2;
 `;
