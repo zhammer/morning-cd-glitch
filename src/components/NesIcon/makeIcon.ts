@@ -13,7 +13,7 @@ export default function makeIcon(size: number, matrix: number[][], colors: strin
       left: -${size}px;
       content: '';
       background: transparent;
-      ${pixelize(size, matrix, colors)};
+      ${props => pixelize(size, matrix, colors.length > 0 ? colors : [props.theme.base])};
     }
   `;
 }
