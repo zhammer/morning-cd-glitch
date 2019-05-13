@@ -2,7 +2,7 @@ import React from 'react';
 import { Listen as ListenInterface } from '../../../definitions';
 import { ListenContainer, Note } from './Listen.styles';
 import { SongBody } from '../../../components/Song';
-import StylelessLink from '../../../components/StylelessLink';
+import Styleless from '../../../components/Styleless';
 
 interface ListenProps {
   listen: ListenInterface;
@@ -10,7 +10,7 @@ interface ListenProps {
 
 export default function Listen({ listen }: ListenProps) {
   return (
-    <StylelessLink href={`https://open.spotify.com/track/${listen.song.id}`} target='_blank'>
+    <Styleless.a href={`https://open.spotify.com/track/${listen.song.id}`} target='_blank'>
       <ListenContainer
         containerTitle={`${listen.listenerName}·${prettyIanaTimezone(listen.ianaTimezone)}`}
         containerTitleStyle='success'
@@ -19,7 +19,7 @@ export default function Listen({ listen }: ListenProps) {
         <SongBody song={listen.song} />
         {listen.note !== '' && <Note>"{listen.note}"</Note>}
       </ListenContainer>
-    </StylelessLink>
+    </Styleless.a>
   );
 }
 

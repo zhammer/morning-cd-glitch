@@ -12,7 +12,7 @@ import useFocusOnMount from '../../hooks/useFocusOnMount';
 import { useGnomon } from '../../hooks/useSundial';
 import useSubmittedAfterLastSunrise from '../../hooks/useSubmittedAfterLastSunrise';
 import List from '../../components/List';
-import StylelessLink from '../../components/StylelessLink';
+import Styleless from '../../components/Styleless';
 
 export default function QuestionPage() {
   const [questionInput, setQuestionInput] = useQuestionInput();
@@ -40,9 +40,9 @@ export default function QuestionPage() {
       {songs && (
         <List data-test='songs-container'>
           {songs.map(song => (
-            <StylelessLink href={`/submit?id=${song.id}`}>
-              <Song key={song.id} song={song} />
-            </StylelessLink>
+            <Styleless.Link to={`/submit?id=${song.id}`} key={song.id}>
+              <Song song={song} />
+            </Styleless.Link>
           ))}
         </List>
       )}

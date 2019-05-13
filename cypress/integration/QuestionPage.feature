@@ -66,8 +66,8 @@ Feature: Question Page
     Then I am redirected to "/question"
 
   Scenario: The page doesn't unload when I select a song
-    Given I expect the page not to unload
     When I visit morning cd
     And I type "something holy paper castles"
+    And I expect the page not to unload
     And I click the song "Something Holy" by "Alice Phoebe Lou"
     Then I am redirected to "/submit"

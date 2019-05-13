@@ -1,7 +1,7 @@
 /* global cy */
 /// <reference types="cypress" />
 
-import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { Then, When } from 'cypress-cucumber-preprocessor/steps';
 
 beforeEach(() => {
   cy.graphql();
@@ -31,11 +31,13 @@ beforeEach(() => {
   });
 });
 
-Given('I expect the page not to unload', () => {
-  cy.on('window:before:unload', event => {
-    if (event.target.URL.endsWith('/question')) {
-      throw new Error('Expected not to unload the page');
-    }
+When('I expect the page not to unload', () => {
+  cy.then(() => {
+    cy.on('window:before:unload', event => {
+      if (event.target.URL.endsWith('/question')) {
+        throw new Error('Expected not to unload the page');
+      }
+    });
   });
 });
 
