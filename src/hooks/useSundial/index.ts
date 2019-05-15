@@ -2,7 +2,7 @@ import { useMachine } from '@xstate/react';
 import { SundialMachine } from './machine';
 import { useMemo, useEffect } from 'react';
 import gql from 'graphql-tag';
-import { useApolloClient } from 'react-apollo-hooks';
+import { useQuery } from '@apollo/react-hooks';
 import useLocalApolloQuery from '../useLocalApolloQuery';
 import { TimeOfDay } from './types';
 import { localDateString, pluckSunlightWindow } from './util';
@@ -56,7 +56,7 @@ function getVariables() {
 }
 
 export default function useSundial() {
-  const client = useApolloClient();
+  const { client } = useQuery(SUNDIAL_QUERY);
   const [current] = useMachine(
     SundialMachine.withConfig({
       services: {

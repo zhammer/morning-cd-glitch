@@ -1,6 +1,6 @@
 import { Song } from '../../definitions';
 import gql from 'graphql-tag';
-import { useQuery } from 'react-apollo-hooks';
+import { useQuery } from '@apollo/react-hooks';
 import useSpotifyAccessToken from '../../hooks/useSpotifyAccessToken';
 import { ApolloError } from 'apollo-client';
 
@@ -26,7 +26,7 @@ export default function useFetchSong(
   id: string | null
 ): [Song | null, boolean, string | undefined] {
   const [accessTokenLoading] = useSpotifyAccessToken();
-  const { data, loading, error } = useQuery<SongQuery>(SONG_QUERY, {
+  const { data, loading, error } = useQuery(SONG_QUERY, {
     skip: accessTokenLoading || !id,
     variables: {
       id
