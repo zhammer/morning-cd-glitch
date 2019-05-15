@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import { useQuery } from 'react-apollo-hooks';
+import { useQuery } from '@apollo/react-hooks';
 
 const SPOTIFY_ACCESS_TOKEN_QUERY = gql`
   query SpotifyAccessToken {

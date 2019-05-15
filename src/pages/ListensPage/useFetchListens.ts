@@ -1,6 +1,6 @@
 import { Listen } from '../../definitions';
 import gql from 'graphql-tag';
-import { useQuery } from 'react-apollo-hooks';
+import { useQuery } from '@apollo/react-hooks';
 import { ListenFragment } from '../../apollo/fragments';
 import { useMemo, useState, useCallback } from 'react';
 import { useGnomon } from '../../hooks/useSundial';
@@ -52,7 +52,7 @@ export default function useFetchListens(): UseFetchListensReturn {
   const [, lastSunrise] = useGnomon();
   const [beforeCursor] = useState(() => new Date().toISOString());
   const [loadingMore, setLoadingMore] = useState(false);
-  const { data, error, loading, fetchMore } = useQuery<ListensQuery>(LISTENS_QUERY, {
+  const { data, error, loading, fetchMore } = useQuery(LISTENS_QUERY, {
     variables: {
       lastSunrise,
       before: beforeCursor

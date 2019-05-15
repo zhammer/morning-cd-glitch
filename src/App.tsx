@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ApolloProvider } from 'react-apollo-hooks';
+import { ApolloProvider } from '@apollo/react-hooks';
 import { Switch, Route, BrowserRouter as Router, Redirect } from 'react-router-dom';
 import { ThemeProvider } from './custom/styled-components';
 import { client } from './apollo';

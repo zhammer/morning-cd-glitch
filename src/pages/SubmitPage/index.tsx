@@ -12,7 +12,6 @@ import useFocusOnMount from '../../hooks/useFocusOnMount';
 import Button from '../../components/Button';
 import useSubmitListenForm from './useSubmitListenForm';
 import useSubmitListen from './useSubmitListen';
-import useSubmitStateMachine from './useSubmitStateMachine';
 import { Link } from 'react-router-dom';
 import { useGnomon } from '../../hooks/useSundial';
 import useSubmittedAfterLastSunrise from '../../hooks/useSubmittedAfterLastSunrise';
@@ -23,27 +22,18 @@ export default function SubmitPage() {
   const [song, loading, error] = useFetchSong(songId);
   const focusOnMountProps = useFocusOnMount();
   const [name, note, setName, setNote, valid] = useSubmitListenForm();
-  const [submit] = useSubmitListen();
-  const [submitState, sendSubmitStateEvent] = useSubmitStateMachine();
+  const [submit, submitError, submitLoading] = useSubmitListen();
   const [timeOfDay] = useGnomon();
   const submittedAfterLastSunrise = useSubmittedAfterLastSunrise();
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (!songId) return;
-    sendSubmitStateEvent('SUBMIT');
-    try {
-      await submit(name, songId, note);
-    } catch (e) {
-      sendSubmitStateEvent('ERROR');
-    }
-    sendSubmitStateEvent('SUCCESS');
+    submit(name, songId, note);
   }
 
   if (submittedAfterLastSunrise) return <Redirect to='/listens' />;
   if (timeOfDay !== 'day') return <Redirect to='/listens' />;
   if (!songId) return <Redirect to='/question' />;
-  if (submitState === 'success') return <Redirect push to='/listens' />;
   return (
     <Page>
       {error && (
@@ -59,8 +49,8 @@ export default function SubmitPage() {
         </span>
       )}
       {loading && <div>loading..</div>}
-      {submitState === 'error' && <Text.Error>Error submitting listen!</Text.Error>}
-      {submitState === 'submitting' && <div>submitting...</div>}
+      {submitError && <Text.Error>Error submitting listen!</Text.Error>}
+      {submitLoading && <div>submitting...</div>}
       {song && (
         <form onSubmit={handleSubmit}>
           <FormContainer containerTitle='Submit Listen'>
@@ -93,7 +83,7 @@ export default function SubmitPage() {
             <SubmitButtonContainer>
               <Button.Primary
                 data-test='submit-button'
-                disabled={!valid || submitState === 'submitting'}
+                disabled={!valid || submitLoading}
                 type='submit'
               >
                 Submit
