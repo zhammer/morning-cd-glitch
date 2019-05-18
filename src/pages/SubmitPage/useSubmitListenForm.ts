@@ -22,6 +22,9 @@ const NOTE_INPUT_QUERY = gql`
   }
 `;
 
+const MAX_NAME_LENGTH = 30;
+const MAX_NOTE_LENGTH = 100;
+
 export default function useSubmitListenForm(): [
   string,
   string,
@@ -34,11 +37,13 @@ export default function useSubmitListenForm(): [
   const [nameQuery, writeNameQuery] = useLocalApolloQuery<NameInputQueryData>(NAME_INPUT_QUERY);
   const [noteQuery, writeNoteQuery] = useLocalApolloQuery<NoteInputQueryData>(NOTE_INPUT_QUERY);
   const invalidNameError = useMemo(() => {
-    if (nameQuery.nameInput.length > 30) return 'Max name length is 20!';
+    if (nameQuery.nameInput.length > MAX_NAME_LENGTH)
+      return `Max name length is ${MAX_NAME_LENGTH}!`;
     return null;
   }, [nameQuery]);
   const invalidNoteError = useMemo(() => {
-    if (noteQuery.noteInput.length > 100) return 'Max note length is 100!';
+    if (noteQuery.noteInput.length > MAX_NOTE_LENGTH)
+      return `Max note length is ${MAX_NOTE_LENGTH}!`;
     return null;
   }, [noteQuery]);
   const valid = useMemo(() => {

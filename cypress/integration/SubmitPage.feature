@@ -89,7 +89,7 @@ Feature: Submit Page
     When I visit the submit page with the id "3o9lfY9tbv3S00atFxNki5"
     And I type "111112222233333444445555566666X"
     Then the submit button is disabled
-    And I see the error text "Max name length is 20!"
+    And I see the error text "Max name length is 30!"
 
   Scenario: My note input exceeds the max name length
     When I visit the submit page with the id "3o9lfY9tbv3S00atFxNki5"
