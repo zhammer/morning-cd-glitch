@@ -7,6 +7,16 @@ beforeEach(() => {
   cy.wrap(['Date']).as('clockOverrides');
 });
 
+beforeEach(() => {
+  if (window.navigator && navigator.serviceWorker) {
+    navigator.serviceWorker.getRegistrations().then(registrations => {
+      registrations.forEach(registration => {
+        registration.unregister();
+      });
+    });
+  }
+});
+
 When('Snap! *', () => {
   cy.then(() => {
     cy.screenshot();
