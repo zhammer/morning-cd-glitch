@@ -19,6 +19,13 @@ jobs:
           paths:
             - build
 
+  deploy:
+    executor: cypress-executor
+    steps:
+      - attach_workspace:
+        at: ~/project
+      - run: yarn run sls client deploy --no-confirm
+
   cypress:
     executor: cypress-executor
     steps:
@@ -45,6 +52,10 @@ workflows:
       - cypress:
           requires:
             - build
+      - deploy:
+          requires:
+            - cypress
+            - build
 
 executors:
   cypress-executor:
@@ -60,6 +71,5 @@ commands:
       - run: yarn install
       - save_cache:
           key: cypress-node-cache-{{ checksum "yarn.lock" }}
-          paths:
-            node_modules
+          paths: node_modules
             ~/.cache
