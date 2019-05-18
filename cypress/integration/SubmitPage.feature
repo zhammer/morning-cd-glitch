@@ -85,3 +85,32 @@ Feature: Submit Page
       | ?ID=1      | capitalized            |
       | /123       | route not query string |
 
+  Scenario: My name input exceeds the max name length
+    When I visit the submit page with the id "3o9lfY9tbv3S00atFxNki5"
+    And I type "111112222233333444445555566666X"
+    Then the submit button is disabled
+    And I see the error text "Max name length is 20!"
+
+  Scenario: My note input exceeds the max name length
+    When I visit the submit page with the id "3o9lfY9tbv3S00atFxNki5"
+    And I type "Zach"
+    And I hit tab
+    And I type "1111122222333334444411111222223333344444111112222233333444441111122222333334444411111222223333344444X"
+    Then the submit button is disabled
+    And I see the error text "Max note length is 100!"
+
+  Scenario: I delete a character to meet the name length max
+    When I visit the submit page with the id "3o9lfY9tbv3S00atFxNki5"
+    And I type "111112222233333444445555566666X"
+    And I type "{backspace}"
+    Then the submit button is enabled
+    And I don't see any error text
+
+  Scenario: I delete a character to meet the note length max
+    When I visit the submit page with the id "3o9lfY9tbv3S00atFxNki5"
+    And I type "Zach"
+    And I hit tab
+    And I type "1111122222333334444411111222223333344444111112222233333444441111122222333334444411111222223333344444X"
+    And I type "{backspace}"
+    Then the submit button is enabled
+    And I don't see any error text
