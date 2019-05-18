@@ -7,11 +7,12 @@ Cypress.on('window:before:load', window => {
   window.fetch = null;
 });
 
-beforeEach(async () => {
+beforeEach(() => {
   if (window.navigator && navigator.serviceWorker) {
-    const registrations = await navigator.serviceWorker.getRegistrations();
-    for (const registration of registrations) {
-      await registration.unregister();
-    }
+    navigator.serviceWorker.getRegistrations().then(registrations => {
+      registrations.forEach(registration => {
+        registration.unregister();
+      });
+    });
   }
 });
