@@ -13,6 +13,12 @@ const SPOTIFY_ACCESS_TOKEN_QUERY = gql`
  * is used from the apollo cache in all current use cases.
  */
 export default function useSpotifyAccessToken(): [boolean] {
-  const { loading } = useQuery(SPOTIFY_ACCESS_TOKEN_QUERY);
+  const { loading } = useQuery(SPOTIFY_ACCESS_TOKEN_QUERY, {
+    pollInterval: milliseconds({ minutes: 59 })
+  });
   return [loading];
+}
+
+function milliseconds({ minutes }: { minutes: number }): number {
+  return minutes * 60 * 1000;
 }
