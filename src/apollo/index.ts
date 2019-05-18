@@ -76,7 +76,7 @@ const restLink = new RestLink({
   customFetch: window.fetch || fetchPolyfill,
   endpoints: {
     morningCd: {
-      uri: process.env.REACT_APP_MORNING_CD_API_ENDPOINT + '/',
+      uri: (process.env.REACT_APP_MORNING_CD_API_ENDPOINT || '') + '/',
       // this transformer is only made for the accesstoken endpoint
       responseTransformer: async response => {
         const data = await response.json();
