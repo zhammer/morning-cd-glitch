@@ -22,6 +22,8 @@ jobs:
   deploy:
     executor: cypress-executor
     steps:
+      - checkout
+      - install-dependencies
       - attach_workspace:
           at: ~/project
       - run: yarn run sls client deploy --no-confirm
