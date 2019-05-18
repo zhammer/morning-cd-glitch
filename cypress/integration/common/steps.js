@@ -3,6 +3,10 @@
 
 import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 
+beforeEach(() => {
+  cy.wrap(['Date']).as('clockOverrides');
+});
+
 When('Snap! *', () => {
   cy.then(() => {
     cy.screenshot();
@@ -46,7 +50,9 @@ Given(/it is (before sunrise|day|after sunset|before the next day's sunrise)/, t
   cy.clock().then(clock => {
     clock.restore();
   });
-  cy.clock(new Date(currentDateString).getTime(), ['Date']);
+  cy.get('@clockOverrides').then(clockOverrides => {
+    cy.clock(new Date(currentDateString).getTime(), clockOverrides);
+  });
 });
 
 Given('I have submitted a listen today', () => {

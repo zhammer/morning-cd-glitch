@@ -68,7 +68,7 @@
     "nonGlobalStepDefinitions": true
   },
   "devDependencies": {
-    "cypress": "^3.2.0",
+    "cypress": "^3.3.0",
     "cypress-app-watcher-preprocessor": "^1.1.2",
     "cypress-cucumber-preprocessor": "^1.11.0",
     "cypress-plugin-tab": "^1.0.0",
