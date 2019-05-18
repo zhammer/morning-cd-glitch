@@ -107,8 +107,8 @@ Then(`I see a container with the title {string}`, containerTitle => {
   cy.get('div[data-test=container]').contains('p[data-test=container-title]', containerTitle);
 });
 
-Then('the submit button is disabled', () => {
-  cy.get('button[data-test=submit-button]').should('be.disabled');
+Then(/the submit button is (enabled|disabled)/, enabledOrDisabled => {
+  cy.get('button[data-test=submit-button]').should(`be.${enabledOrDisabled}`);
 });
 
 Then('the name input is selected', () => {
@@ -117,6 +117,10 @@ Then('the name input is selected', () => {
 
 Then(`I see the error text {string}`, text => {
   cy.get('span[data-test=text-error]').should('have.text', text);
+});
+
+Then(`I don't see any error text`, () => {
+  cy.get('span[data-test=text-error]').should('not.exist');
 });
 
 Then(`I see the text {string}`, text => {

@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 import useLocalApolloQuery from '../../hooks/useLocalApolloQuery';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 
 interface NameInputQueryData {
   nameInput: string;
@@ -27,12 +27,23 @@ export default function useSubmitListenForm(): [
   string,
   (nameInput: string) => void,
   (noteInput: string) => void,
-  boolean
+  boolean,
+  string | null,
+  string | null
 ] {
   const [nameQuery, writeNameQuery] = useLocalApolloQuery<NameInputQueryData>(NAME_INPUT_QUERY);
   const [noteQuery, writeNoteQuery] = useLocalApolloQuery<NoteInputQueryData>(NOTE_INPUT_QUERY);
-
-  const valid = nameQuery.nameInput !== '';
+  const invalidNameError = useMemo(() => {
+    if (nameQuery.nameInput.length > 30) return 'Max name length is 20!';
+    return null;
+  }, [nameQuery]);
+  const invalidNoteError = useMemo(() => {
+    if (noteQuery.noteInput.length > 100) return 'Max note length is 100!';
+    return null;
+  }, [noteQuery]);
+  const valid = useMemo(() => {
+    return invalidNameError === null && invalidNoteError === null && nameQuery.nameInput !== '';
+  }, [nameQuery, invalidNameError, invalidNoteError]);
 
   // Clear name & note when form unmounts.
   useEffect(() => {
@@ -47,6 +58,8 @@ export default function useSubmitListenForm(): [
     noteQuery.noteInput,
     nameInput => writeNameQuery({ nameInput }),
     noteInput => writeNoteQuery({ noteInput }),
-    valid
+    valid,
+    invalidNameError,
+    invalidNoteError
   ];
 }

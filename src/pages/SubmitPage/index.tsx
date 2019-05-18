@@ -6,7 +6,12 @@ import useFetchSong from './useFetchSong';
 import Song from '../../components/Song';
 import Field from '../../components/Field';
 import Input from '../../components/Input';
-import { InputContainer, FormContainer, SubmitButtonContainer } from './SubmitPage.styles';
+import {
+  ErrorNote,
+  InputContainer,
+  FormContainer,
+  SubmitButtonContainer
+} from './SubmitPage.styles';
 import Text from '../../components/Text';
 import useFocusOnMount from '../../hooks/useFocusOnMount';
 import Button from '../../components/Button';
@@ -21,7 +26,15 @@ export default function SubmitPage() {
   const songId = isString(queryParams.id) ? queryParams.id : null;
   const [song, loading, error] = useFetchSong(songId);
   const focusOnMountProps = useFocusOnMount();
-  const [name, note, setName, setNote, valid] = useSubmitListenForm();
+  const [
+    name,
+    note,
+    setName,
+    setNote,
+    valid,
+    invalidNameError,
+    invalidNoteError
+  ] = useSubmitListenForm();
   const [submit, submitError, submitLoading] = useSubmitListen();
   const [timeOfDay] = useGnomon();
   const submittedAfterLastSunrise = useSubmittedAfterLastSunrise();
@@ -63,10 +76,12 @@ export default function SubmitPage() {
                     data-test='name-input'
                     value={name}
                     onChange={e => setName(e.target.value)}
+                    mode={invalidNameError ? 'error' : undefined}
                     {...focusOnMountProps}
                   />
                 </InputContainer>
               </label>
+              {invalidNameError && <ErrorNote>{invalidNameError}</ErrorNote>}
             </Field.Block>
             <Field.Block>
               <label>
@@ -76,9 +91,11 @@ export default function SubmitPage() {
                     data-test='note-input'
                     value={note}
                     onChange={e => setNote(e.target.value)}
+                    mode={invalidNoteError ? 'error' : undefined}
                   />
                 </InputContainer>
               </label>
+              {invalidNoteError && <ErrorNote>{invalidNoteError}</ErrorNote>}
             </Field.Block>
             <SubmitButtonContainer>
               <Button.Primary
