@@ -58,9 +58,9 @@ workflows:
           requires:
             - cypress
             - build
-          branches:
-            only:
-              - master
+          filters:
+            branches:
+              only: master
 
 executors:
   cypress-executor:
