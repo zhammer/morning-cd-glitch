@@ -25,7 +25,7 @@ function App() {
   }, [showLoadingPageDelayDone]);
   return (
     <ThemeProvider
-      theme={['afterSunset', 'beforeSunset'].includes(timeOfDay) ? theme.night : theme.day}
+      theme={['afterSunset', 'beforeSunrise'].includes(timeOfDay) ? theme.night : theme.day}
     >
       <div data-time-of-day={timeOfDay}>
         <GlobalStyle />
