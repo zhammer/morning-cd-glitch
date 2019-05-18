@@ -30,6 +30,7 @@ export default function QuestionPage() {
       <QuestionContainer>
         <Input.Text
           data-test='question-input'
+          aria-label='question-input'
           value={questionInput}
           onChange={e => setQuestionInput(e.target.value)}
           onKeyDown={e => e.key === 'Enter' && forceConfident()}
