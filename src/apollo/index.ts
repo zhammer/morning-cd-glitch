@@ -17,6 +17,9 @@ const typeDefs = gql`
     noteInput: String!
     sundial: Sundial!
     lastSubmit: DateTime
+    accessToken: String
+    searchSongs(query: String!): [Song]
+    song(id: ID!): Song
   }
   type Sundial {
     state: SundialState!
