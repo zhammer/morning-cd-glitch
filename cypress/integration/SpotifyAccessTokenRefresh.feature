@@ -1,6 +1,6 @@
 @ci-only
 Feature: Spotify Access Token Refresh
-  Because spotify access tokens expire every 1 hour, Morning CD - Glitch! should
+  Because spotify access tokens expire every 1 hour, Morning CD - 8bit! should
   refresh the access token every 59 for a seamless user experience.
 
   Background:

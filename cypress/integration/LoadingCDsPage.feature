@@ -1,5 +1,5 @@
 Feature: Loading CDs Page
-  The Loading CDs Page is used as an initial loader for morning-cd-glitch.
+  The Loading CDs Page is used as an initial loader for Morning CD - 8bit!
 
   Background:
     Given the internet is slow

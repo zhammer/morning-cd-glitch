@@ -1,4 +1,4 @@
-service: morning-cd-glitch
+service: morning-cd-8bit
 
 provider:
   name: aws
