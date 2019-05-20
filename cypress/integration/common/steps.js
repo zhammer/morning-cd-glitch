@@ -105,3 +105,15 @@ Then(`I see the title {string}`, text => {
 When(/I click the browser (forward|back) button/, direction => {
   cy.go(direction);
 });
+
+When(`I type {int} characters`, numCharacters => {
+  if (numCharacters > LOREM_IPSUM.length) {
+    throw new Error(`Max number of characters is ${LOREM_IPSUM.length}`);
+  }
+  const text = LOREM_IPSUM.slice(0, numCharacters);
+  cy.focused().type(text);
+});
+
+const LOREM_IPSUM = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ac lectus sed tortor interdum tempus. Proin mi libero, iaculis quis turpis quis, dictum tempus metus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque vehicula mollis quam quis convallis. Nullam ut metus ut turpis sodales varius. Quisque erat tortor, interdum ut nulla et, posuere eleifend tellus. Praesent ullamcorper, nisi at hendrerit laoreet, tellus enim mollis metus, non consequat lorem nunc ut ante. Cras scelerisque, purus in facilisis consequat, est risus aliquam felis, sed efficitur arcu ex nec elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+
+Integer feugiat massa accumsan lacus consectetur, id tristique mauris ornare. Etiam tincidunt porta metus, et egestas nisi. Aenean molestie leo sed ante lacinia dignissim. Donec ultrices feugiat augue, non lacinia magna mollis eget. Vivamus imperdiet pharetra est, vel commodo odio ullamcorper vitae. Ut lectus leo, interdum sed lacus in, volutpat congue metus. Mauris fermentum justo sit amet euismod aliquam. Phasellus tincidunt libero sed sagittis vehicula. Nulla rhoncus orci eget justo ornare, vel rhoncus leo pretium. Sed ullamcorper, augue quis aliquam commodo, libero risus eleifend purus, tincidunt vehicula massa est at odio. Ut varius congue dui, et fermentum velit dictum nec. Nam tempus interdum scelerisque. Nulla facilisi.`;
