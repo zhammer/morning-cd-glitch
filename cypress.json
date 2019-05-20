@@ -1,5 +1,8 @@
 {
   "baseUrl": "http://localhost:3000",
   "ignoreTestFiles": "steps*",
-  "projectId": "d43yi2"
+  "projectId": "d43yi2",
+  "env": {
+    "TAGS": "not @ci-only"
+  }
 }

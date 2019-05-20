@@ -44,6 +44,7 @@ jobs:
           command: yarn run cypress run --record
           environment:
             CYPRESS_baseUrl: http://localhost:5000
+            CYPRESS_TAGS: '' # overrides 'not @ci-only' development tags from config
             TZ: 'America/New_York'
 
 workflows:
