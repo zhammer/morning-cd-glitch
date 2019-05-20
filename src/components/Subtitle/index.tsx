@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from '../custom/styled-components';
+import styled from '../../custom/styled-components';
 
 const SubtitleContainer = styled.div`
   margin-bottom: 1.75em;

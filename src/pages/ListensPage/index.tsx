@@ -10,7 +10,7 @@ import VisibilitySensor from 'react-visibility-sensor';
 import { LoadingMore } from './ListenPage.styles';
 import Text from '../../components/Text';
 import useSubmittedAfterLastSunrise from '../../hooks/useSubmittedAfterLastSunrise';
-import Subtitle from '../../Subtitle';
+import Subtitle from '../../components/Subtitle';
 
 type PageState = 'loading' | 'loaded.listensExist' | 'loaded.noListensExist' | 'loaded.error';
 
