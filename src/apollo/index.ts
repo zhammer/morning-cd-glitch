@@ -77,6 +77,7 @@ function pluckSong(rawSong: any): Song {
 const restLink = new RestLink({
   // cypress hack: see https://github.com/cypress-io/cypress/issues/95
   customFetch: window.fetch || fetchPolyfill,
+  uri: (process.env.REACT_APP_MORNING_CD_API_ENDPOINT || '') + '/',
   endpoints: {
     morningCd: {
       uri: (process.env.REACT_APP_MORNING_CD_API_ENDPOINT || '') + '/',
