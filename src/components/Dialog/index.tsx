@@ -1,6 +1,5 @@
 import React from 'react';
 import { CloseButton, Backdrop, Content } from './Dialog.styles';
-import NesIcon from '../NesIcon';
 
 interface DialogProps {
   isOpen?: boolean;
@@ -13,9 +12,7 @@ export default function Dialog({ isOpen, onDismiss, children }: DialogProps) {
     <>
       <Backdrop hidden={!isOpen} onClick={onDismiss} />
       <Content hidden={!isOpen}>
-        <CloseButton onClick={onDismiss}>
-          <NesIcon.Close />
-        </CloseButton>
+        <CloseButton onClick={onDismiss}>X</CloseButton>
         {children}
       </Content>
     </>

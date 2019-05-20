@@ -1,6 +1,7 @@
 import styled from '../../custom/styled-components';
 import { compactRoundedCorners } from '../../styles/mixins';
 import { cursorClickUrl } from '../../styles/variables';
+import Button from '../Button';
 
 export const Backdrop = styled.div<{ hidden: boolean }>`
   position: fixed;
@@ -24,13 +25,9 @@ export const Content = styled.div<{ hidden: boolean }>`
   ${props => props.hidden && 'visibility: hidden;'}
 `;
 
-export const CloseButton = styled.button`
+export const CloseButton = styled(Button.Error)`
   cursor: url(${cursorClickUrl}), auto;
   right: 0;
   top: 0;
   position: absolute;
-  background: none;
-  border: none;
-  transform: scale(0.5);
-  padding: 0;
 `;
