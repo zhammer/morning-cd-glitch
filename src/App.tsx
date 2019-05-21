@@ -11,6 +11,7 @@ import ListensPage from './pages/ListensPage';
 import useSundial, { useGnomon } from './hooks/useSundial';
 import LoadingCDsPage from './pages/LoadingCDsPage';
 import Help from './components/Help';
+import AboutPage from './pages/AboutPage';
 
 function App() {
   useSundial();
@@ -39,10 +40,11 @@ function App() {
                 <Route exact path='/question' component={QuestionPage} />
                 <Route exact path='/submit' component={SubmitPage} />
                 <Route exact path='/listens' component={ListensPage} />
+                <Route exact path='/about' component={AboutPage} />
                 <Redirect from='/' to='/question' />
               </Switch>
+              <Help />
             </Router>
-            <Help />
           </>
         )}
       </div>

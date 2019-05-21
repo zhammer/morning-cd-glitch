@@ -33,7 +33,7 @@
     "react-visibility-sensor": "^5.0.2",
     "styled-components": "^4.2.0",
     "typescript": "3.4.5",
-    "use-react-router": "^1.0.5",
+    "use-react-router": "^1.0.6",
     "whatwg-fetch": "^3.0.0",
     "xstate": "^4.5.0"
   },

@@ -1,31 +1,36 @@
 import React, { useState } from 'react';
-import { HelpButton } from './Help.styles';
-import Dialog from '../Dialog';
-import Text from '../Text';
-import Icon from '../Icon';
+import { CloseButton, HelpButton } from './Help.styles';
+import Styleless from '../Styleless';
+import useReactRouter from 'use-react-router';
 
 export default function Help() {
-  const [open, setOpen] = useState(true);
+  const { location, history } = useReactRouter();
+  const onAboutPage = location.pathname === '/about';
+  const [startedOnAboutPage] = useState(() => onAboutPage);
 
+  function handleCloseClicked() {
+    const from = location.state && location.state.from;
+    if (from) {
+      history.push(from);
+    } else {
+      history.push('/');
+    }
+  }
   return (
     <>
-      <Dialog isOpen={open} onDismiss={() => setOpen(false)}>
-        <h3>
-          <Text.Primary>#</Text.Primary> About
-        </h3>
-        <p>
-          This is the 8bit remake of Morning CD, a place where people from around the world can
-          share the first piece of music they listen to each morning.
-        </p>
-        <h3>
-          <Text.Primary>#</Text.Primary> Credits
-        </h3>
-        <p>
-          Morning CD is created by Zach Hammer. The idea is inspired by Jody Avirgan's tweets. The
-          8bit remake is styled with NES.css.
-        </p>
-      </Dialog>
-      <HelpButton onClick={() => setOpen(true)}>?</HelpButton>
+      <CloseButton onClick={handleCloseClicked} on={onAboutPage}>
+        X
+      </CloseButton>
+      <Styleless.Link
+        to={{
+          pathname: '/about',
+          state: { from: { pathname: location.pathname, search: location.search } }
+        }}
+      >
+        <HelpButton on={!onAboutPage} rise={!startedOnAboutPage}>
+          ?
+        </HelpButton>
+      </Styleless.Link>
     </>
   );
 }
