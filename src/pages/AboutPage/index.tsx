@@ -19,7 +19,8 @@ export default function AboutPage() {
         </h3>
         <p>
           This is the 8bit remake of <a href='https://morningcd.com'>Morning CD</a>, a website where
-          people can share the first pieces of music they listen to each day to make a{' '}
+          people all around the world can share the first pieces of music they listen to each
+          morning to make a daily{' '}
           <SpotifyLink
             href='https://open.spotify.com/user/8fueir54qwc1v07r1cdl3k4rx'
             target='_blank'
