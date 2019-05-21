@@ -10,6 +10,7 @@ import SubmitPage from './pages/SubmitPage';
 import ListensPage from './pages/ListensPage';
 import useSundial, { useGnomon } from './hooks/useSundial';
 import LoadingCDsPage from './pages/LoadingCDsPage';
+import Help from './components/Help';
 
 function App() {
   useSundial();
@@ -32,14 +33,17 @@ function App() {
         {timeOfDay === 'calibrating' ? (
           showLoadingPageDelayDone && <LoadingCDsPage />
         ) : (
-          <Router>
-            <Switch>
-              <Route exact path='/question' component={QuestionPage} />
-              <Route exact path='/submit' component={SubmitPage} />
-              <Route exact path='/listens' component={ListensPage} />
-              <Redirect from='/' to='/question' />
-            </Switch>
-          </Router>
+          <>
+            <Router>
+              <Switch>
+                <Route exact path='/question' component={QuestionPage} />
+                <Route exact path='/submit' component={SubmitPage} />
+                <Route exact path='/listens' component={ListensPage} />
+                <Redirect from='/' to='/question' />
+              </Switch>
+            </Router>
+            <Help />
+          </>
         )}
       </div>
     </ThemeProvider>
