@@ -24,6 +24,14 @@ export const GlobalStyle = createGlobalStyle`
 
   a {
     cursor: url(${cursorClickUrl}), pointer;
+    color: ${props => props.theme.primary.normal};
+    text-decoration: none;
+    &:hover {
+      color: ${props => props.theme.primary.hover};
+    }
+    &:visited {
+      color: ${props => props.theme.primary.shadow};
+    }
   }
 
   /* from reboot */
