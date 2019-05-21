@@ -45,7 +45,7 @@ const initialData = {
     noteInput: '',
     nameInput: '',
     lastSubmit: localStorage.getItem('lastSubmit'),
-    aboutPageOpen: true,
+    aboutPageOpen: false,
     sundial: {
       state: 'calibrating',
       lastSunrise: null,
