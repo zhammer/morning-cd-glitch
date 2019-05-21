@@ -10,13 +10,16 @@ import SubmitPage from './pages/SubmitPage';
 import ListensPage from './pages/ListensPage';
 import useSundial, { useGnomon } from './hooks/useSundial';
 import LoadingCDsPage from './pages/LoadingCDsPage';
-import Help from './components/Help';
+import About from './components/About';
+import useAboutPageOpen from './components/About/useAboutPageOpen';
 import AboutPage from './pages/AboutPage';
+import DisplayGuard from './components/DisplayGuard';
 
 function App() {
   useSundial();
   const [timeOfDay] = useGnomon();
   const [showLoadingPageDelayDone, setShowLoadingPageDelayDone] = useState(false);
+  const [aboutPageOpen] = useAboutPageOpen();
   useEffect(() => {
     if (!showLoadingPageDelayDone) {
       const timeout = setTimeout(() => {
@@ -35,16 +38,18 @@ function App() {
           showLoadingPageDelayDone && <LoadingCDsPage />
         ) : (
           <>
-            <Router>
-              <Switch>
-                <Route exact path='/question' component={QuestionPage} />
-                <Route exact path='/submit' component={SubmitPage} />
-                <Route exact path='/listens' component={ListensPage} />
-                <Route exact path='/about' component={AboutPage} />
-                <Redirect from='/' to='/question' />
-              </Switch>
-              <Help />
-            </Router>
+            {aboutPageOpen && <AboutPage />}
+            <DisplayGuard display={!aboutPageOpen}>
+              <Router>
+                <Switch>
+                  <Route exact path='/question' component={QuestionPage} />
+                  <Route exact path='/submit' component={SubmitPage} />
+                  <Route exact path='/listens' component={ListensPage} />
+                  <Redirect from='/' to='/question' />
+                </Switch>
+              </Router>
+            </DisplayGuard>
+            <About />
           </>
         )}
       </div>
