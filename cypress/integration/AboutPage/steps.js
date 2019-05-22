@@ -9,7 +9,6 @@ beforeEach(() => {
 
 When('the about page loads', () => {
   cy.get('div[data-test=about-page]');
-  cy.wait(1000);
 });
 
 Then(`I see the header {string}`, text => {
