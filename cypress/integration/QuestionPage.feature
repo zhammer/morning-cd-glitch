@@ -65,6 +65,14 @@ Feature: Question Page
     And I click the browser back button
     Then I am redirected to "/question"
 
+  Scenario: I don't lose my progress when I look at the about page
+    When I visit morning cd
+    And I click the song question input
+    And I type "Stay Flo"
+    And I click the open about page button
+    And I click the close about page button
+    Then the song question input form has the text "Stay Flo"
+
   Scenario: The page doesn't unload when I select a song
     When I visit morning cd
     And I type "something holy paper castles"

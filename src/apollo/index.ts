@@ -20,6 +20,7 @@ const typeDefs = gql`
     accessToken: String
     searchSongs(query: String!): [Song]
     song(id: ID!): Song
+    aboutPageOpen: Boolean!
   }
   type Sundial {
     state: SundialState!
@@ -44,6 +45,7 @@ const initialData = {
     noteInput: '',
     nameInput: '',
     lastSubmit: localStorage.getItem('lastSubmit'),
+    aboutPageOpen: false,
     sundial: {
       state: 'calibrating',
       lastSunrise: null,

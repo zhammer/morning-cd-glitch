@@ -10,11 +10,15 @@ import SubmitPage from './pages/SubmitPage';
 import ListensPage from './pages/ListensPage';
 import useSundial, { useGnomon } from './hooks/useSundial';
 import LoadingCDsPage from './pages/LoadingCDsPage';
+import AboutToggle, { useAboutPageOpen } from './components/AboutToggle';
+import AboutPage from './pages/AboutPage';
+import DisplayGuard from './components/DisplayGuard';
 
 function App() {
   useSundial();
   const [timeOfDay] = useGnomon();
   const [showLoadingPageDelayDone, setShowLoadingPageDelayDone] = useState(false);
+  const [aboutPageOpen] = useAboutPageOpen();
   useEffect(() => {
     if (!showLoadingPageDelayDone) {
       const timeout = setTimeout(() => {
@@ -32,14 +36,20 @@ function App() {
         {timeOfDay === 'calibrating' ? (
           showLoadingPageDelayDone && <LoadingCDsPage />
         ) : (
-          <Router>
-            <Switch>
-              <Route exact path='/question' component={QuestionPage} />
-              <Route exact path='/submit' component={SubmitPage} />
-              <Route exact path='/listens' component={ListensPage} />
-              <Redirect from='/' to='/question' />
-            </Switch>
-          </Router>
+          <>
+            {aboutPageOpen && <AboutPage />}
+            <DisplayGuard display={!aboutPageOpen}>
+              <Router>
+                <Switch>
+                  <Route exact path='/question' component={QuestionPage} />
+                  <Route exact path='/submit' component={SubmitPage} />
+                  <Route exact path='/listens' component={ListensPage} />
+                  <Redirect from='/' to='/question' />
+                </Switch>
+              </Router>
+            </DisplayGuard>
+            <AboutToggle />
+          </>
         )}
       </div>
     </ThemeProvider>

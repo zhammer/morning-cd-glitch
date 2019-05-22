@@ -114,3 +114,10 @@ Feature: Submit Page
     And I type "{backspace}"
     Then the submit button is enabled
     And I don't see any error text
+
+  Scenario: I don't lose my progress when I look at the about page
+    When I visit the submit page with the id "3o9lfY9tbv3S00atFxNki5"
+    And I type 31 characters
+    And I click the open about page button
+    And I click the close about page button
+    Then I see the error text "Max name length is 30!"

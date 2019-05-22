@@ -89,6 +89,14 @@ When('I type enter to submit', () => {
   cy.get('form').submit();
 });
 
+When(/I click the (open|close) about page button/, openOrClose => {
+  cy.get(`button[data-test=${openOrClose}-about-page]`).click();
+});
+
+When(/I see the (open|close) about page button/, openOrClose => {
+  cy.get(`button[data-test=${openOrClose}-about-page]`);
+});
+
 Then(`I am redirected to {string} with the params {string}`, (route, params) => {
   cy.location('pathname').should('eq', route);
   cy.location('search').should('eq', params);

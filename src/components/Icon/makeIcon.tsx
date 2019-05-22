@@ -33,7 +33,7 @@ function buildSvg(pixelMatrix: Pixel[][]) {
   );
   const rects = flattenMatrix(rectMatrix);
   return () => (
-    <svg viewBox={`0 0 ${width} ${height}`} width='100%' height='100%'>
+    <svg viewBox={`0 0 ${width} ${height}`} height='100%'>
       {rects}
     </svg>
   );
