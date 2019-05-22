@@ -1,8 +1,8 @@
 import React from 'react';
-import { CloseButton, HelpButton } from './About.styles';
+import { CloseButton, HelpButton } from './AboutToggle.styles';
 import useAboutPageOpen from './useAboutPageOpen';
 
-export default function About() {
+export default function AboutToggle() {
   const [aboutPageOpen, setAboutPageOpen] = useAboutPageOpen();
   return (
     <>
@@ -23,3 +23,5 @@ export default function About() {
     </>
   );
 }
+
+export { useAboutPageOpen };

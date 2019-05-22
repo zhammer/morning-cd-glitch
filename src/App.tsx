@@ -10,8 +10,7 @@ import SubmitPage from './pages/SubmitPage';
 import ListensPage from './pages/ListensPage';
 import useSundial, { useGnomon } from './hooks/useSundial';
 import LoadingCDsPage from './pages/LoadingCDsPage';
-import About from './components/About';
-import useAboutPageOpen from './components/About/useAboutPageOpen';
+import AboutToggle, { useAboutPageOpen } from './components/AboutToggle';
 import AboutPage from './pages/AboutPage';
 import DisplayGuard from './components/DisplayGuard';
 
@@ -49,7 +48,7 @@ function App() {
                 </Switch>
               </Router>
             </DisplayGuard>
-            <About />
+            <AboutToggle />
           </>
         )}
       </div>
