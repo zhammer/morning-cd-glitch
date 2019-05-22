@@ -12,6 +12,7 @@ export const HelpButton = styled(Button.Warning)<{ on: boolean }>`
   position: fixed;
   right: 2rem;
   bottom: 25px;
+  z-index: ${props => (props.on ? 2 : 1)};
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.6);
   animation: ${rise} 0.5s 1s ease both;
 `;
@@ -23,5 +24,6 @@ export const CloseButton = styled(Button.Error)<{ on: boolean }>`
   position: fixed;
   right: 2rem;
   bottom: 25px;
+  z-index: ${props => (props.on ? 2 : 1)};
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.6);
 `;

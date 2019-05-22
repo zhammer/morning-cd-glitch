@@ -11,7 +11,7 @@ const SHARE_TEXT = `What was the first piece of music you listened to this morni
 
 export default function AboutPage() {
   return (
-    <Page>
+    <Page data-test='about-page'>
       <Title>Morning CD - 8bit!</Title>
       <Body>
         <h3>

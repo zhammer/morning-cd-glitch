@@ -6,10 +6,18 @@ export default function About() {
   const [aboutPageOpen, setAboutPageOpen] = useAboutPageOpen();
   return (
     <>
-      <CloseButton onClick={() => setAboutPageOpen(false)} on={aboutPageOpen}>
+      <CloseButton
+        data-test='close-about-page'
+        onClick={() => setAboutPageOpen(false)}
+        on={aboutPageOpen}
+      >
         X
       </CloseButton>
-      <HelpButton onClick={() => setAboutPageOpen(true)} on={!aboutPageOpen}>
+      <HelpButton
+        data-test='open-about-page'
+        onClick={() => setAboutPageOpen(true)}
+        on={!aboutPageOpen}
+      >
         ?
       </HelpButton>
     </>
