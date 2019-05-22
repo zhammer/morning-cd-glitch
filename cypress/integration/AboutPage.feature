@@ -20,7 +20,7 @@ Feature: About Page
     And I see a link that includes "/in/zach-hammer"
     And I see a link that includes "jodyavirgan"
     And I see a link that includes "NES.css"
-    And I see the header "# View source"
+    And I see the header "# Code Stuff"
     And I see a link that includes "github.com/zhammer/morning-cd-8bit"
     And I see a link that includes "dashboard.cypress.io"
     And I see the close about page button

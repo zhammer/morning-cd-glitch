@@ -77,7 +77,7 @@ export default function AboutPage() {
           <a href='https://nostalgic-css.github.io/NES.css/'>NES.css</a>.
         </p>
         <h3>
-          <Text.Primary>#</Text.Primary> View source
+          <Text.Primary>#</Text.Primary> Code Stuff
         </h3>
         <p>
           <ShareIcons>
