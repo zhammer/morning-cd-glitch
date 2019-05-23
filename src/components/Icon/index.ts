@@ -1,5 +1,6 @@
 import BrickBlock from './BrickBlock';
 import Cypress from './Cypress';
+import DoneBlock from './DoneBlock';
 import Facebook from './Facebook';
 import Github from './Github';
 import Gmail from './Gmail';
@@ -11,6 +12,7 @@ import Twitter from './Twitter';
 export default {
   BrickBlock,
   Cypress,
+  DoneBlock,
   Facebook,
   Github,
   Gmail,
