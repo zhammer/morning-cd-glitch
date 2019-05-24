@@ -1,4 +1,5 @@
 import BrickBlock from './BrickBlock';
+import Coin from './Coin';
 import Cypress from './Cypress';
 import DoneBlock from './DoneBlock';
 import Facebook from './Facebook';
@@ -11,6 +12,7 @@ import Twitter from './Twitter';
 
 export default {
   BrickBlock,
+  Coin,
   Cypress,
   DoneBlock,
   Facebook,
