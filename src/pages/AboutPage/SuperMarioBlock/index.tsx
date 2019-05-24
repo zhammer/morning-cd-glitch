@@ -34,12 +34,14 @@ export default function SuperMarioBlock() {
           <Coin />
         </CoinContainer>
       ))}
-      <FireFlowerContainer activated={current.matches('succeeded')}>
-        <Icon.FireFlower.a />
-        <Icon.FireFlower.b />
-        <Icon.FireFlower.c />
-        <Icon.FireFlower.d />
-      </FireFlowerContainer>
+      <a href='https://github.com/zhammer/morning-cd-8bit/pull/37' target='_blank'>
+        <FireFlowerContainer activated={current.matches('succeeded')}>
+          <Icon.FireFlower.a />
+          <Icon.FireFlower.b />
+          <Icon.FireFlower.c />
+          <Icon.FireFlower.d />
+        </FireFlowerContainer>
+      </a>
     </Container>
   );
 }
