@@ -3,6 +3,7 @@ import Coin from './Coin';
 import Cypress from './Cypress';
 import DoneBlock from './DoneBlock';
 import Facebook from './Facebook';
+import FireFlower from './FireFlower';
 import Github from './Github';
 import Gmail from './Gmail';
 import Instagram from './Instagram';
@@ -16,6 +17,7 @@ export default {
   Cypress,
   DoneBlock,
   Facebook,
+  FireFlower,
   Github,
   Gmail,
   Instagram,
