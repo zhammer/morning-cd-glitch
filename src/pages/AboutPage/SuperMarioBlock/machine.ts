@@ -1,4 +1,4 @@
-import { Machine, assign, send } from 'xstate';
+import { Machine, assign } from 'xstate';
 
 type Context = {
   coins: number;
@@ -11,14 +11,14 @@ type Schema = {
     succeeded: {};
     failed: {
       states: {
-        hasntAttemptedAgain: {};
-        hasAttemptedAgain: {};
+        hasntBumpedAfterFail: {};
+        hasBumpedAfterFail: {};
       };
     };
   };
 };
 
-type Event = { type: 'BUMP' } | { type: 'CHECK_SUCCEEDED' };
+type Event = { type: 'BUMP' };
 
 export default Machine<Context, Schema, Event>(
   {
@@ -37,30 +37,32 @@ export default Machine<Context, Schema, Event>(
       },
       active: {
         after: {
-          5000: 'failed'
+          TIMEOUT: 'failed'
         },
         on: {
-          BUMP: {
-            actions: ['incrementCoins', send('CHECK_SUCCEEDED')]
-          },
-          CHECK_SUCCEEDED: {
-            target: 'succeeded',
-            cond: 'hasTenCoins'
-          }
+          BUMP: [
+            {
+              target: 'succeeded',
+              cond: 'hasTenCoins'
+            },
+            {
+              actions: 'incrementCoins'
+            }
+          ]
         }
       },
       failed: {
-        initial: 'hasntAttemptedAgain',
+        initial: 'hasntBumpedAfterFail',
         states: {
-          hasntAttemptedAgain: {
+          hasntBumpedAfterFail: {
             on: {
               BUMP: {
-                target: 'hasAttemptedAgain',
+                target: 'hasBumpedAfterFail',
                 actions: 'incrementCoins' // just to be true to the game
               }
             }
           },
-          hasAttemptedAgain: {
+          hasBumpedAfterFail: {
             type: 'final'
           }
         }
@@ -73,6 +75,9 @@ export default Machine<Context, Schema, Event>(
   {
     actions: {
       incrementCoins: assign({ coins: context => context.coins + 1 })
+    },
+    delays: {
+      TIMEOUT: 5e3
     },
     guards: {
       hasTenCoins: context => context.coins === 10
