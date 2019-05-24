@@ -22,7 +22,7 @@ export default function SuperMarioBlock() {
     }
   }
   return (
-    <Container data-easter='🥚' onClick={handleClick}>
+    <Container data-easter='🥚' onClick={handleClick} onMouseDown={e => e.preventDefault()}>
       {(current.matches('idle') ||
         current.matches('active') ||
         current.matches('failed.hasntBumpedAfterFail')) && <BrickBlock bumping={bumping} />}
