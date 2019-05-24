@@ -2,6 +2,12 @@ import Icon from '../../../components/Icon';
 import styled, { keyframes, css } from '../../../custom/styled-components';
 import { cursorClickUrl } from '../../../styles/variables';
 
+const zIndexes = {
+  block: 75,
+  flower: 50,
+  coin: 25
+};
+
 interface BrickBlockProps {
   bumping: boolean;
 }
@@ -12,7 +18,14 @@ const bump = keyframes`
   100% { transform: translateY(0); }
 `;
 
+export const DoneBlock = styled(Icon.DoneBlock)`
+  position: absolute;
+  z-index: ${zIndexes.block};
+`;
+
 export const BrickBlock = styled(Icon.BrickBlock)<BrickBlockProps>`
+  position: absolute;
+  z-index: ${zIndexes.block};
   ${props =>
     props.bumping &&
     css`
@@ -34,7 +47,7 @@ export const CoinContainer = styled.div`
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: -1;
+  z-index: ${zIndexes.coin};
 `;
 
 const rotating = keyframes`
@@ -67,7 +80,7 @@ export const FireFlowerContainer = styled.div<FireFlowerProps>`
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: -1;
+  z-index: ${zIndexes.flower};
 
   transition: transform 0.5s linear;
   transform: translateY(${props => (props.activated ? '-100%' : '0')});

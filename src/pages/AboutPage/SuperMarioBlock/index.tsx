@@ -7,6 +7,7 @@ import {
   Coin,
   CoinContainer,
   Container,
+  DoneBlock,
   FireFlowerContainer
 } from './SuperMarioBlock.styles';
 
@@ -26,7 +27,7 @@ export default function SuperMarioBlock() {
         current.matches('active') ||
         current.matches('failed.hasntBumpedAfterFail')) && <BrickBlock bumping={bumping} />}
       {(current.matches('succeeded') || current.matches('failed.hasBumpedAfterFail')) && (
-        <Icon.DoneBlock />
+        <DoneBlock />
       )}
       {range(current.context.coins).map(index => (
         <CoinContainer key={index}>
