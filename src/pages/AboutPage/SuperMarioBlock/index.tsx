@@ -2,7 +2,13 @@ import React, { useState } from 'react';
 import { useMachine } from '@xstate/react';
 import SuperMarioBlockMachine from './machine';
 import Icon from '../../../components/Icon';
-import { BrickBlock, Coin, CoinContainer, Container } from './SuperMarioBlock.styles';
+import {
+  BrickBlock,
+  Coin,
+  CoinContainer,
+  Container,
+  FireFlowerContainer
+} from './SuperMarioBlock.styles';
 
 export default function SuperMarioBlock() {
   const [current, send] = useMachine(SuperMarioBlockMachine, { devTools: true });
@@ -27,6 +33,12 @@ export default function SuperMarioBlock() {
           <Coin />
         </CoinContainer>
       ))}
+      <FireFlowerContainer activated={current.matches('succeeded')}>
+        <Icon.FireFlower.a />
+        <Icon.FireFlower.b />
+        <Icon.FireFlower.c />
+        <Icon.FireFlower.d />
+      </FireFlowerContainer>
     </Container>
   );
 }
