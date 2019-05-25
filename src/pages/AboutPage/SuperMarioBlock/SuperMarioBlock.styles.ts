@@ -63,11 +63,9 @@ export const Container = styled.div`
   position: relative;
 `;
 
-const cycleFlower = keyframes`
-  0%  { visibility: hidden; }
-  25% { visibility: hidden; }
-  50% { visibility: hidden; }
-  75% { visibility: hidden; }
+const spriteAnimation = keyframes`
+  from { transform: translateY(0); }
+  to   { transform: translateY(-400%); }
 `;
 
 interface FireFlowerProps {
@@ -78,27 +76,15 @@ export const FireFlowerContainer = styled.div<FireFlowerProps>`
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 0;
-  right: 0;
+  height: 2em;
+  overflow: hidden;
   z-index: ${zIndexes.flower};
 
   transition: transform 0.5s linear;
   transform: translateY(${props => (props.activated ? '-100%' : '0')});
   visibility: ${props => (props.activated ? 'visible' : 'hidden')};
 
-  & > *:nth-child(1) {
-    animation: ${cycleFlower} 0.4s steps(4, start) 0s infinite both;
-  }
-  & > *:nth-child(2) {
-    transform: translateY(-2em);
-    animation: ${cycleFlower} 0.4s steps(4, start) 0.1s infinite both;
-  }
-  & > *:nth-child(3) {
-    transform: translateY(-4em);
-    animation: ${cycleFlower} 0.4s steps(4, start) 0.2s infinite both;
-  }
-  & > *:nth-child(4) {
-    transform: translateY(-6em);
-    animation: ${cycleFlower} 0.4s steps(4, start) 0.3s infinite both;
+  & > * {
+    animation: ${spriteAnimation} 0.35s steps(4) infinite;
   }
 `;
