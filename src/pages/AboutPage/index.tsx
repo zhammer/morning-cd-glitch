@@ -5,6 +5,7 @@ import Text from '../../components/Text';
 import { Body, ShareIcons, SpotifyLink } from './AboutPage.styles';
 import Icon from '../../components/Icon';
 import Styleless from '../../components/Styleless';
+import SuperMarioBlock from './SuperMarioBlock';
 
 const SHARE_URL = 'https://8bit.morningcd.com';
 const SHARE_TEXT = `What was the first piece of music you listened to this morning? ${SHARE_URL}`;
@@ -95,6 +96,7 @@ export default function AboutPage() {
             >
               <Icon.Cypress />
             </Styleless.a>
+            <SuperMarioBlock />
           </ShareIcons>
         </p>
       </Body>

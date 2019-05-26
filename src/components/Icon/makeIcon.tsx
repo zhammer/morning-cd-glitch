@@ -1,5 +1,7 @@
 import React from 'react';
 
+type SVGProps = React.SVGProps<SVGSVGElement>;
+
 export function makeIcon(matrix: number[][], colors: string[]) {
   const matrixInvalidReason = checkMatrixInvalid(matrix, colors);
   if (matrixInvalidReason) {
@@ -32,8 +34,8 @@ function buildSvg(pixelMatrix: Pixel[][]) {
     ))
   );
   const rects = flattenMatrix(rectMatrix);
-  return () => (
-    <svg viewBox={`0 0 ${width} ${height}`} height='100%'>
+  return (props: SVGProps) => (
+    <svg {...props} viewBox={`0 0 ${width} ${height}`} height='100%'>
       {rects}
     </svg>
   );
