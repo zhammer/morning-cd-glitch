@@ -37,7 +37,7 @@ export default Machine<Context, Schema, Event>(
       },
       active: {
         after: {
-          TIMEOUT: 'failed'
+          BLOCK_ACTIVE_DURATION: 'failed'
         },
         on: {
           BUMP: [
@@ -77,7 +77,7 @@ export default Machine<Context, Schema, Event>(
       incrementCoins: assign({ coins: context => context.coins + 1 })
     },
     delays: {
-      TIMEOUT: 5e3
+      BLOCK_ACTIVE_DURATION: 5e3
     },
     guards: {
       hasTenCoins: context => context.coins === 10
