@@ -55,7 +55,7 @@ export const CoinContainer = styled.div`
   z-index: ${zIndexes.coin};
 
   & > * {
-    animation: ${spriteAnimation} 0.35s steps(4) infinite;
+    animation: ${spriteAnimation} 0.5s steps(4) infinite;
   }
 `;
 
