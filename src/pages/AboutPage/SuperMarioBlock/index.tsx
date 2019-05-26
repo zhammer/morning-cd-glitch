@@ -43,7 +43,11 @@ export default function SuperMarioBlock() {
           <Icon.RetroCoin.d />
         </CoinContainer>
       ))}
-      <a href='https://github.com/zhammer/morning-cd-8bit/pull/37' target='_blank'>
+      <a
+        href='https://github.com/zhammer/morning-cd-8bit/pull/37'
+        target='_blank'
+        rel='noopener noreferrer'
+      >
         <FireFlowerContainer activated={current.matches('succeeded')} data-test='fire-flower'>
           <Icon.FireFlower.a />
           <Icon.FireFlower.b />
