@@ -56,7 +56,7 @@ Then('I see the done block', () => {
 
 Then(/I (don't )?see the fire flower/, dont => {
   const prefix = dont ? 'not.' : '';
-  cy.get('*[data-test=fire-flower]').should(`${prefix}exist`);
+  cy.get('*[data-test=fire-flower]').should(`${prefix}be.visible`);
 });
 
 Then(`the fire flower has the link {string}`, linkText => {
