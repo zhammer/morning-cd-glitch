@@ -21,15 +21,22 @@ export default function SuperMarioBlock() {
     }
   }
   return (
-    <Container data-easter='🥚' onClick={handleClick} onMouseDown={e => e.preventDefault()}>
+    <Container
+      data-easter='🥚'
+      data-test='super-mario-block'
+      onClick={handleClick}
+      onMouseDown={e => e.preventDefault()}
+    >
       {(current.matches('idle') ||
         current.matches('active') ||
-        current.matches('failed.hasntBumpedAfterFail')) && <BrickBlock bumping={bumping} />}
+        current.matches('failed.hasntBumpedAfterFail')) && (
+        <BrickBlock data-test='brick-block' bumping={bumping} />
+      )}
       {(current.matches('succeeded') || current.matches('failed.hasBumpedAfterFail')) && (
-        <DoneBlock />
+        <DoneBlock data-test='done-block' />
       )}
       {range(current.context.coins).map(index => (
-        <CoinContainer key={index}>
+        <CoinContainer key={index} data-test='coin'>
           <Icon.RetroCoin.a />
           <Icon.RetroCoin.b />
           <Icon.RetroCoin.c />
@@ -37,7 +44,7 @@ export default function SuperMarioBlock() {
         </CoinContainer>
       ))}
       <a href='https://github.com/zhammer/morning-cd-8bit/pull/37' target='_blank'>
-        <FireFlowerContainer activated={current.matches('succeeded')}>
+        <FireFlowerContainer activated={current.matches('succeeded')} data-test='fire-flower'>
           <Icon.FireFlower.a />
           <Icon.FireFlower.b />
           <Icon.FireFlower.c />

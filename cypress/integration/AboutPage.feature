@@ -23,6 +23,7 @@ Feature: About Page
     And I see the header "# Code Stuff"
     And I see a link that includes "github.com/zhammer/morning-cd-8bit"
     And I see a link that includes "dashboard.cypress.io"
+    And I see the super mario brick block
     And I see the close about page button
 
   Scenario Outline: I toggle the about page from <route>
@@ -41,3 +42,32 @@ Feature: About Page
       | /listens       | after sunset | have not submitted     |
       | /listens       | after sunset | have submitted         |
       | /listens       | day          | have submitted         |
+
+  @ci-only
+  Scenario Outline: I don't click the super mario brick block quickly enough to show the fire flower
+    Given we have the ability to fast forward time
+    And it is day
+    When I visit "/"
+    And I click the open about page button
+    And I click the super mario brick block <numberOfClicks> times
+    And I wait 8.0 seconds
+    And I click the super mario brick block
+    Then I see the done block
+    And I don't see the fire flower
+
+    Examples:
+      | numberOfClicks |
+      | 1              |
+      | 10             |
+
+  @ci-only
+  Scenario: I click the super mario brick block quickly enough to show the fire flower
+    Given we have the ability to fast forward time
+    And it is day
+    When I visit "/"
+    And I click the open about page button
+    And I click the super mario brick block 11 times
+    Then I see the done block
+    And I see the fire flower
+    * Snap! *
+    And the fire flower has the link "https://github.com/zhammer/morning-cd-8bit/pull/37"
