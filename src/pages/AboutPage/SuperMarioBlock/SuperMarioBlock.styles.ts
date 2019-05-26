@@ -34,38 +34,33 @@ export const BrickBlock = styled(Icon.BrickBlock)<BrickBlockProps>`
     cursor: url(${cursorClickUrl}), pointer;
 `;
 
+const spriteAnimation = keyframes`
+  from { transform: translateY(0); }
+  to   { transform: translateY(-400%); }
+`;
+
 const riseAndFall = keyframes`
-  0%   { transform: translateY(0); }
-  50%  { transform: translateY(-55px); }
-  100% { transform: translateY(0); }
+  0%   { transform: translateY(0); visibility: hidden; }
+  50%  { transform: translateY(-75px); visibility: visible; }
+  100% { transform: translateY(0); visibility: hidden; }
 `;
 
 export const CoinContainer = styled.div`
-  animation: ${riseAndFall} 1.5s linear;
+  animation: ${riseAndFall} 1.5s linear both;
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 0;
-  right: 0;
+  height: 2em;
+  overflow: hidden;
   z-index: ${zIndexes.coin};
-`;
 
-const rotating = keyframes`
-  from { transform: rotate3d(0, 1, 0, 0deg) scale(.75) }
-  to   { transform: rotate3d(0, 1, 0, 360deg) scale(.75) }
-`;
-
-export const Coin = styled(Icon.Coin)`
-  animation: ${rotating} 0.5s linear infinite;
+  & > * {
+    animation: ${spriteAnimation} 0.35s steps(4) infinite;
+  }
 `;
 
 export const Container = styled.div`
   position: relative;
-`;
-
-const spriteAnimation = keyframes`
-  from { transform: translateY(0); }
-  to   { transform: translateY(-400%); }
 `;
 
 interface FireFlowerProps {

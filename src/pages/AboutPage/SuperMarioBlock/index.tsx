@@ -4,7 +4,6 @@ import SuperMarioBlockMachine from './machine';
 import Icon from '../../../components/Icon';
 import {
   BrickBlock,
-  Coin,
   CoinContainer,
   Container,
   DoneBlock,
@@ -31,7 +30,10 @@ export default function SuperMarioBlock() {
       )}
       {range(current.context.coins).map(index => (
         <CoinContainer key={index}>
-          <Coin />
+          <Icon.RetroCoin.a />
+          <Icon.RetroCoin.b />
+          <Icon.RetroCoin.c />
+          <Icon.RetroCoin.d />
         </CoinContainer>
       ))}
       <a href='https://github.com/zhammer/morning-cd-8bit/pull/37' target='_blank'>
